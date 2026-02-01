@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<section class="calculator-page">
+    <div class="calculator-card">
+
+        <h1>Age Calculator</h1>
+        <p>உங்கள் பிறந்த தேதியை உள்ளிட்டு வயதை கணக்கிடுங்கள்</p>
+
+        <form method="POST">
+            <label>Date of Birth</label>
+            <input type="date" name="dob" required>
+            <button type="submit">உங்களது சரியான வயது </button>
+        </form>
+
+        {% if age %}
+        <div class="result-box">
+            🎂 {{ age.years }} Years,
+            {{ age.months }} Months,
+            {{ age.days }} Days
+        </div>
+        {% endif %}
+
+    </div>
+</section>
+
+{% endblock %}

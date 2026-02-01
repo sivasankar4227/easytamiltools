@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO TITLE -->
+    <title>
+        {{ title if title else "Easy Tamil Tools – Free Online Calculators & Letter Formats" }}
+    </title>
+
+    <!-- SEO DESCRIPTION -->
+    <meta name="description"
+          content="{{ description if description else 'Free Tamil tools like Number to Words, Unit Converter, Calculators, and ready-made Tamil & English letter formats.' }}">
+
+    <!-- SEO KEYWORDS -->
+    <meta name="keywords"
+          content="{{ keywords if keywords else 'Tamil tools, Tamil letter formats, age calculator tamil, EMI calculator tamil, number to words tamil, unit converter tamil' }}">
+
+    <meta name="author" content="EasyTamilTools">
+    <meta name="robots" content="index, follow">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+<nav class="navbar">
+    <div class="logo">EasyTamilTools</div>
+
+    <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/letters">Letters</a></li>
+        <li><a href="/calculators">Calculators</a></li>
+        <li><a href="/tools">Tools</a></li>
+    </ul>
+
+    <form action="/search" method="GET" class="search-box">
+        <input type="text" name="q" placeholder="Search tools or letters">
+        <button type="submit">🔍</button>
+    </form>
+</nav>
+
+<!-- ================= PAGE CONTENT ================= -->
+{% block content %}{% endblock %}
+
+<!-- ================= FOOTER ================= -->
+<footer class="footer">
+
+    <div class="footer-box">
+        <h3>EasyTamilTools</h3>
+        <p>
+            Free Tamil letter formats, calculators and useful online tools
+            designed for everyday needs.
+        </p>
+    </div>
+
+    <div class="footer-box">
+        <h3>Quick Links</h3>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/letters">Letters</a></li>
+            <li><a href="/calculators">Calculators</a></li>
+            <li><a href="/tools">Tools</a></li>
+        </ul>
+    </div>
+
+    <div class="footer-box">
+        <h3>Legal</h3>
+        <ul>
+            <li><a href="/privacy">Privacy Policy</a></li>
+            <li><a href="/terms">Terms & Conditions</a></li>
+            <li><a href="/disclaimer">Disclaimer</a></li>
+        </ul>
+    </div>
+
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="tool-container">
+    <h2>🔍 Search Results for "{{ query }}"</h2>
+
+    {% if results %}
+        <ul class="search-results">
+            {% for item in results %}
+                <li>
+                    <a href="{{ item.url }}">{{ item.name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No matching tools or letters found.</p>
+    {% endif %}
+</div>
+
+{% endblock %}

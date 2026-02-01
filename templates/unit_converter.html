@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+<h2>Unit Converter</h2>
+<form method="post">
+    <input type="number" name="value" required>
+
+    <select name="unit">
+        <option value="cm_to_m">CM → Meter</option>
+        <option value="m_to_cm">Meter → CM</option>
+        <option value="kg_to_g">KG → Gram</option>
+        <option value="g_to_kg">Gram → KG</option>
+    </select>
+
+    <button type="submit">Convert</button>
+</form>
+
+{% if result is not none %}
+<p>Result: <b>{{ result }}</b></p>
+{% endif %}
+</div>
+{% endblock %}

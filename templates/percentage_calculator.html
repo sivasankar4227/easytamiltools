@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<section class="calculator-page">
+    <div class="calculator-card">
+
+        <h1>Percentage Calculator</h1>
+        <p>சதவீதத்தை எளிதாக கணக்கிடுங்கள்</p>
+
+        <form method="POST">
+            <label>Value</label>
+            <input type="number" step="any" name="value" required>
+
+            <label>Total</label>
+            <input type="number" step="any" name="total" required>
+
+            <button type="submit">Calculate</button>
+        </form>
+
+        {% if result %}
+            {% if result == "error" %}
+                <div class="result-box error">
+                    தவறான மதிப்பு!
+                </div>
+            {% else %}
+                <div class="result-box">
+                    Result: {{ result }}%
+                </div>
+            {% endif %}
+        {% endif %}
+
+    </div>
+</section>
+
+{% endblock %}

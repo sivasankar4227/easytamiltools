@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="tool-container">
+<h2>🏫 School Leave Letter (Tamil)</h2>
+
+<pre style="text-align:left; white-space:pre-wrap; font-size:16px;">
+
+To  
+The Headmaster / Headmistress  
+________ School  
+________  
+
+Subject: Leave Request  
+
+மாண்புமிகு அவர்களுக்கு,  
+
+என் மகன் / மகள் __________  
+________ வகுப்பு பயிலும் மாணவர் / மாணவி.  
+
+உடல்நலக் குறைவு காரணமாக  
+________ முதல் ________ வரை  
+பள்ளிக்கு வர இயலவில்லை.  
+
+ஆகையால், தயவுசெய்து  
+அவருக்கு விடுப்பு வழங்க  
+பணிவுடன் கேட்டுக்கொள்கிறேன்.  
+
+நன்றி,  
+
+பெயர்: __________  
+கையொப்பம்: __________  
+தேதி: __________  
+
+</pre>
+
+<button onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText)">
+📋 Copy Letter
+</button>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+<h2>Number to Words</h2>
+<form method="post">
+    <input type="number" name="number" required>
+    <button type="submit">Convert</button>
+</form>
+{% if result %}
+<p>Result: <b>{{ result }}</b></p>
+{% endif %}
+</div>
+{% endblock %}

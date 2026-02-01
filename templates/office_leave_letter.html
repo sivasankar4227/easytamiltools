@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="tool-container">
+<h2>🏢 Office Leave Letter (Professional)</h2>
+
+<pre style="text-align:left; white-space:pre-wrap; font-size:16px;">
+
+To  
+The Manager  
+________ Company  
+________  
+
+Subject: Leave Application  
+
+Respected Sir / Madam,  
+
+I would like to inform you  
+that due to personal reasons,  
+I will not be able to attend  
+office from __________  
+to __________.  
+
+Kindly grant me leave  
+for the mentioned period.  
+
+Thanking you,  
+
+Yours sincerely,  
+Name: __________  
+Employee ID: __________  
+Signature: __________  
+Date: __________  
+
+</pre>
+
+<button onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText)">
+📋 Copy Letter
+</button>
+
+</div>
+
+{% endblock %}

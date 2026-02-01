@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>🔤 Case Converter</h2>
+
+<form method="post">
+    <textarea name="text" rows="5"></textarea><br><br>
+
+    <button name="action" value="upper">UPPER</button>
+    <button name="action" value="lower">lower</button>
+    <button name="action" value="title">Title Case</button>
+</form>
+
+{% if result %}
+<p><b>Result:</b></p>
+<textarea rows="4">{{ result }}</textarea>
+{% endif %}
+
+{% endblock %}

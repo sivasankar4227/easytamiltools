@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}BMI Calculator – EasyTamilTools{% endblock %}
+
+{% block content %}
+<h1>BMI Calculator</h1>
+
+<form method="post" class="tool-form">
+    <input type="number" name="weight" placeholder="Weight (kg)" required>
+    <input type="number" name="height" placeholder="Height (cm)" required>
+    <button type="submit">Calculate BMI</button>
+</form>
+
+{% if bmi %}
+    <div class="result">
+        <p><b>BMI:</b> {{ bmi }}</p>
+        <p><b>Category:</b> {{ category }}</p>
+    </div>
+{% endif %}
+{% endblock %}

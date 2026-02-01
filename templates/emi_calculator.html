@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}EMI Calculator – EasyTamilTools{% endblock %}
+
+{% block content %}
+<h1>EMI Calculator</h1>
+
+<form method="post" class="tool-form">
+    <input type="number" name="amount" placeholder="Loan Amount" required>
+    <input type="number" name="rate" placeholder="Interest %" required>
+    <input type="number" name="years" placeholder="Years" required>
+    <button type="submit">Calculate EMI</button>
+</form>
+
+{% if emi %}
+    <div class="result">
+        <p><b>Monthly EMI:</b> ₹ {{ emi }}</p>
+    </div>
+{% endif %}
+{% endblock %}

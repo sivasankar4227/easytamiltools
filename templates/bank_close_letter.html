@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="tool-container">
+<h2>🏦 Bank Account Closing Letter</h2>
+
+<pre style="text-align:left; white-space:pre-wrap; font-size:16px;">
+
+To  
+The Branch Manager  
+________ Bank  
+________ Branch  
+
+Subject: Request for Bank Account Closure  
+
+Respected Sir / Madam,  
+
+I would like to inform you  
+that I wish to close my  
+bank account mentioned below.  
+
+Account Holder Name: __________  
+Account Number: __________  
+Branch Name: __________  
+
+Kindly process my request  
+at the earliest.  
+
+Thanking you,  
+
+Yours faithfully,  
+Name: __________  
+Signature: __________  
+Date: __________  
+
+</pre>
+
+<button onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText)">
+📋 Copy Letter
+</button>
+
+</div>
+
+{% endblock %}
