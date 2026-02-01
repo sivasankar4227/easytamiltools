@@ -14,7 +14,32 @@ def home():
     return render_template(
         "index.html",
         title="Easy Tamil Tools – Free Online Calculators & Letter Formats",
-        description="EasyTamilTools offers free Tamil tools like Number to Words, Unit Converter, Calculators and ready-made Tamil & English letter formats."
+        description="Free Tamil tools like calculators, unit converters, OCR tools and ready-made Tamil & English letter formats."
+    )
+
+# ================= LEGAL PAGES =================
+@app.route("/privacy")
+def privacy():
+    return render_template(
+        "privacy.html",
+        title="Privacy Policy - EasyTamilTools",
+        description="Privacy policy of EasyTamilTools explaining data usage and cookies."
+    )
+
+@app.route("/terms")
+def terms():
+    return render_template(
+        "terms.html",
+        title="Terms & Conditions - EasyTamilTools",
+        description="Terms and conditions for using EasyTamilTools website."
+    )
+
+@app.route("/disclaimer")
+def disclaimer():
+    return render_template(
+        "disclaimer.html",
+        title="Disclaimer - EasyTamilTools",
+        description="Disclaimer about content accuracy and external tools."
     )
 
 # ================= LETTERS =================
@@ -23,52 +48,47 @@ def letters():
     return render_template(
         "letters.html",
         title="Tamil Letter Formats – School, Office, Bank",
-        description="Free Tamil letter formats including school leave, sick leave, office leave, bank account closing and Aadhaar correction letters."
+        description="Free Tamil letter formats including school leave, office leave, bank and Aadhaar letters."
     )
 
-@app.route("/letters/school-leave", methods=["GET", "POST"])
+@app.route("/letters/school-leave")
 def school_leave():
     return render_template(
         "school_leave_letter.html",
-        data=request.form,
         title="School Leave Letter Format in Tamil",
-        description="Free school leave letter format in Tamil for students and parents. Easy to copy and use."
+        description="Free school leave letter format in Tamil."
     )
 
-@app.route("/letters/sick-leave", methods=["GET", "POST"])
+@app.route("/letters/sick-leave")
 def sick_leave():
     return render_template(
         "sick_leave_letter.html",
-        data=request.form,
-        title="Sick Leave Letter Format – Medical Leave",
-        description="Sick leave letter format in Tamil and English for school and office use."
+        title="Sick Leave Letter Format",
+        description="Medical sick leave letter format in Tamil and English."
     )
 
-@app.route("/letters/office-leave", methods=["GET", "POST"])
+@app.route("/letters/office-leave")
 def office_leave():
     return render_template(
         "office_leave_letter.html",
-        data=request.form,
-        title="Office Leave Letter Format – Professional Request",
-        description="Professional office leave letter format in Tamil & English. Ready-made template."
+        title="Office Leave Letter Format",
+        description="Professional office leave letter format."
     )
 
-@app.route("/letters/bank-close", methods=["GET", "POST"])
+@app.route("/letters/bank-close")
 def bank_close():
     return render_template(
         "bank_close_letter.html",
-        data=request.form,
         title="Bank Account Closing Letter Format",
-        description="Bank account closing letter format for Indian banks. Simple and professional."
+        description="Bank account closing letter format for Indian banks."
     )
 
-@app.route("/letters/aadhaar-correction", methods=["GET", "POST"])
+@app.route("/letters/aadhaar-correction")
 def aadhaar_correction():
     return render_template(
         "aadhaar_correction_letter.html",
-        data=request.form,
         title="Aadhaar Correction Letter Format",
-        description="Aadhaar correction letter format for name, DOB and address changes."
+        description="Aadhaar correction letter format for name, DOB and address."
     )
 
 # ================= CALCULATORS =================
@@ -76,8 +96,8 @@ def aadhaar_correction():
 def calculators():
     return render_template(
         "calculators.html",
-        title="Online Calculators – Age, BMI, EMI",
-        description="Free online calculators including age calculator, BMI calculator, EMI calculator and percentage calculator."
+        title="Online Calculators - Age, BMI, EMI",
+        description="Free online calculators like Age, BMI, EMI and Percentage."
     )
 
 @app.route("/age-calculator", methods=["GET", "POST"])
@@ -105,7 +125,7 @@ def age_calculator():
         "age_calculator.html",
         age=age,
         title="Age Calculator Online",
-        description="Calculate your exact age in years, months and days using this free age calculator."
+        description="Calculate your exact age online."
     )
 
 @app.route("/percentage-calculator", methods=["GET", "POST"])
@@ -115,11 +135,12 @@ def percentage_calculator():
         result = round(
             (float(request.form["value"]) / float(request.form["total"])) * 100, 2
         )
+
     return render_template(
         "percentage_calculator.html",
         result=result,
-        title="Percentage Calculator Online",
-        description="Free percentage calculator to calculate marks, profit, discount and more."
+        title="Percentage Calculator",
+        description="Free percentage calculator online."
     )
 
 @app.route("/bmi-calculator", methods=["GET", "POST"])
@@ -143,7 +164,7 @@ def bmi_calculator():
         bmi=bmi,
         category=category,
         title="BMI Calculator Online",
-        description="Calculate your Body Mass Index (BMI) instantly using this free online tool."
+        description="Calculate your BMI instantly."
     )
 
 @app.route("/emi-calculator", methods=["GET", "POST"])
@@ -158,8 +179,8 @@ def emi_calculator():
     return render_template(
         "emi_calculator.html",
         emi=emi,
-        title="EMI Calculator Online",
-        description="Loan EMI calculator to calculate monthly EMI easily."
+        title="EMI Calculator",
+        description="Loan EMI calculator online."
     )
 
 # ================= TOOLS =================
@@ -167,8 +188,8 @@ def emi_calculator():
 def tools():
     return render_template(
         "tools.html",
-        title="Online Tools – Tamil Utilities",
-        description="Free online Tamil tools like image to text, text counter, case converter and more."
+        title="Online Tools - EasyTamilTools",
+        description="Free online utilities like OCR, text counter and converters."
     )
 
 @app.route("/image-to-text", methods=["GET", "POST"])
@@ -182,7 +203,7 @@ def image_to_text():
         "image_to_text.html",
         text=text,
         title="Image to Text Converter",
-        description="Convert images into editable Tamil and English text using OCR."
+        description="Convert images to Tamil and English text."
     )
 
 @app.route("/text-counter", methods=["GET", "POST"])
@@ -198,7 +219,7 @@ def text_counter():
         text=text,
         count=count,
         title="Text Counter Tool",
-        description="Count words and characters online instantly."
+        description="Count words and characters online."
     )
 
 @app.route("/date-difference", methods=["GET", "POST"])
@@ -213,7 +234,7 @@ def date_difference():
         "date_difference.html",
         diff=diff,
         title="Date Difference Calculator",
-        description="Calculate difference between two dates in days."
+        description="Calculate difference between two dates."
     )
 
 @app.route("/case-converter", methods=["GET", "POST"])
@@ -222,13 +243,17 @@ def case_converter():
     if request.method == "POST":
         text = request.form["text"]
         action = request.form["action"]
-        result = text.upper() if action == "upper" else text.lower() if action == "lower" else text.title()
+        result = (
+            text.upper() if action == "upper"
+            else text.lower() if action == "lower"
+            else text.title()
+        )
 
     return render_template(
         "case_converter.html",
         result=result,
-        title="Case Converter Online",
-        description="Convert text to uppercase, lowercase or title case."
+        title="Case Converter",
+        description="Convert text case online."
     )
 
 @app.route("/number-to-words", methods=["GET", "POST"])
@@ -236,13 +261,16 @@ def number_to_words():
     result = ""
     if request.method == "POST":
         num = request.form.get("number")
-        result = convert_number_to_words(int(num)) if num and num.isdigit() else "Invalid number"
+        if num and num.isdigit() and int(num) < 100000:
+            result = convert_number_to_words(int(num))
+        else:
+            result = "Invalid number"
 
     return render_template(
         "number_to_words.html",
         result=result,
         title="Number to Words Converter",
-        description="Convert numbers into words online easily."
+        description="Convert numbers into words."
     )
 
 @app.route("/unit-converter", methods=["GET", "POST"])
@@ -261,29 +289,11 @@ def unit_converter():
     return render_template(
         "unit_converter.html",
         result=result,
-        title="Unit Converter Online",
-        description="Convert length and weight units easily using this free unit converter."
+        title="Unit Converter",
+        description="Convert units easily online."
     )
 
-# ================= NUMBER TO WORDS LOGIC =================
-def convert_number_to_words(n):
-    ones = ["","One","Two","Three","Four","Five","Six","Seven","Eight","Nine",
-            "Ten","Eleven","Twelve","Thirteen","Fourteen","Fifteen",
-            "Sixteen","Seventeen","Eighteen","Nineteen"]
-    tens = ["","","Twenty","Thirty","Forty","Fifty","Sixty","Seventy","Eighty","Ninety"]
-
-    if n == 0:
-        return "Zero"
-    if n < 20:
-        return ones[n]
-    if n < 100:
-        return tens[n//10] + (" " + ones[n%10] if n%10 else "")
-    if n < 1000:
-        return ones[n//100] + " Hundred" + (" and " + convert_number_to_words(n%100) if n%100 else "")
-    if n < 100000:
-        return convert_number_to_words(n//1000) + " Thousand " + convert_number_to_words(n%1000)
-    return "Number too large"
-
+# ================= SEARCH =================
 @app.route("/search")
 def search():
     query = request.args.get("q", "").lower()
@@ -308,10 +318,10 @@ def search():
         {"name": "Aadhaar Correction Letter", "url": "/letters/aadhaar-correction"},
     ]
 
-    results = [
-        item for item in (tools + letters)
-        if query in item["name"].lower()
-    ]
+    if not query:
+        results = tools + letters
+    else:
+        results = [i for i in tools + letters if query in i["name"].lower()]
 
     return render_template(
         "search_results.html",
@@ -319,6 +329,26 @@ def search():
         results=results,
         title=f"Search results for {query}"
     )
+
+# ================= NUMBER TO WORDS LOGIC =================
+def convert_number_to_words(n):
+    ones = ["","One","Two","Three","Four","Five","Six","Seven","Eight","Nine",
+            "Ten","Eleven","Twelve","Thirteen","Fourteen","Fifteen",
+            "Sixteen","Seventeen","Eighteen","Nineteen"]
+    tens = ["","","Twenty","Thirty","Forty","Fifty","Sixty","Seventy","Eighty","Ninety"]
+
+    if n == 0:
+        return "Zero"
+    if n < 20:
+        return ones[n]
+    if n < 100:
+        return tens[n//10] + (" " + ones[n%10] if n%10 else "")
+    if n < 1000:
+        return ones[n//100] + " Hundred"
+    if n < 100000:
+        return convert_number_to_words(n//1000) + " Thousand"
+
+    return "Number too large"
 
 # ================= RUN =================
 if __name__ == "__main__":
