@@ -50,3 +50,13 @@ git clone https://github.com/sivasankar4227/easytamiltools.git
 cd easytamiltools
 pip install flask pillow pytesseract
 python app.py
+## 🚀 Future Plans
+
+- Tamil Number to Words Converter
+- YouTube Video Downloader
+- Instagram Reels Downloader
+- Resume Builder (Tamil + English)
+- Invoice / Bill Generator
+- PDF Tools (PDF to Word, Image to PDF)
+- Online Signature Generator
+- Government Form Letter Formats
