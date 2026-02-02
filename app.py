@@ -2,11 +2,19 @@ from flask import Flask, render_template, request
 from datetime import date
 from PIL import Image
 import pytesseract
+from flask import send_from_directory
+
 
 # ================= CONFIG =================
 # pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 
 app = Flask(__name__)
+
+@app.route("/sitemap.xml")
+def sitemap():
+    return send_from_directory(".", "sitemap.xml")
+
+
 
 # ================= HOME =================
 @app.route("/")
