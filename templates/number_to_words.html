@@ -1,13 +1,45 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="container">
-<h2>Number to Words</h2>
-<form method="post">
-    <input type="number" name="number" required>
-    <button type="submit">Convert</button>
-</form>
-{% if result %}
-<p>Result: <b>{{ result }}</b></p>
-{% endif %}
+
+<section class="calculator-page">
+
+<div class="calculator-card">
+
+<h1>🔢 Number To Words</h1>
+<p class="subtitle">Convert numbers into English or Tamil words</p>
+
+<form method="POST" class="calc-form">
+
+<div class="input-group">
+<label>Enter Number</label>
+<input type="number" name="number" value="{{ number }}" required>
 </div>
+
+<div class="input-group">
+<label>Select Language</label>
+<select name="lang">
+    <option value="en" {% if lang=="en" %}selected{% endif %}>English</option>
+    <option value="ta" {% if lang=="ta" %}selected{% endif %}>Tamil</option>
+</select>
+</div>
+
+<div class="btn-group">
+<button type="submit" class="calc-btn">Convert</button>
+<a href="/number-to-words" class="reset-btn">Clear</a>
+</div>
+
+</form>
+
+{% if result %}
+
+<div class="result-box">
+<h2>Result</h2>
+<p>{{ result }}</p>
+</div>
+
+{% endif %}
+
+</div>
+</section>
+
 {% endblock %}

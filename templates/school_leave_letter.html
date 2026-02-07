@@ -1,25 +1,40 @@
 {% extends "base.html" %}
 {% block content %}
 
-<div class="tool-container">
-<h2>🏫 School Leave Letter (Tamil)</h2>
+<section class="calculator-page">
+  <div class="letter-card">
 
-<pre style="text-align:left; white-space:pre-wrap; font-size:16px;">
+    <h1>🏫 School Leave Letter (Tamil)</h1>
+    <p class="letter-subtitle">Fill details & generate letter</p>
+
+    <!-- INPUTS -->
+    <div class="letter-form">
+      <input type="text" id="student" placeholder="Student Name">
+      <input type="text" id="class" placeholder="Class">
+      <input type="text" id="school" placeholder="School Name">
+      <input type="text" id="fromDate" placeholder="From Date">
+      <input type="text" id="toDate" placeholder="To Date">
+      <input type="text" id="parent" placeholder="Parent Name">
+      <input type="date" id="date">
+    </div>
+
+    <!-- LETTER -->
+    <div class="letter-box" id="schoolLetter">
 
 To  
 The Headmaster / Headmistress  
-________ School  
-________  
+<span id="schoolPreview">________ School</span>  
 
 Subject: Leave Request  
 
 மாண்புமிகு அவர்களுக்கு,  
 
-என் மகன் / மகள் __________  
-________ வகுப்பு பயிலும் மாணவர் / மாணவி.  
+என் மகன் / மகள் <span id="studentPreview">________</span>  
+<span id="classPreview">________</span> வகுப்பு பயிலும் மாணவர் / மாணவி.  
 
 உடல்நலக் குறைவு காரணமாக  
-________ முதல் ________ வரை  
+<span id="fromPreview">________</span> முதல்  
+<span id="toPreview">________</span> வரை  
 பள்ளிக்கு வர இயலவில்லை.  
 
 ஆகையால், தயவுசெய்து  
@@ -28,16 +43,36 @@ ________ முதல் ________ வரை
 
 நன்றி,  
 
-பெயர்: __________  
+பெயர்: <span id="parentPreview">________</span>  
 கையொப்பம்: __________  
-தேதி: __________  
+தேதி: <span id="datePreview">________</span>  
 
-</pre>
+    </div>
 
-<button onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText)">
-📋 Copy Letter
-</button>
+    <button class="copy-btn" onclick="copySchool()">📋 Copy Letter</button>
 
-</div>
+  </div>
+</section>
+
+<script>
+function u(i,t){
+ document.getElementById(t).innerText=
+ document.getElementById(i).value||"________";
+}
+
+["student","class","school","fromDate","toDate","parent","date"]
+.forEach(id=>{
+ document.getElementById(id).addEventListener("input",()=>{
+   u(id,id+"Preview");
+ });
+});
+
+function copySchool(){
+ navigator.clipboard.writeText(
+  document.getElementById("schoolLetter").innerText
+ );
+ alert("Letter Copied!");
+}
+</script>
 
 {% endblock %}

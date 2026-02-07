@@ -1,18 +1,51 @@
 {% extends "base.html" %}
 {% block content %}
 
-<div class="tool-container">
-    <h2>Text Counter</h2>
+<section class="tool-page">
 
-    <form method="POST">
-        <textarea name="text" rows="6" placeholder="Type or paste text"></textarea>
-        <br>
-        <button type="submit">Count</button>
+  <div class="tool-card">
+
+    <h1>🧮 Text Counter</h1>
+    <p class="subtitle">Count words in your text instantly</p>
+
+    <form method="POST" class="text-form" id="textForm">
+
+      <textarea
+        id="textInput"
+        name="text"
+        placeholder="Type or paste your text here..."
+        rows="10">{{ text or "" }}</textarea>
+
+      <div class="btn-row">
+        <button class="calc-btn" type="submit">Count Text</button>
+        <button class="reset-btn" type="button" onclick="clearText()">Clear</button>
+      </div>
+
     </form>
 
-    {% if count %}
-        <p><strong>Word Count:</strong> {{ count }}</p>
+    {% if text %}
+    <div class="text-result" id="resultBox">
+        <h3>Text Statistics</h3>
+
+        <p>📝 Words: <b>{{ word_count }}</b></p>
+        <p>🔠 Characters (with space): <b>{{ char_count }}</b></p>
+        <p>🔡 Characters (without space): <b>{{ char_no_space }}</b></p>
+        <p>📄 Lines: <b>{{ line_count }}</b></p>
+    </div>
     {% endif %}
-</div>
+
+  </div>
+
+</section>
+
+<script>
+function clearText(){
+    document.getElementById("textInput").value = "";
+    let result = document.getElementById("resultBox");
+    if(result){
+        result.style.display = "none";
+    }
+}
+</script>
 
 {% endblock %}

@@ -1,32 +1,34 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container">
-    <h1 class="page-title">Calculators</h1>
-    <p class="center">Daily use online calculators</p>
 
-    <div class="card-grid">
+<section class="calculator-page">
+    <div class="calculator-card">
 
-        <a href="/age-calculator" class="card">
-            <h3>Age Calculator</h3>
-            <p>Calculate your exact age</p>
-        </a>
+        <h1>🧮 Online Calculators</h1>
+        <p>தினசரி பயன்பாட்டிற்கான பயனுள்ள calculators</p>
 
-        <a href="/bmi-calculator" class="card">
-            <h3>BMI Calculator</h3>
-            <p>உடல் நிறை குறியீடு கணக்கிட</p>
-        </a>
+        <div class="tools-grid">
 
-        <a href="/percentage-calculator" class="card">
-            <h3>Percentage Calculator</h3>
-            <p>சதவீதம் கணக்கிட</p>
-        </a>
+            <a href="/age-calculator" class="tool-box">
+                🎂 Age Calculator
+            </a>
 
-        <a href="/emi-calculator" class="card">
-            <h3>EMI Calculator</h3>
-            <p>மாத தவணை தொகை கணக்கிட</p>
-        </a>
+            <!-- <a href="/bmi-calculator" class="tool-box">
+                ⚖️ BMI Calculator
+            </a> -->
+
+            <a href="/percentage-calculator" class="tool-box">
+                📊 Percentage Calculator
+            </a>
+
+            <a href="/emi-calculator" class="tool-box">
+                💰 EMI Calculator
+            </a>
+
+        </div>
 
     </div>
-</div>
+</section>
+
 {% endblock %}

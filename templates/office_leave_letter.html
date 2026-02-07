@@ -1,43 +1,74 @@
 {% extends "base.html" %}
 {% block content %}
 
-<div class="tool-container">
-<h2>🏢 Office Leave Letter (Professional)</h2>
+<section class="calculator-page">
+ <div class="letter-card">
 
-<pre style="text-align:left; white-space:pre-wrap; font-size:16px;">
+  <h1>🏢 Office Leave Letter</h1>
+  <p class="letter-subtitle">Fill details & generate letter</p>
+
+  <!-- INPUTS -->
+  <div class="letter-form">
+    <input type="text" id="name" placeholder="Your Name">
+    <input type="text" id="company" placeholder="Company Name">
+    <input type="text" id="from" placeholder="From Date">
+    <input type="text" id="to" placeholder="To Date">
+    <input type="text" id="empid" placeholder="Employee ID">
+    <input type="date" id="date">
+  </div>
+
+  <!-- LETTER -->
+  <div class="letter-box" id="officeLetter">
 
 To  
 The Manager  
-________ Company  
-________  
+<span id="companyPreview">________ Company</span>  
 
 Subject: Leave Application  
 
 Respected Sir / Madam,  
 
-I would like to inform you  
-that due to personal reasons,  
-I will not be able to attend  
-office from __________  
-to __________.  
+I would like to inform you that due to personal reasons,  
+I will not be able to attend office from  
+<span id="fromPreview">________</span> to  
+<span id="toPreview">________</span>.  
 
-Kindly grant me leave  
-for the mentioned period.  
+Kindly grant me leave for the mentioned period.  
 
 Thanking you,  
 
 Yours sincerely,  
-Name: __________  
-Employee ID: __________  
+Name: <span id="namePreview">________</span>  
+Employee ID: <span id="empidPreview">________</span>  
 Signature: __________  
-Date: __________  
+Date: <span id="datePreview">________</span>  
 
-</pre>
+  </div>
 
-<button onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText)">
-📋 Copy Letter
-</button>
+  <button class="copy-btn" onclick="copyOffice()">📋 Copy Letter</button>
 
-</div>
+ </div>
+</section>
+
+<script>
+function u(i,t){
+ document.getElementById(t).innerText=
+ document.getElementById(i).value||"________";
+}
+
+["name","company","from","to","empid","date"]
+.forEach(id=>{
+ document.getElementById(id).addEventListener("input",()=>{
+   u(id,id+"Preview");
+ });
+});
+
+function copyOffice(){
+ navigator.clipboard.writeText(
+  document.getElementById("officeLetter").innerText
+ );
+ alert("Letter Copied!");
+}
+</script>
 
 {% endblock %}

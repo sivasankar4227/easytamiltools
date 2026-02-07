@@ -3,18 +3,36 @@
 {% block title %}BMI Calculator – EasyTamilTools{% endblock %}
 
 {% block content %}
-<h1>BMI Calculator</h1>
 
-<form method="post" class="tool-form">
-    <input type="number" name="weight" placeholder="Weight (kg)" required>
-    <input type="number" name="height" placeholder="Height (cm)" required>
-    <button type="submit">Calculate BMI</button>
-</form>
+<div class="bmi-container">
 
-{% if bmi %}
-    <div class="result">
-        <p><b>BMI:</b> {{ bmi }}</p>
-        <p><b>Category:</b> {{ category }}</p>
+    <h1>⚖️ BMI Calculator</h1>
+    <p class="subtitle">Check your Body Mass Index easily</p>
+
+    <form method="post" class="bmi-form">
+
+        <div class="input-group">
+            <label>Weight (kg)</label>
+            <input type="number" name="weight" placeholder="Enter weight" required>
+        </div>
+
+        <div class="input-group">
+            <label>Height (cm)</label>
+            <input type="number" name="height" placeholder="Enter height" required>
+        </div>
+
+        <button type="submit" class="bmi-btn">Calculate BMI</button>
+
+    </form>
+
+    {% if bmi %}
+    <div class="bmi-result">
+        <h2>Your Result</h2>
+        <p><strong>BMI:</strong> {{ bmi }}</p>
+        <p><strong>Category:</strong> {{ category }}</p>
     </div>
-{% endif %}
+    {% endif %}
+
+</div>
+
 {% endblock %}

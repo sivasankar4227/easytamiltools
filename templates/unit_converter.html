@@ -1,22 +1,72 @@
 {% extends "base.html" %}
+{% block title %}Unit Converter{% endblock %}
+
 {% block content %}
-<div class="container">
-<h2>Unit Converter</h2>
-<form method="post">
-    <input type="number" name="value" required>
+
+<section class="calculator-page">
+
+<div class="calculator-card">
+
+<h1>📏 Unit Converter</h1>
+<p class="subtitle">Convert Length, Weight & Temperature Units Easily</p>
+
+<form method="POST" class="calc-form">
+
+  <div class="input-group">
+    <label>Enter Value</label>
+    <input type="number" step="any" name="value" value="{{ value }}" required>
+  </div>
+
+  <div class="input-group">
+    <label>Select Conversion</label>
 
     <select name="unit">
-        <option value="cm_to_m">CM → Meter</option>
-        <option value="m_to_cm">Meter → CM</option>
-        <option value="kg_to_g">KG → Gram</option>
-        <option value="g_to_kg">Gram → KG</option>
+
+      <!-- Length -->
+      <option value="cm_to_m" {% if unit=="cm_to_m" %}selected{% endif %}>CM → Meter</option>
+      <option value="m_to_cm" {% if unit=="m_to_cm" %}selected{% endif %}>Meter → CM</option>
+
+      <option value="m_to_ft" {% if unit=="m_to_ft" %}selected{% endif %}>Meter → Feet</option>
+      <option value="ft_to_m" {% if unit=="ft_to_m" %}selected{% endif %}>Feet → Meter</option>
+
+      <option value="km_to_mile" {% if unit=="km_to_mile" %}selected{% endif %}>KM → Mile</option>
+      <option value="mile_to_km" {% if unit=="mile_to_km" %}selected{% endif %}>Mile → KM</option>
+
+      <option value="inch_to_cm" {% if unit=="inch_to_cm" %}selected{% endif %}>Inch → CM</option>
+      <option value="cm_to_inch" {% if unit=="cm_to_inch" %}selected{% endif %}>CM → Inch</option>
+
+      <!-- Weight -->
+      <option value="kg_to_g" {% if unit=="kg_to_g" %}selected{% endif %}>KG → Gram</option>
+      <option value="g_to_kg" {% if unit=="g_to_kg" %}selected{% endif %}>Gram → KG</option>
+
+      <option value="pound_to_kg" {% if unit=="pound_to_kg" %}selected{% endif %}>Pound → KG</option>
+      <option value="kg_to_pound" {% if unit=="kg_to_pound" %}selected{% endif %}>KG → Pound</option>
+
+      <!-- Temperature -->
+      <option value="c_to_f" {% if unit=="c_to_f" %}selected{% endif %}>Celsius → Fahrenheit</option>
+      <option value="f_to_c" {% if unit=="f_to_c" %}selected{% endif %}>Fahrenheit → Celsius</option>
+
     </select>
 
-    <button type="submit">Convert</button>
+  </div>
+
+  <div class="btn-group">
+    <button type="submit" class="calc-btn">Convert</button>
+    <a href="/unit-converter" class="reset-btn">Clear</a>
+  </div>
+
 </form>
 
 {% if result is not none %}
-<p>Result: <b>{{ result }}</b></p>
-{% endif %}
+
+<div class="result-box">
+  <h2>Result</h2>
+  <p>{{ result }}</p>
 </div>
+
+{% endif %}
+
+</div>
+</section>
+
 {% endblock %}

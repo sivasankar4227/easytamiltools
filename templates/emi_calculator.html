@@ -3,18 +3,82 @@
 {% block title %}EMI Calculator – EasyTamilTools{% endblock %}
 
 {% block content %}
-<h1>EMI Calculator</h1>
 
-<form method="post" class="tool-form">
-    <input type="number" name="amount" placeholder="Loan Amount" required>
-    <input type="number" name="rate" placeholder="Interest %" required>
-    <input type="number" name="years" placeholder="Years" required>
-    <button type="submit">Calculate EMI</button>
+<section class="calculator-page">
+<div class="emi-card">
+
+<h1>🏦 EMI Calculator</h1>
+<p class="subtitle">Calculate your monthly loan installment easily</p>
+
+<form method="post" class="emi-form">
+
+  <div class="input-grid">
+
+    <div class="input-group">
+      <label>Loan Amount (₹)</label>
+      <input type="number" name="principal" required>
+    </div>
+
+    <div class="input-group">
+      <label>Interest Rate (%)</label>
+      <input type="number" step="0.01" name="rate" required>
+    </div>
+
+    <div class="input-group">
+      <label>Loan Tenure (Years)</label>
+      <input type="number" name="years" required>
+    </div>
+
+  </div>
+
+  <button class="calc-btn">Calculate EMI</button>
+
 </form>
 
 {% if emi %}
-    <div class="result">
-        <p><b>Monthly EMI:</b> ₹ {{ emi }}</p>
-    </div>
+
+<div class="emi-result-box">
+
+  <div class="emi-values">
+    <p><strong>Monthly EMI:</strong> ₹ {{ emi }}</p>
+    <p><strong>Total Interest:</strong> ₹ {{ interest }}</p>
+    <p><strong>Total Payment:</strong> ₹ {{ total }}</p>
+  </div>
+
+  <div class="chart-box">
+    <canvas id="emiChart"></canvas>
+  </div>
+
+</div>
+
+<!-- Load Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+const principalValue = JSON.parse('{{ principal | default(0) }}');
+const interestValue = JSON.parse('{{ interest | default(0) }}');
+
+if(principalValue > 0 && interestValue > 0){
+
+  const ctx = document.getElementById('emiChart');
+
+  new Chart(ctx, {
+    type: 'pie',
+    data: {
+      labels: ['Principal', 'Interest'],
+      datasets: [{
+        data: [principalValue, interestValue],
+        backgroundColor: ['#4f46e5','#f97316']
+      }]
+    }
+  });
+
+}
+</script>
+
 {% endif %}
+
+</div>
+</section>
+
 {% endblock %}

@@ -1,44 +1,81 @@
 {% extends "base.html" %}
 {% block content %}
 
-<div class="tool-container">
-<h2>🏦 Bank Account Closing Letter</h2>
+<section class="calculator-page">
+  <div class="letter-card">
 
-<pre style="text-align:left; white-space:pre-wrap; font-size:16px;">
+    <h1>🏦 Bank Account Closing Letter</h1>
+    <p class="letter-subtitle">Fill details & generate letter instantly</p>
+
+    <!-- INPUT FORM -->
+    <div class="letter-form">
+
+      <input type="text" id="name" placeholder="Your Name">
+      <input type="text" id="bank" placeholder="Bank Name">
+      <input type="text" id="branch" placeholder="Branch Name">
+      <input type="text" id="accname" placeholder="Account Holder Name">
+      <input type="text" id="accno" placeholder="Account Number">
+      <input type="date" id="date">
+
+    </div>
+
+    <!-- LETTER PREVIEW -->
+    <div class="letter-box" id="bankLetter">
 
 To  
 The Branch Manager  
-________ Bank  
-________ Branch  
+<span id="bankPreview">________ Bank</span>  
+<span id="branchPreview">________ Branch</span>  
 
 Subject: Request for Bank Account Closure  
 
 Respected Sir / Madam,  
 
-I would like to inform you  
-that I wish to close my  
+I would like to inform you that I wish to close my  
 bank account mentioned below.  
 
-Account Holder Name: __________  
-Account Number: __________  
-Branch Name: __________  
+Account Holder Name: <span id="accnamePreview">________</span>  
+Account Number: <span id="accnoPreview">________</span>  
+Branch Name: <span id="branchPreview2">________</span>  
 
-Kindly process my request  
-at the earliest.  
+Kindly process my request at the earliest.  
 
 Thanking you,  
 
 Yours faithfully,  
-Name: __________  
+Name: <span id="namePreview">________</span>  
 Signature: __________  
-Date: __________  
+Date: <span id="datePreview">________</span>  
 
-</pre>
+    </div>
 
-<button onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText)">
-📋 Copy Letter
-</button>
+    <!-- COPY BUTTON -->
+    <button class="copy-btn" onclick="copyLetter()">📋 Copy Letter</button>
 
-</div>
+  </div>
+</section>
+
+<!-- SCRIPT -->
+<script>
+function update(id, target){
+  document.getElementById(target).innerText =
+    document.getElementById(id).value || "________";
+}
+
+document.getElementById("name").addEventListener("input",()=>update("name","namePreview"));
+document.getElementById("bank").addEventListener("input",()=>update("bank","bankPreview"));
+document.getElementById("branch").addEventListener("input",()=>update("branch","branchPreview"));
+document.getElementById("branch").addEventListener("input",()=>update("branch","branchPreview2"));
+document.getElementById("accname").addEventListener("input",()=>update("accname","accnamePreview"));
+document.getElementById("accno").addEventListener("input",()=>update("accno","accnoPreview"));
+document.getElementById("date").addEventListener("input",()=>update("date","datePreview"));
+
+function copyLetter(){
+  navigator.clipboard.writeText(
+    document.getElementById("bankLetter").innerText
+  );
+  alert("Letter Copied Successfully!");
+}
+</script>
 
 {% endblock %}

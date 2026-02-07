@@ -1,5 +1,44 @@
 {% extends "base.html" %}
+{% block title %}Date Difference Calculator{% endblock %}
+
 {% block content %}
-<h2>📅 Date Difference</h2>
-<p>Coming next step…</p>
+
+<section class="calculator-page">
+
+<div class="calculator-card">
+
+<h1>📅 Date Difference Calculator</h1>
+<p class="subtitle">Find number of days between two dates</p>
+
+<form method="POST" class="calc-form">
+
+  <div class="input-group">
+    <label>Start Date</label>
+    <input type="date" name="date1" value="{{ date1 }}" required>
+  </div>
+
+  <div class="input-group">
+    <label>End Date</label>
+    <input type="date" name="date2" value="{{ date2 }}" required>
+  </div>
+
+  <div class="btn-group">
+    <button type="submit" class="calc-btn">Calculate</button>
+    <a href="/date-difference" class="reset-btn">Clear</a>
+  </div>
+
+</form>
+
+{% if diff is not none %}
+
+<div class="result-box">
+  <h2>Result</h2>
+  <p><strong>Difference:</strong> {{ diff }} Days</p>
+</div>
+
+{% endif %}
+
+</div>
+</section>
+
 {% endblock %}

@@ -1,19 +1,56 @@
 {% extends "base.html" %}
+{% block title %}Case Converter{% endblock %}
+
 {% block content %}
 
-<h2>🔤 Case Converter</h2>
+<section class="calculator-page">
 
-<form method="post">
-    <textarea name="text" rows="5"></textarea><br><br>
+<div class="calculator-card">
 
-    <button name="action" value="upper">UPPER</button>
-    <button name="action" value="lower">lower</button>
-    <button name="action" value="title">Title Case</button>
+<h1>🔤 Case Converter</h1>
+<p class="subtitle">Convert text to Uppercase, Lowercase or Title Case</p>
+
+<form method="POST" class="calc-form">
+
+  <div class="input-group">
+    <label>Enter Text</label>
+    <textarea name="text" rows="6" required>{{ text }}</textarea>
+  </div>
+
+  <div class="input-group">
+    <label>Choose Format</label>
+    <select name="action">
+      <option value="upper" {% if action=="upper" %}selected{% endif %}>UPPERCASE</option>
+      <option value="lower" {% if action=="lower" %}selected{% endif %}>lowercase</option>
+      <option value="title" {% if action=="title" %}selected{% endif %}>Title Case</option>
+    </select>
+  </div>
+
+  <div class="btn-group">
+    <button type="submit" class="calc-btn">Convert</button>
+    <a href="/case-converter" class="reset-btn">Clear</a>
+  </div>
+
 </form>
 
 {% if result %}
-<p><b>Result:</b></p>
-<textarea rows="4">{{ result }}</textarea>
+
+<div class="result-box">
+
+  <h2>Converted Text</h2>
+
+  <textarea rows="6" id="resultText">{{ result }}</textarea>
+
+  <button class="copy-btn"
+    onclick="navigator.clipboard.writeText(document.getElementById('resultText').value)">
+    📋 Copy Text
+  </button>
+
+</div>
+
 {% endif %}
+
+</div>
+</section>
 
 {% endblock %}
