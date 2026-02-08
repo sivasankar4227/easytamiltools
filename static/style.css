@@ -23,34 +23,37 @@ ul{
     list-style:none;
 }
 
-/* ==========================================
-   NAVBAR
-========================================== */
+/* ================= NAVBAR ================= */
+
 .navbar{
     position:sticky;
     top:0;
     z-index:1000;
     background:#0f172a;
     color:white;
-    padding:14px 24px;
+    padding:14px 20px;
     display:flex;
-    justify-content:space-between;
     align-items:center;
+    justify-content:space-between;
 }
 
+/* Logo */
 .logo{
     font-size:22px;
     font-weight:700;
     color:#facc15;
 }
 
+/* Nav Links Desktop */
 .nav-links{
+    list-style:none;
     display:flex;
     gap:22px;
 }
 
 .nav-links a{
     color:#e5e7eb;
+    text-decoration:none;
     font-weight:500;
 }
 
@@ -58,6 +61,7 @@ ul{
     color:#facc15;
 }
 
+/* Search Box Desktop */
 .search-box{
     display:flex;
     gap:6px;
@@ -75,6 +79,67 @@ ul{
     border-radius:50%;
     padding:6px 10px;
     cursor:pointer;
+}
+
+/* Hamburger Toggle */
+.menu-toggle{
+    display:none;
+    font-size:26px;
+    cursor:pointer;
+    color:white;
+}
+
+/* ============ MOBILE VIEW ============ */
+
+@media (max-width:768px){
+
+    .navbar{
+        position:relative;
+    }
+
+    /* Toggle Left */
+    .menu-toggle{
+        display:block;
+        font-size:28px;
+        position:absolute;
+        left:15px;
+        top:50%;
+        transform:translateY(-50%);
+    }
+
+    /* Logo Center */
+    .logo{
+        margin:auto;
+        text-align:center;
+    }
+
+
+    /* Hide search */
+    .search-box{
+        display:none;
+    }
+
+    /* Hide menu initially */
+    .nav-links{
+        position:absolute;
+        top:65px;
+        left:0;
+        width:100%;
+        background:#0f172a;
+        flex-direction:column;
+        display:none;
+        text-align:center;
+        padding:15px 0;
+    }
+
+    .nav-links li{
+        margin:10px 0;
+    }
+
+    /* When open */
+    .nav-links.active{
+        display:flex;
+    }
 }
 
 /* ==========================================

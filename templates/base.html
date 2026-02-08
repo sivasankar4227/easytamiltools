@@ -3,49 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- google search console code -->
+
+    <!-- Google Search Console Verification -->
     <meta name="google-site-verification" content="6nZn63HeCPT5VIZmLbZUF79mwXuXx9aoETH3lL3fYNw" />
-    <!-- Google tag (gtag.js) -->
+
+    <!-- Google Analytics GA4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-7X18J9LSDS"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-
         gtag('config', 'G-7X18J9LSDS');
     </script>
-    <!-- google search console code -->
-    <meta name="google-site-verification" content="6nZn63HeCPT5VIZmLbZUF79mwXuXx9aoETH3lL3fYNw" />
+
     <!-- SEO TITLE -->
     <title>
-        {{ title if title else "Easy Tamil Tools – Free Online Calculators & Letter Formats" }}
+        {{ title if title else "Easy Tamil Tools – Free Online Tamil Calculators & Utilities" }}
     </title>
 
-    <!-- SEO DESCRIPTION -->
+    <!-- SEO META DESCRIPTION -->
     <meta name="description"
-          content="{{ description if description else 'Free Tamil tools like Number to Words, Unit Converter, Calculators, and ready-made Tamil & English letter formats.' }}">
+          content="{{ description if description else 'Free online Tamil tools like Number to Words, EMI Calculator, Age Calculator, Unit Converter, and Tamil letter formats.' }}">
 
     <!-- SEO KEYWORDS -->
     <meta name="keywords"
-          content="{{ keywords if keywords else 'Tamil tools, Tamil letter formats, age calculator tamil, EMI calculator tamil, number to words tamil, unit converter tamil' }}">
+          content="{{ keywords if keywords else 'Tamil tools, online tamil calculator, number to words tamil, age calculator tamil, EMI calculator tamil, tamil letter format' }}">
 
     <meta name="author" content="EasyTamilTools">
     <meta name="robots" content="index, follow">
 
+    <!-- CANONICAL -->
+    <link rel="canonical" href="{{ request.url }}" />
+
+    <!-- OPEN GRAPH (Social Sharing) -->
+    <meta property="og:title" content="Easy Tamil Tools – Free Online Tamil Utilities">
+    <meta property="og:description" content="Use free Tamil calculators, converters and tools online easily.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ request.url }}">
+    <meta property="og:image" content="https://easytamiltools.in/static/logo.png">
+
     <!-- CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <meta name="description" content="Free Tamil Online Tools like Text Counter, Case Converter, Image to Text, Unit Converter and more." />
-    <meta name="keywords" content="tamil tools, online tools, text counter, tamil utilities, free tools" />
-
 </head>
 
 <body>
 
 <!-- ================= NAVBAR ================= -->
 <nav class="navbar">
+
     <div class="logo">EasyTamilTools</div>
 
-    <ul class="nav-links">
+    <!-- Hamburger Icon -->
+    <div class="menu-toggle" id="mobile-menu">
+        ☰
+    </div>
+
+    <ul class="nav-links" id="nav-links">
         <li><a href="/">Home</a></li>
         <li><a href="/letters">Letters</a></li>
         <li><a href="/calculators">Calculators</a></li>
@@ -56,7 +69,9 @@
         <input type="text" name="q" placeholder="Search tools or letters">
         <button type="submit">🔍</button>
     </form>
+
 </nav>
+
 
 <!-- ================= PAGE CONTENT ================= -->
 {% block content %}{% endblock %}
@@ -92,6 +107,30 @@
     </div>
 
 </footer>
+<script>
+const mobileMenu = document.getElementById("mobile-menu");
+const navLinks = document.getElementById("nav-links");
+const navItems = document.querySelectorAll("#nav-links a");
+
+/* Toggle open & close */
+mobileMenu.addEventListener("click", () => {
+    navLinks.classList.toggle("active");
+});
+
+/* Close menu when link clicked */
+navItems.forEach(item => {
+    item.addEventListener("click", () => {
+        navLinks.classList.remove("active");
+    });
+});
+
+/* Close menu when clicking outside */
+document.addEventListener("click", (e) => {
+    if (!mobileMenu.contains(e.target) && !navLinks.contains(e.target)) {
+        navLinks.classList.remove("active");
+    }
+});
+</script>
 
 </body>
 </html>
