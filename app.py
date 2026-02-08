@@ -34,7 +34,7 @@ def sitemap():
 
 @app.route("/robots.txt")
 def robots():
-    return send_from_directory(".", "robots.txt")
+    return app.send_static_file("robots.txt")
 
 # ================= LETTERS =================
 @app.route("/letters")
@@ -347,6 +347,36 @@ def terms():
 @app.route("/disclaimer")
 def disclaimer():
     return render_template("disclaimer.html")
+
+@app.route("/contact", methods=["GET", "POST"])
+def contact():
+    if request.method == "POST":
+        name = request.form.get("name")
+        email = request.form.get("email")
+        message = request.form.get("message")
+        print(name, email, message)   # Later save to DB or email
+    return render_template(
+        "contact.html",
+        title="Contact Us - Easy Tamil Tools",
+        description="Contact Easy Tamil Tools for queries, suggestions and support.",
+        keywords="contact easy tamil tools"
+    )
+
+
+@app.route("/feedback", methods=["GET", "POST"])
+def feedback():
+    if request.method == "POST":
+        name = request.form.get("name")
+        email = request.form.get("email")
+        feedback_text = request.form.get("feedback")
+        print(name, email, feedback_text)
+    return render_template(
+        "feedback.html",
+        title="Feedback - Easy Tamil Tools",
+        description="Send your feedback and suggestions to Easy Tamil Tools.",
+        keywords="feedback easy tamil tools"
+    )
+
 
 
 

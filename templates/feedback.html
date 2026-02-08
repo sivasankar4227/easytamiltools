@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section class="page-container">
+    <h1>Feedback</h1>
+
+    <p>We value your feedback. Please share your experience and suggestions and your needs to improve our website .</p>
+
+    <form method="POST" action="/feedback">
+
+        <label>Your Name</label>
+        <input type="text" name="name" required>
+
+        <label>Your Email</label>
+        <input type="email" name="email" required>
+
+        <label>Your Feedback</label>
+        <textarea name="feedback" rows="5" required></textarea>
+
+        <button type="submit">Submit Feedback</button>
+
+    </form>
+</section>
+
+{% endblock %}
