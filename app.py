@@ -3,7 +3,7 @@ from datetime import date
 from PIL import Image
 # import pytesseract
 import os
-# from num2words import num2words
+from num2words import num2words
 import pytesseract
 import qrcode
 

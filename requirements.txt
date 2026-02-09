@@ -1,4 +1,6 @@
-Flask
+flask
 gunicorn
+pillow
+num2words
 pytesseract
-Pillow
+qrcode[pil]
