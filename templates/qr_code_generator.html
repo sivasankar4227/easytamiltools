@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section class="page-container">
+
+<h1>📱 QR Code Generator</h1>
+
+<p>Create QR code for website URL, text, phone number or any data.</p>
+
+<form method="POST">
+
+    <input type="text"
+           name="data"
+           placeholder="Enter text or URL"
+           value="{{ data }}"
+           required>
+
+    <button type="submit">Generate QR Code</button>
+
+</form>
+
+{% if qr_image %}
+<div class="qr-result">
+
+    <img src="/{{ qr_image }}" alt="QR Code">
+
+    <p>
+        <a href="/{{ qr_image }}" download>
+            ⬇ Download QR Code
+        </a>
+    </p>
+
+</div>
+{% endif %}
+
+</section>
+
+{% endblock %}

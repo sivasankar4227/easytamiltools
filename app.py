@@ -5,6 +5,8 @@ from PIL import Image
 import os
 # from num2words import num2words
 import pytesseract
+import qrcode
+
 
 pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 
@@ -333,6 +335,34 @@ def image_to_text():
             text = pytesseract.image_to_string(img)
 
     return render_template("image_to_text.html", text=text)
+# ================= QR CODE GENERATOR =================
+
+@app.route("/qr-code-generator", methods=["GET","POST"])
+def qr_code_generator():
+
+    qr_image = None
+    data = ""
+
+    if request.method == "POST":
+        data = request.form.get("data")
+
+        if data:
+            img = qrcode.make(data)
+
+            save_path = "static/qr_code.png"
+            img.save(save_path)
+
+            qr_image = save_path
+
+    return render_template(
+        "qr_code_generator.html",
+        qr_image=qr_image,
+        data=data,
+        title="QR Code Generator - Easy Tamil Tools",
+        description="Free Online QR Code Generator. Create QR codes for text, URL, phone number and download instantly.",
+        keywords="qr code generator online, free qr generator, tamil qr tool"
+    )
+
 
 # ================= LEGAL PAGES =================
 
@@ -376,7 +406,13 @@ def feedback():
         description="Send your feedback and suggestions to Easy Tamil Tools.",
         keywords="feedback easy tamil tools"
     )
-
+# about us codes
+@app.route("/about")
+def about():
+    return render_template("about.html",
+                           title="About Us - Easy Tamil Tools",
+                           description="Learn more about Easy Tamil Tools and our mission to provide free Tamil online utilities.",
+                           keywords="about easy tamil tools, tamil tools website, free tamil utilities")
 
 
 

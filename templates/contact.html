@@ -1,25 +1,30 @@
 {% extends "base.html" %}
 {% block content %}
 
-<section class="page-container">
-    <h1>Contact Us</h1>
+<section class="page-container legal-page">
 
-    <p>If you have any questions, suggestions, or business inquiries, feel free to contact us.</p>
+    <h1 class="page-title">Contact Us</h1>
 
-    <form method="POST" action="/contact">
+    <p class="legal-text">
+        If you have any questions, suggestions, feedback, or business inquiries,
+        feel free to reach us using the email address below.
+    </p>
 
-        <label>Your Name</label>
-        <input type="text" name="name" required>
+    <div class="contact-box">
 
-        <label>Your Email</label>
-        <input type="email" name="email" required>
+        <h2>📧 Email</h2>
+        <p>
+            <a href="mailto:sivasankar4227@gmail.com">
+                sivasankar4227@gmail.com
+            </a>
+        </p>
 
-        <label>Your Message</label>
-        <textarea name="message" rows="5" required></textarea>
+        <p class="legal-text">
+            We usually respond within 24–48 hours.
+        </p>
 
-        <button type="submit">Send Message</button>
+    </div>
 
-    </form>
 </section>
 
 {% endblock %}
