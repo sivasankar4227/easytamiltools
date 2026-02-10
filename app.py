@@ -23,16 +23,32 @@ def home():
     return render_template("index.html")
 
 # ================= SITEMAP =================
+from flask import url_for
+from datetime import datetime
+
 @app.route("/sitemap.xml")
 def sitemap():
-    xml = """<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-<url><loc>http://127.0.0.1:5000/</loc></url>
-<url><loc>http://127.0.0.1:5000/tools</loc></url>
-<url><loc>http://127.0.0.1:5000/calculators</loc></url>
-<url><loc>http://127.0.0.1:5000/letters</loc></url>
-</urlset>"""
-    return Response(xml, mimetype="application/xml")
+    pages = []
+
+    for rule in app.url_map.iter_rules():
+        if "GET" in rule.methods and len(rule.arguments) == 0:
+            if not rule.rule.startswith("/static"):
+                pages.append(url_for(rule.endpoint, _external=True))
+
+    sitemap_xml = """<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">"""
+
+    for page in pages:
+        sitemap_xml += f"""
+    <url>
+        <loc>{page}</loc>
+        <lastmod>{datetime.now().date()}</lastmod>
+        <priority>0.8</priority>
+    </url>"""
+
+    sitemap_xml += "\n</urlset>"
+
+    return Response(sitemap_xml, mimetype="application/xml")
 
 @app.route("/robots.txt")
 def robots():
@@ -413,6 +429,52 @@ def about():
                            title="About Us - Easy Tamil Tools",
                            description="Learn more about Easy Tamil Tools and our mission to provide free Tamil online utilities.",
                            keywords="about easy tamil tools, tamil tools website, free tamil utilities")
+
+# search option codes 
+# ================= SEARCH =================
+@app.route("/search", methods=["GET"])
+def search():
+    query = request.args.get("q", "").strip()
+    results = []
+
+    # List of searchable pages in your app
+    pages = [
+        # Letters
+        {"name": "Letters", "url": "/letters"},
+        {"name": "School Leave Letter", "url": "/letters/school-leave"},
+        {"name": "Office Leave Letter", "url": "/letters/office-leave"},
+        {"name": "Bank Close Letter", "url": "/letters/bank-close"},
+
+        # Calculators
+        {"name": "Age Calculator", "url": "/age-calculator"},
+        {"name": "EMI Calculator", "url": "/emi-calculator"},
+        {"name": "BMI Calculator", "url": "/bmi-calculator"},
+        {"name": "Percentage Calculator", "url": "/percentage-calculator"},
+        {"name": "Unit Converter", "url": "/unit-converter"},
+        {"name": "Date Difference Calculator", "url": "/date-difference"},
+        {"name": "Case Converter", "url": "/case-converter"},
+        {"name": "Number to Words", "url": "/number-to-words"},
+
+        # Tools
+        {"name": "Text Counter", "url": "/text-counter"},
+        {"name": "Image to Text", "url": "/image-to-text"},
+        {"name": "QR Code Generator", "url": "/qr-code-generator"},
+
+        # Legal & Info
+        {"name": "Privacy Policy", "url": "/privacy"},
+        {"name": "Terms & Conditions", "url": "/terms"},
+        {"name": "Disclaimer", "url": "/disclaimer"},
+        {"name": "About Us", "url": "/about"},
+        {"name": "Contact", "url": "/contact"},
+        {"name": "Feedback", "url": "/feedback"},
+    ]
+
+    # Simple search: check if query is in page name (case-insensitive)
+    if query:
+        results = [page for page in pages if query.lower() in page["name"].lower()]
+
+    return render_template("search_results.html", query=query, results=results)
+
 
 
 
