@@ -16,6 +16,10 @@
         gtag('config', 'G-7X18J9LSDS');
     </script>
 
+    <!-- Google AdSense (Auto Ads / Verification) -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1627634824862265"
+     crossorigin="anonymous"></script>
+
     <!-- SEO TITLE -->
     <title>
         {{ title if title else "Easy Tamil Tools – Free Online Tamil Calculators & Utilities" }}
@@ -64,8 +68,6 @@
         <li><a href="/letters">Letters</a></li>
         <li><a href="/calculators">Calculators</a></li>
         <li><a href="/tools">Tools</a></li>
-        
-
     </ul>
 
     <form action="/search" method="GET" class="search-box">
@@ -74,7 +76,6 @@
     </form>
 
 </nav>
-
 
 <!-- ================= PAGE CONTENT ================= -->
 {% block content %}{% endblock %}
@@ -109,11 +110,11 @@
             <li><a href="/contact">Contact Us</a></li>
             <li><a href="/feedback">Feedback</a></li>
             <li><a href="/about">About Us</a></li>
-
         </ul>
     </div>
 
 </footer>
+
 <script>
 const mobileMenu = document.getElementById("mobile-menu");
 const navLinks = document.getElementById("nav-links");
