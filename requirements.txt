@@ -1,6 +1,8 @@
 flask
-gunicorn
-pillow
-num2words
 pytesseract
-qrcode[pil]
+pillow
+opencv-python-headless
+werkzeug
+qrcode
+num2words
+gunicorn
