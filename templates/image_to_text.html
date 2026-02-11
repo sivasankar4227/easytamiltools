@@ -18,7 +18,8 @@
 </div>
 
 <!-- IMAGE PREVIEW -->
-<img id="preview" style="display:none;max-width:200px;margin:15px auto;border-radius:10px;">
+<img id="preview"
+     style="display:none;max-width:200px;margin:15px auto;border-radius:10px;">
 
 <div class="btn-group">
 <button type="submit" class="calc-btn">Convert</button>
@@ -26,6 +27,13 @@
 </div>
 
 </form>
+
+<!-- ✅ ERROR MESSAGE -->
+{% if error %}
+<p style="color:red;text-align:center;margin-top:10px;">
+{{ error }}
+</p>
+{% endif %}
 
 {% if text %}
 
@@ -35,7 +43,8 @@
 <textarea id="outputText" rows="8">{{ text }}</textarea>
 
 <button class="copy-btn"
-onclick="navigator.clipboard.writeText(document.getElementById('outputText').value)">
+onclick="navigator.clipboard.writeText(
+document.getElementById('outputText').value)">
 📋 Copy Text
 </button>
 

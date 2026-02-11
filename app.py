@@ -6,16 +6,36 @@ import os
 from num2words import num2words
 import pytesseract
 import qrcode
+import cv2
+from werkzeug.utils import secure_filename
+import logging
+
 
 
 pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 
 
 app = Flask(__name__)
+app.config["MAX_CONTENT_LENGTH"] = 5 * 1024 * 1024
+app.config["UPLOAD_FOLDER"] = "uploads"
+
 
 # ================= CONFIG =================
 # Uncomment if Tesseract not detected
 # pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+
+ALLOWED_EXTENSIONS = {"png","jpg","jpeg","webp"}
+os.makedirs("uploads", exist_ok=True)
+
+logging.basicConfig(
+    filename="error.log",
+    level=logging.ERROR
+)
+
+def allowed_file(filename):
+    return "." in filename and \
+           filename.rsplit(".",1)[1].lower() in ALLOWED_EXTENSIONS
+
 
 # ================= HOME =================
 @app.route("/")
@@ -337,20 +357,63 @@ def unit_converter():
         unit=unit
     )
 
-# @app.route("/image-to-text", methods=["GET","POST"])
+# image to text codes 
 @app.route("/image-to-text", methods=["GET","POST"])
 def image_to_text():
 
     text = ""
+    error = ""
 
     if request.method == "POST":
-        file = request.files.get("image")
 
-        if file:
-            img = Image.open(file)
-            text = pytesseract.image_to_string(img)
+        try:
+            if "image" not in request.files:
+                return render_template("image_to_text.html",
+                                       error="Please upload image",
+                                       text="")
 
-    return render_template("image_to_text.html", text=text)
+            file = request.files["image"]
+
+            if file.filename == "":
+                return render_template("image_to_text.html",
+                                       error="No file selected",
+                                       text="")
+
+            if not allowed_file(file.filename):
+                return render_template("image_to_text.html",
+                                       error="Only JPG, PNG, JPEG, WEBP allowed",
+                                       text="")
+
+            filename = secure_filename(file.filename)
+            path = os.path.join(app.config["UPLOAD_FOLDER"], filename)
+            file.save(path)
+
+            img = cv2.imread(path)
+
+            if img is None:
+                return render_template("image_to_text.html",
+                                       error="Invalid image",
+                                       text="")
+
+            gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+            gray = cv2.threshold(
+                gray,0,255,
+                cv2.THRESH_BINARY+cv2.THRESH_OTSU
+            )[1]
+
+            text = pytesseract.image_to_string(gray)
+
+        except Exception as e:
+            logging.error(str(e))
+            return render_template("image_to_text.html",
+                                   error="Server busy. Try again later.",
+                                   text="")
+
+    return render_template("image_to_text.html",
+                           text=text,
+                           error=error)
+
+
 # ================= QR CODE GENERATOR =================
 
 @app.route("/qr-code-generator", methods=["GET","POST"])
