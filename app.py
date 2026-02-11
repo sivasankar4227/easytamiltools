@@ -198,6 +198,8 @@ def percentage_calculator():
 def tools():
     return render_template("tools.html")
 
+# ================= text-counter =================
+
 @app.route("/text-counter", methods=["GET","POST"])
 def text_counter():
 
@@ -224,6 +226,7 @@ def text_counter():
         line_count=line_count
     )
 
+# ================= date-difference =================
 
 @app.route("/date-difference", methods=["GET","POST"])
 def date_difference():
@@ -247,6 +250,8 @@ def date_difference():
         date1=date1,
         date2=date2
     )
+
+# ================= case-converter =================
 
 @app.route("/case-converter", methods=["GET","POST"])
 def case_converter():
@@ -272,7 +277,7 @@ def case_converter():
         result=result,
         action=action
     )
-
+# ================= number-to-words =================
 @app.route("/number-to-words", methods=["GET","POST"])
 def number_to_words():
 
@@ -295,6 +300,8 @@ def number_to_words():
         number=number,
         lang=lang
     )
+# ================= unit-converter =================
+
 @app.route("/unit-converter", methods=["GET","POST"])
 def unit_converter():
 
@@ -357,7 +364,7 @@ def unit_converter():
         unit=unit
     )
 
-# image to text codes 
+# =================image-to-text =================
 @app.route("/image-to-text", methods=["GET","POST"])
 def image_to_text():
 
@@ -366,52 +373,24 @@ def image_to_text():
 
     if request.method == "POST":
 
+        file = request.files.get("image")
+
+        if not file or file.filename == "":
+            error = "Please select an image file"
+            return render_template("image_to_text.html", text="", error=error)
+
         try:
-            if "image" not in request.files:
-                return render_template("image_to_text.html",
-                                       error="Please upload image",
-                                       text="")
+            img = Image.open(file)
 
-            file = request.files["image"]
+            text = pytesseract.image_to_string(img, lang="eng")
 
-            if file.filename == "":
-                return render_template("image_to_text.html",
-                                       error="No file selected",
-                                       text="")
+            if text.strip() == "":
+                error = "No readable text found in image"
 
-            if not allowed_file(file.filename):
-                return render_template("image_to_text.html",
-                                       error="Only JPG, PNG, JPEG, WEBP allowed",
-                                       text="")
+        except:
+            error = "Unable to process this image"
 
-            filename = secure_filename(file.filename)
-            path = os.path.join(app.config["UPLOAD_FOLDER"], filename)
-            file.save(path)
-
-            img = cv2.imread(path)
-
-            if img is None:
-                return render_template("image_to_text.html",
-                                       error="Invalid image",
-                                       text="")
-
-            gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-            gray = cv2.threshold(
-                gray,0,255,
-                cv2.THRESH_BINARY+cv2.THRESH_OTSU
-            )[1]
-
-            text = pytesseract.image_to_string(gray)
-
-        except Exception as e:
-            logging.error(str(e))
-            return render_template("image_to_text.html",
-                                   error="Server busy. Try again later.",
-                                   text="")
-
-    return render_template("image_to_text.html",
-                           text=text,
-                           error=error)
+    return render_template("image_to_text.html", text=text, error=error)
 
 
 # ================= QR CODE GENERATOR =================
