@@ -9,10 +9,8 @@ import qrcode
 import cv2
 from werkzeug.utils import secure_filename
 import logging
-
-
-
-pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+import shutil
+pytesseract.pytesseract.tesseract_cmd = shutil.which("tesseract")
 
 
 app = Flask(__name__)
@@ -20,9 +18,6 @@ app.config["MAX_CONTENT_LENGTH"] = 5 * 1024 * 1024
 app.config["UPLOAD_FOLDER"] = "uploads"
 
 
-# ================= CONFIG =================
-# Uncomment if Tesseract not detected
-# pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 
 ALLOWED_EXTENSIONS = {"png","jpg","jpeg","webp"}
 os.makedirs("uploads", exist_ok=True)
@@ -365,32 +360,32 @@ def unit_converter():
     )
 
 # =================image-to-text =================
-@app.route("/image-to-text", methods=["GET","POST"])
+@app.route("/image-to-text", methods=["GET", "POST"])
 def image_to_text():
 
     text = ""
     error = ""
 
     if request.method == "POST":
-
         file = request.files.get("image")
 
-        if not file or file.filename == "":
-            error = "Please select an image file"
-            return render_template("image_to_text.html", text="", error=error)
+        if not file:
+            error = "Please upload an image file."
+        else:
+            try:
+                img = Image.open(file)
+                img = img.convert("RGB")   # important
+                text = pytesseract.image_to_string(img)
 
-        try:
-            img = Image.open(file)
+                if text.strip() == "":
+                    error = "No readable text found in image."
 
-            text = pytesseract.image_to_string(img, lang="eng")
-
-            if text.strip() == "":
-                error = "No readable text found in image"
-
-        except:
-            error = "Unable to process this image"
+            except Exception as e:
+                print("OCR ERROR:", e)
+                error = "Unable to process this image. Try another image."
 
     return render_template("image_to_text.html", text=text, error=error)
+
 
 
 # ================= QR CODE GENERATOR =================
@@ -521,5 +516,6 @@ def search():
 
 
 # ================= RUN =================
-if __name__=="__main__":
-    app.run(debug=True)
+if __name__ == "__main__":
+    print("Starting EasyTamilTools Server...")
+    app.run(host="127.0.0.1", port=5000, debug=True, use_reloader=False)
