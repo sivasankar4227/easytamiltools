@@ -155,3 +155,15 @@ INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 12:55:33] "GET /image-to-text HTTP/1.1"
 INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 12:55:33] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
 INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 12:55:41] "POST /image-to-text HTTP/1.1" 200 -
 INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 12:55:41] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 13:44:21] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 13:44:21] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 13:44:25] "GET /tools HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 13:44:25] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 13:44:29] "[33mGET /image-to-text HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 13:44:54] "GET /tools HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 13:44:54] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 13:45:23] "GET /tools HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 13:45:23] "[36mGET /static/style.css HTTP/1.1[0m" 304 -

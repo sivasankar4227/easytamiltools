@@ -1,7 +1,7 @@
 flask
-pytesseract
+# pytesseract
 pillow
-opencv-python-headless
+# opencv-python-headless
 werkzeug
 qrcode
 num2words

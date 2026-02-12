@@ -1,17 +1,13 @@
 from flask import Flask, render_template, request, Response, send_from_directory
 from datetime import date
 from PIL import Image
-# import pytesseract
 import os
 from num2words import num2words
-import pytesseract
-pytesseract.pytesseract.tesseract_cmd = "/usr/bin/tesseract"
 import qrcode
 import cv2
 from werkzeug.utils import secure_filename
 import logging
-# import shutil
-# pytesseract.pytesseract.tesseract_cmd = shutil.which("tesseract")
+
 
 
 app = Flask(__name__)
@@ -360,34 +356,6 @@ def unit_converter():
         unit=unit
     )
 
-# =================image-to-text =================
-@app.route("/image-to-text", methods=["GET", "POST"])
-def image_to_text():
-
-    text = ""
-    error = ""
-
-    if request.method == "POST":
-        file = request.files.get("image")
-
-        if not file:
-            error = "Please upload an image file."
-        else:
-            try:
-                img = Image.open(file)
-                img = img.convert("RGB")   # important
-                text = pytesseract.image_to_string(img)
-
-                if text.strip() == "":
-                    error = "No readable text found in image."
-
-            except Exception as e:
-                print("OCR ERROR:", e)
-                error = "Unable to process this image. Try another image."
-
-    return render_template("image_to_text.html", text=text, error=error)
-
-
 
 # ================= QR CODE GENERATOR =================
 
@@ -495,7 +463,6 @@ def search():
 
         # Tools
         {"name": "Text Counter", "url": "/text-counter"},
-        {"name": "Image to Text", "url": "/image-to-text"},
         {"name": "QR Code Generator", "url": "/qr-code-generator"},
 
         # Legal & Info
