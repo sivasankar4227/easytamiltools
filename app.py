@@ -4,7 +4,6 @@ from PIL import Image
 import os
 from num2words import num2words
 import qrcode
-import cv2
 from werkzeug.utils import secure_filename
 import logging
 
