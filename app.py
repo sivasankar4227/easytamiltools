@@ -5,12 +5,13 @@ from PIL import Image
 import os
 from num2words import num2words
 import pytesseract
+pytesseract.pytesseract.tesseract_cmd = "/usr/bin/tesseract"
 import qrcode
 import cv2
 from werkzeug.utils import secure_filename
 import logging
-import shutil
-pytesseract.pytesseract.tesseract_cmd = shutil.which("tesseract")
+# import shutil
+# pytesseract.pytesseract.tesseract_cmd = shutil.which("tesseract")
 
 
 app = Flask(__name__)
