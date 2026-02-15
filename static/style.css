@@ -182,7 +182,7 @@ ul{
 .hero-links a,
 .internal-links a{
   margin:5px;
-  color:#007bff;
+  color:#ffee00;
   text-decoration:none;
   font-weight:500;
 }
@@ -191,7 +191,26 @@ ul{
 .internal-links a:hover{
   text-decoration:underline;
 }
+/* Hover Motion + Glow */
+.hero-links a:hover{
+  color:#ff5722;
+  transform: translateY(-4px) scale(1.07);
+  text-shadow: 0 0 6px rgba(255,87,34,0.8),
+               0 0 12px rgba(255,87,34,0.6);
+  animation: glowPulse 1s infinite alternate;
+}
 
+/* Glow Pulse Animation */
+@keyframes glowPulse{
+  from{
+    text-shadow: 0 0 5px rgba(255,87,34,0.5),
+                 0 0 10px rgba(255,87,34,0.4);
+  }
+  to{
+    text-shadow: 0 0 10px rgba(255,87,34,0.9),
+                 0 0 18px rgba(255,87,34,0.8);
+  }
+}
 /* ==========================================
    FEATURES
 ========================================== */
