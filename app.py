@@ -1,42 +1,61 @@
-from flask import Flask, render_template, request, Response, send_from_directory
-from datetime import date
+from flask import Flask, render_template, request, Response, redirect, url_for ,send_file
+from datetime import date, datetime
 from PIL import Image
 import os
 from num2words import num2words
 import qrcode
-from werkzeug.utils import secure_filename
 import logging
+from werkzeug.utils import secure_filename
+from pdf2docx import Converter
+import uuid
 
 
 
 app = Flask(__name__)
+
+# ================= CONFIG =================
 app.config["MAX_CONTENT_LENGTH"] = 5 * 1024 * 1024
 app.config["UPLOAD_FOLDER"] = "uploads"
-
-
-
-ALLOWED_EXTENSIONS = {"png","jpg","jpeg","webp"}
+app.config["OUTPUT_FOLDER"] = "output"
 os.makedirs("uploads", exist_ok=True)
+os.makedirs("output", exist_ok=True)
 
-logging.basicConfig(
-    filename="error.log",
-    level=logging.ERROR
-)
+logging.basicConfig(filename="error.log", level=logging.ERROR)
 
-def allowed_file(filename):
-    return "." in filename and \
-           filename.rsplit(".",1)[1].lower() in ALLOWED_EXTENSIONS
-
+REVIEWS_FILE = "reviews.txt"
 
 # ================= HOME =================
 @app.route("/")
 def home():
-    return render_template("index.html")
+    reviews = []
+
+    if os.path.exists(REVIEWS_FILE):
+        with open(REVIEWS_FILE, "r", encoding="utf-8") as f:
+            for line in f:
+                parts = line.strip().split("|")
+                if len(parts) == 3:
+                    reviews.append({
+                        "name": parts[0],
+                        "review": parts[1],
+                        "rating": parts[2]
+                    })
+
+    return render_template("index.html", reviews=reviews)
+
+# ================= ADD REVIEW =================
+@app.route("/add-review", methods=["POST"])
+def add_review():
+    name = request.form.get("name")
+    review = request.form.get("review")
+    rating = request.form.get("rating")
+
+    if name and review and rating:
+        with open(REVIEWS_FILE, "a", encoding="utf-8") as f:
+            f.write(f"{name}|{review}|{rating}\n")
+
+    return redirect("/")
 
 # ================= SITEMAP =================
-from flask import url_for
-from datetime import datetime
-
 @app.route("/sitemap.xml")
 def sitemap():
     pages = []
@@ -46,20 +65,19 @@ def sitemap():
             if not rule.rule.startswith("/static"):
                 pages.append(url_for(rule.endpoint, _external=True))
 
-    sitemap_xml = """<?xml version="1.0" encoding="UTF-8"?>
+    xml = """<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">"""
 
     for page in pages:
-        sitemap_xml += f"""
-    <url>
-        <loc>{page}</loc>
-        <lastmod>{datetime.now().date()}</lastmod>
-        <priority>0.8</priority>
-    </url>"""
+        xml += f"""
+<url>
+<loc>{page}</loc>
+<lastmod>{datetime.now().date()}</lastmod>
+<priority>0.8</priority>
+</url>"""
 
-    sitemap_xml += "\n</urlset>"
-
-    return Response(sitemap_xml, mimetype="application/xml")
+    xml += "</urlset>"
+    return Response(xml, mimetype="application/xml")
 
 @app.route("/robots.txt")
 def robots():
@@ -74,27 +92,17 @@ def letters():
 def school_leave():
     return render_template("school_leave_letter.html")
 
-# @app.route("/letters/sick-leave")
-# def sick_leave():
-#     return render_template("sick_leave_letter.html")
-
-
 @app.route("/letters/office-leave")
 def office_leave():
     return render_template("office_leave_letter.html")
-
 
 @app.route("/letters/bank-close")
 def bank_close():
     return render_template("bank_close_letter.html")
 
-
-# @app.route("/letters/aadhaar-correction")
-# def aadhaar_correction():
-#     return render_template("aadhaar_correction_letter.html")
-
-
 # ================= CALCULATORS =================
+
+# ================= CALCULATORS HOME =================
 @app.route("/calculators")
 def calculators():
     return render_template("calculators.html")
@@ -120,7 +128,6 @@ def age_calculator():
 
 @app.route("/emi-calculator", methods=["GET","POST"])
 def emi_calculator():
-
     emi=None
     interest=None
     total=None
@@ -136,131 +143,106 @@ def emi_calculator():
         total=round(emi*months,2)
         interest=round(total-principal,2)
 
-    return render_template(
-        "emi_calculator.html",
-        emi=emi,
-        interest=interest,
-        total=total,
-        principal=principal
-    )
-
-# ================= BMI CALCULATOR =================
-@app.route("/bmi-calculator", methods=["GET","POST"])
-def bmi_calculator():
-    bmi = None
-    category = ""
-
-    if request.method == "POST":
-        weight = float(request.form["weight"])
-        height = float(request.form["height"]) / 100  # cm to meter
-        bmi = round(weight / (height * height), 2)
-
-        if bmi < 18.5:
-            category = "Underweight"
-        elif bmi < 25:
-            category = "Normal"
-        elif bmi < 30:
-            category = "Overweight"
-        else:
-            category = "Obese"
-
-    return render_template("bmi_calculator.html", bmi=bmi, category=category)
+    return render_template("emi_calculator.html",
+        emi=emi,interest=interest,total=total,principal=principal)
 
 
-# ================= PERCENTAGE CALCULATOR =================
+
 @app.route("/percentage-calculator", methods=["GET","POST"])
 def percentage_calculator():
-    result = None
-
-    if request.method == "POST":
-        value = float(request.form["value"])
-        total = float(request.form["total"])
-
-        if total == 0:
-            result = "error"
-        else:
-            result = round((value / total) * 100, 2)
-
-    return render_template("percentage_calculator.html", result=result)
-
+    result=None
+    if request.method=="POST":
+        value=float(request.form["value"])
+        total=float(request.form["total"])
+        result=round((value/total)*100,2) if total!=0 else "error"
+    return render_template("percentage_calculator.html",result=result)
 
 # ================= TOOLS =================
+# ================= TOOLS HOME =================
 @app.route("/tools")
 def tools():
     return render_template("tools.html")
 
-# ================= text-counter =================
+# -------------------------------
+# TAMIL PDF TO WORD CONVERTER
+# -------------------------------
+
+@app.route("/tamil-pdf-to-word", methods=["GET","POST"])
+def tamil_pdf_to_word():
+
+    if request.method == "POST":
+
+        file = request.files.get("pdf_file")
+
+        if file:
+
+            filename = secure_filename(file.filename)
+            unique = str(uuid.uuid4())
+
+            pdf_path = os.path.join(
+                app.config["UPLOAD_FOLDER"],
+                unique + ".pdf"
+            )
+
+            docx_path = os.path.join(
+                app.config["OUTPUT_FOLDER"],
+                unique + ".docx"
+            )
+
+            file.save(pdf_path)
+
+            try:
+                cv = Converter(pdf_path)
+                cv.convert(docx_path)
+                cv.close()
+
+                return send_file(docx_path, as_attachment=True)
+
+            except Exception as e:
+                return f"Conversion Failed: {e}"
+
+    return render_template("tamil_pdf_to_word.html")
+# -------------------------------
+# text-counter
+# -------------------------------
 
 @app.route("/text-counter", methods=["GET","POST"])
 def text_counter():
+    text=""
+    word_count=char_count=char_no_space=line_count=0
 
-    text = ""
-    word_count = 0
-    char_count = 0
-    char_no_space = 0
-    line_count = 0
+    if request.method=="POST":
+        text=request.form.get("text","")
+        word_count=len(text.split())
+        char_count=len(text)
+        char_no_space=len(text.replace(" ",""))
+        line_count=len(text.splitlines())
 
-    if request.method == "POST":
-        text = request.form.get("text","")
-
-        word_count = len(text.split())
-        char_count = len(text)
-        char_no_space = len(text.replace(" ", ""))
-        line_count = len(text.splitlines())
-
-    return render_template(
-        "text_counter.html",
-        text=text,
-        word_count=word_count,
+    return render_template("text_counter.html",
+        text=text,word_count=word_count,
         char_count=char_count,
         char_no_space=char_no_space,
-        line_count=line_count
-    )
+        line_count=line_count)
 
-# ================= date-difference =================
-
-@app.route("/date-difference", methods=["GET","POST"])
-def date_difference():
-
-    diff = None
-    date1 = ""
-    date2 = ""
-
-    if request.method == "POST":
-        date1 = request.form.get("date1")
-        date2 = request.form.get("date2")
-
-        if date1 and date2:
-            d1 = date.fromisoformat(date1)
-            d2 = date.fromisoformat(date2)
-            diff = abs((d2 - d1).days)
-
-    return render_template(
-        "date_difference.html",
-        diff=diff,
-        date1=date1,
-        date2=date2
-    )
-
-# ================= case-converter =================
-
+# -------------------------------
+# CASE CONVERTER
+# -------------------------------
 @app.route("/case-converter", methods=["GET","POST"])
 def case_converter():
+    text=""
+    result=""
+    action="upper"
 
-    text = ""
-    result = ""
-    action = "upper"
+    if request.method=="POST":
+        text=request.form.get("text","")
+        action=request.form.get("action")
 
-    if request.method == "POST":
-        text = request.form.get("text","")
-        action = request.form.get("action")
-
-        if action == "upper":
-            result = text.upper()
-        elif action == "lower":
-            result = text.lower()
-        else:
-            result = text.title()
+        if action=="upper":
+            result=text.upper()
+        elif action=="lower":
+            result=text.lower()
+        elif action=="title":
+            result=text.title()
 
     return render_template(
         "case_converter.html",
@@ -268,125 +250,141 @@ def case_converter():
         result=result,
         action=action
     )
-# ================= number-to-words =================
-@app.route("/number-to-words", methods=["GET","POST"])
-def number_to_words():
 
-    result = None
-    number = ""
-    lang = "en"
 
-    if request.method == "POST":
-        number = request.form["number"]
-        lang = request.form["lang"]
-
-        try:
-            result = num2words(int(number), lang=lang).title()
-        except:
-            result = "coming soon"
-
-    return render_template(
-        "number_to_words.html",
-        result=result,
-        number=number,
-        lang=lang
-    )
-# ================= unit-converter =================
-
+# -------------------------------
+# UNIT CONVERTER
+# -------------------------------
 @app.route("/unit-converter", methods=["GET","POST"])
 def unit_converter():
+    value=None
+    unit=""
+    result=None
 
-    result = None
-    value = ""
-    unit = ""
+    if request.method=="POST":
+        value=float(request.form.get("value"))
+        unit=request.form.get("unit")
 
-    if request.method == "POST":
-        value = float(request.form["value"])
-        unit = request.form["unit"]
+        if unit=="cm_to_m":
+            result=value/100
+        elif unit=="m_to_cm":
+            result=value*100
+        elif unit=="m_to_ft":
+            result=value*3.28084
+        elif unit=="ft_to_m":
+            result=value/3.28084
+        elif unit=="km_to_mile":
+            result=value*0.621371
+        elif unit=="mile_to_km":
+            result=value/0.621371
+        elif unit=="inch_to_cm":
+            result=value*2.54
+        elif unit=="cm_to_inch":
+            result=value/2.54
+        elif unit=="kg_to_g":
+            result=value*1000
+        elif unit=="g_to_kg":
+            result=value/1000
+        elif unit=="pound_to_kg":
+            result=value*0.453592
+        elif unit=="kg_to_pound":
+            result=value*2.20462
+        elif unit=="c_to_f":
+            result=(value*9/5)+32
+        elif unit=="f_to_c":
+            result=(value-32)*5/9
 
-        if unit == "cm_to_m":
-            result = value / 100
-
-        elif unit == "m_to_cm":
-            result = value * 100
-
-        elif unit == "m_to_ft":
-            result = value * 3.28084
-
-        elif unit == "ft_to_m":
-            result = value / 3.28084
-
-        elif unit == "km_to_mile":
-            result = value * 0.621371
-
-        elif unit == "mile_to_km":
-            result = value / 0.621371
-
-        elif unit == "inch_to_cm":
-            result = value * 2.54
-
-        elif unit == "cm_to_inch":
-            result = value / 2.54
-
-        elif unit == "kg_to_g":
-            result = value * 1000
-
-        elif unit == "g_to_kg":
-            result = value / 1000
-
-        elif unit == "pound_to_kg":
-            result = value * 0.453592
-
-        elif unit == "kg_to_pound":
-            result = value * 2.20462
-
-        elif unit == "c_to_f":
-            result = (value * 9/5) + 32
-
-        elif unit == "f_to_c":
-            result = (value - 32) * 5/9
-
-        result = round(result, 4)
+        result=round(result,4)
 
     return render_template(
         "unit_converter.html",
-        result=result,
         value=value,
-        unit=unit
+        unit=unit,
+        result=result
     )
 
 
-# ================= QR CODE GENERATOR =================
+# -------------------------------
+# NUMBER TO WORDS
+# -------------------------------
+from num2words import num2words
+
+@app.route("/number-to-words", methods=["GET","POST"])
+def number_to_words():
+    number=None
+    result=""
+    lang="en"
+
+    if request.method=="POST":
+        number=request.form.get("number")
+        lang=request.form.get("lang")
+
+        if number:
+            if lang=="ta":
+                result=num2words(int(number), lang="ta")
+            else:
+                result=num2words(int(number), lang="en")
+
+    return render_template(
+        "number_to_words.html",
+        number=number,
+        result=result,
+        lang=lang
+    )
+
+# -------------------------------
+# qr-code-generator
+# -------------------------------
 
 @app.route("/qr-code-generator", methods=["GET","POST"])
 def qr_code_generator():
+    qr_image=None
+    data=""
 
-    qr_image = None
-    data = ""
-
-    if request.method == "POST":
-        data = request.form.get("data")
-
+    if request.method=="POST":
+        data=request.form.get("data")
         if data:
-            img = qrcode.make(data)
+            img=qrcode.make(data)
+            path="static/qr_code.png"
+            img.save(path)
+            qr_image=path
 
-            save_path = "static/qr_code.png"
-            img.save(save_path)
+    return render_template("qr_code_generator.html",
+        qr_image=qr_image,data=data)
 
-            qr_image = save_path
+# -------------------------------
+# IMAGE COMPRESSOR
+# -------------------------------
+
+
+@app.route("/image-compressor", methods=["GET","POST"])
+def image_compressor():
+
+    compressed_image=None
+
+    if request.method=="POST":
+
+        file=request.files.get("image")
+
+        if file:
+
+            filename=secure_filename(file.filename)
+            input_path=os.path.join("static/uploads", filename)
+            output_path=os.path.join("static/compressed", filename)
+
+            file.save(input_path)
+
+            img=Image.open(input_path)
+            img.save(output_path, optimize=True, quality=60)
+
+            compressed_image=output_path
 
     return render_template(
-        "qr_code_generator.html",
-        qr_image=qr_image,
-        data=data,
-        title="QR Code Generator - Easy Tamil Tools",
-        description="Free Online QR Code Generator. Create QR codes for text, URL, phone number and download instantly.",
-        keywords="qr code generator online, free qr generator, tamil qr tool"
+        "image_compressor.html",
+        compressed_image=compressed_image
     )
 
-
-# ================= LEGAL PAGES =================
-
+# ================= LEGAL =================
 @app.route("/privacy")
 def privacy():
     return render_template("privacy.html")
@@ -399,20 +397,13 @@ def terms():
 def disclaimer():
     return render_template("disclaimer.html")
 
-@app.route("/contact", methods=["GET", "POST"])
-def contact():
-    if request.method == "POST":
-        name = request.form.get("name")
-        email = request.form.get("email")
-        message = request.form.get("message")
-        print(name, email, message)   # Later save to DB or email
-    return render_template(
-        "contact.html",
-        title="Contact Us - Easy Tamil Tools",
-        description="Contact Easy Tamil Tools for queries, suggestions and support.",
-        keywords="contact easy tamil tools"
-    )
+@app.route("/about")
+def about():
+    return render_template("about.html")
 
+@app.route("/contact")
+def contact():
+    return render_template("contact.html")
 
 @app.route("/feedback", methods=["GET", "POST"])
 def feedback():
@@ -421,68 +412,10 @@ def feedback():
         email = request.form.get("email")
         feedback_text = request.form.get("feedback")
         print(name, email, feedback_text)
-    return render_template(
-        "feedback.html",
-        title="Feedback - Easy Tamil Tools",
-        description="Send your feedback and suggestions to Easy Tamil Tools.",
-        keywords="feedback easy tamil tools"
-    )
-# about us codes
-@app.route("/about")
-def about():
-    return render_template("about.html",
-                           title="About Us - Easy Tamil Tools",
-                           description="Learn more about Easy Tamil Tools and our mission to provide free Tamil online utilities.",
-                           keywords="about easy tamil tools, tamil tools website, free tamil utilities")
-
-# search option codes 
-# ================= SEARCH =================
-@app.route("/search", methods=["GET"])
-def search():
-    query = request.args.get("q", "").strip()
-    results = []
-
-    # List of searchable pages in your app
-    pages = [
-        # Letters
-        {"name": "Letters", "url": "/letters"},
-        {"name": "School Leave Letter", "url": "/letters/school-leave"},
-        {"name": "Office Leave Letter", "url": "/letters/office-leave"},
-        {"name": "Bank Close Letter", "url": "/letters/bank-close"},
-
-        # Calculators
-        {"name": "Age Calculator", "url": "/age-calculator"},
-        {"name": "EMI Calculator", "url": "/emi-calculator"},
-        {"name": "BMI Calculator", "url": "/bmi-calculator"},
-        {"name": "Percentage Calculator", "url": "/percentage-calculator"},
-        {"name": "Unit Converter", "url": "/unit-converter"},
-        {"name": "Date Difference Calculator", "url": "/date-difference"},
-        {"name": "Case Converter", "url": "/case-converter"},
-        {"name": "Number to Words", "url": "/number-to-words"},
-
-        # Tools
-        {"name": "Text Counter", "url": "/text-counter"},
-        {"name": "QR Code Generator", "url": "/qr-code-generator"},
-
-        # Legal & Info
-        {"name": "Privacy Policy", "url": "/privacy"},
-        {"name": "Terms & Conditions", "url": "/terms"},
-        {"name": "Disclaimer", "url": "/disclaimer"},
-        {"name": "About Us", "url": "/about"},
-        {"name": "Contact", "url": "/contact"},
-        {"name": "Feedback", "url": "/feedback"},
-    ]
-
-    # Simple search: check if query is in page name (case-insensitive)
-    if query:
-        results = [page for page in pages if query.lower() in page["name"].lower()]
-
-    return render_template("search_results.html", query=query, results=results)
-
-
+    return render_template("feedback.html")
 
 
 # ================= RUN =================
 if __name__ == "__main__":
     print("Starting EasyTamilTools Server...")
-    app.run(host="127.0.0.1", port=5000, debug=True, use_reloader=False)
+    app.run(debug=True)

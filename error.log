@@ -167,3 +167,505 @@ INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 13:44:54] "GET /tools HTTP/1.1" 200 -
 INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 13:44:54] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
 INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 13:45:23] "GET /tools HTTP/1.1" 200 -
 INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 13:45:23] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 623-361-361
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 21:32:28] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 21:32:28] "GET /static/style.css HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 21:32:30] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 21:37:27] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 21:37:27] "GET /static/style.css HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 21:37:58] "[33mGET /tools HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 21:38:07] "[33mGET /tools HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 21:38:12] "[33mGET /tools HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 21:38:17] "[33mGET /tools HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 21:38:23] "GET /emi-calculator HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 21:38:23] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 21:38:27] "GET /letters/office-leave HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 21:38:27] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 21:38:41] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 21:38:41] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 21:38:44] "GET /about HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 21:38:44] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 21:38:49] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 21:38:49] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 21:38:55] "[33mGET /tools HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 21:39:01] "GET /letters HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 21:39:01] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 21:39:05] "[33mGET /tools HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 21:39:09] "[33mGET /calculators HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 21:39:19] "GET /qr-code-generator HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 21:39:19] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 21:39:24] "GET /text-counter HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 21:39:24] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 21:39:32] "[33mGET /tools HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 21:40:39] "[33mGET /tools HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 21:40:43] "[33mGET /calculators HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 21:40:47] "GET /letters HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 21:40:47] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 21:41:28] "GET /letters HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 21:41:28] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 21:41:31] "GET /letters/school-leave HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 21:41:31] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 21:41:35] "[33mGET /calculators HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 21:41:39] "[33mGET /tools HTTP/1.1[0m" 404 -
+INFO:werkzeug: * Detected change in 'D:\\easytamiltools\\app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 623-361-361
+INFO:werkzeug: * Detected change in 'D:\\easytamiltools\\app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 623-361-361
+INFO:werkzeug: * Detected change in 'D:\\easytamiltools\\app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 623-361-361
+INFO:werkzeug: * Detected change in 'D:\\easytamiltools\\app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 623-361-361
+INFO:werkzeug: * Detected change in 'D:\\easytamiltools\\app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 623-361-361
+INFO:werkzeug: * Detected change in 'D:\\easytamiltools\\app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 623-361-361
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 623-361-361
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 21:45:58] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 21:45:58] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 21:46:00] "GET /tools HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 21:46:00] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 21:46:03] "GET /qr-code-generator HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 21:46:03] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 21:46:08] "GET /calculators HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 21:46:08] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 21:46:14] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 21:46:14] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 21:46:36] "[32mPOST /add-review HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 21:46:36] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 21:46:36] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 21:46:56] "GET /tools HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 21:46:56] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 21:47:12] "GET /tools HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 21:47:12] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 21:50:23] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 21:50:23] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 21:50:26] "GET /letters HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 21:50:26] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 21:50:32] "GET /letters/school-leave HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Feb/2026 21:50:32] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 623-361-361
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:00:49] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:00:49] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:00:50] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:01:12] "GET /letters HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:01:12] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:05:50] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:05:50] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:05:52] "GET /calculators HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:05:52] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:06:00] "GET /tools HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:06:00] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:08:25] "GET /tools HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:08:25] "GET /static/style.css HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:08:36] "GET /text-counter HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:08:36] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:08:40] "GET /letters HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:08:40] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:08:45] "GET /calculators HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:08:45] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:08:54] "GET /tools HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:08:54] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:08:59] "GET /letters HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:08:59] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:09:11] "GET /privacy HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:09:11] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:09:22] "GET /terms HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:09:22] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:11:44] "GET /terms HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:11:44] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:11:48] "GET /terms HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:11:48] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:11:50] "GET /privacy HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:11:50] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:14:21] "GET /privacy HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:14:21] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:14:24] "GET /disclaimer HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:14:24] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:14:28] "GET /disclaimer HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:14:28] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:14:33] "GET /terms HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:14:33] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:16:08] "GET /terms HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:16:08] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:16:09] "GET /terms HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:16:09] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:16:14] "GET /disclaimer HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:16:14] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:16:20] "GET /contact HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:16:20] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:18:11] "GET /contact HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:18:11] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:18:14] "GET /contact HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:18:14] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:18:25] "[33mGET /feedback HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:18:30] "GET /about HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:18:30] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:20:00] "GET /about HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:20:00] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:20:10] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:20:10] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:20:21] "[33mGET /feedback HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:23:20] "[33mGET /feedback HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:23:20] "[33mGET /feedback HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:23:24] "[33mGET /feedback HTTP/1.1[0m" 404 -
+INFO:werkzeug: * Detected change in 'D:\\easytamiltools\\app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 623-361-361
+INFO:werkzeug: * Detected change in 'D:\\easytamiltools\\app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 623-361-361
+INFO:werkzeug: * Detected change in 'D:\\easytamiltools\\app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 623-361-361
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:25:00] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:25:00] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:25:02] "GET /feedback HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:25:02] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:25:16] "GET /letters HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:25:16] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:25:19] "GET /calculators HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:25:19] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:25:32] "GET /tools HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:25:32] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:25:41] "GET /about HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:25:41] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:25:44] "GET /letters HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:25:44] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:25:47] "GET /letters HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:25:47] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:25:50] "GET /letters/school-leave HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:25:50] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:27:59] "GET /letters/school-leave HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:27:59] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:28:14] "GET /letters HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:28:14] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:29:28] "GET /letters HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:29:28] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:29:29] "GET /letters/office-leave HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:29:29] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:29:33] "GET /letters HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:29:33] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:31:03] "GET /letters HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:31:03] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:31:05] "GET /letters/bank-close HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:31:05] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:35:08] "GET /letters/bank-close HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:35:08] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:35:09] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:35:09] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:35:14] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:35:14] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:48:04] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:48:04] "GET /static/style.css HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:48:06] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:48:06] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:48:07] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:48:07] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:48:24] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:48:24] "GET /static/style.css HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:52:02] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:52:02] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:53:00] "GET /calculators HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:53:00] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:54:53] "GET /calculators HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:54:53] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:54:54] "GET /age-calculator HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:54:54] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:55:31] "GET /age-calculator HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:55:31] "GET /static/style.css HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:56:57] "GET /age-calculator HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:56:57] "GET /static/style.css HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:57:18] "POST /age-calculator HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:57:18] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 11:57:34] "GET /age-calculator HTTP/1.1" 200 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 623-361-361
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 22:15:51] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 22:15:51] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 22:15:54] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 22:15:57] "GET /calculators HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 22:15:57] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 22:16:02] "GET /age-calculator HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 22:16:02] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 22:20:11] "GET /calculators HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 22:20:11] "GET /static/style.css HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 22:20:13] "GET /age-calculator HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 22:20:13] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 22:20:49] "GET /calculators HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 22:20:49] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 22:20:52] "GET /percentage-calculator HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 22:20:52] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 22:22:29] "GET /percentage-calculator HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 22:22:29] "GET /static/style.css HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 22:22:34] "GET /calculators HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 22:22:34] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 22:22:37] "GET /age-calculator HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 22:22:37] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 22:22:41] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 22:22:41] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 22:22:51] "GET /calculators HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 22:22:51] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 22:23:01] "GET /age-calculator HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 22:23:01] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 22:28:21] "GET /age-calculator HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 22:28:21] "GET /static/style.css HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 22:28:23] "GET /age-calculator HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 22:28:23] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 22:29:31] "GET /age-calculator HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [13/Feb/2026 22:29:32] "GET /static/style.css HTTP/1.1" 200 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 623-361-361
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 11:41:51] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 11:41:51] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 11:41:52] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 11:41:54] "GET /calculators HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 11:41:54] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 11:41:56] "GET /age-calculator HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 11:41:56] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 11:44:03] "GET /age-calculator HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 11:44:03] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 11:44:13] "GET /calculators HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 11:44:13] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 11:44:16] "GET /percentage-calculator HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 11:44:16] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 11:46:22] "GET /percentage-calculator HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 11:46:22] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 11:48:57] "GET /percentage-calculator HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 11:48:57] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 11:49:21] "GET /calculators HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 11:49:21] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 11:51:03] "GET /emi-calculator HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 11:51:03] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 11:51:05] "GET /emi-calculator HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 11:51:05] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 11:51:25] "POST /emi-calculator HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 11:51:25] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 11:51:35] "GET /emi-calculator HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in 'D:\\easytamiltools\\app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 623-361-361
+INFO:werkzeug: * Detected change in 'D:\\easytamiltools\\app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 623-361-361
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 11:53:17] "GET /tools HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 11:53:17] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 11:53:21] "GET /text-counter HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 11:53:21] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 11:55:15] "GET /text-counter HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 11:55:15] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 11:55:29] "GET /tools HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 11:55:29] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 12:02:11] "GET /tools HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 12:02:11] "GET /static/style.css HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 12:02:14] "GET /text-counter HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 12:02:14] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 12:02:18] "[33mGET /case-converter HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 12:02:20] "[33mGET /unit-converter HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 12:02:23] "[33mGET /number-to-words HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 12:02:25] "GET /qr-code-generator HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 12:02:25] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 12:02:41] "POST /qr-code-generator HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 12:02:41] "GET /static/qr_code.png HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 12:02:41] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 12:02:45] "GET /qr-code-generator HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 12:02:45] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 12:02:51] "GET /tools HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 12:02:51] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 12:02:53] "[33mGET /unit-converter HTTP/1.1[0m" 404 -
+INFO:werkzeug: * Detected change in 'D:\\easytamiltools\\app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 623-361-361
+INFO:werkzeug: * Detected change in 'D:\\easytamiltools\\app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 623-361-361
+INFO:werkzeug: * Detected change in 'D:\\easytamiltools\\app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 623-361-361
+INFO:werkzeug: * Detected change in 'D:\\easytamiltools\\app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 623-361-361
+INFO:werkzeug: * Detected change in 'D:\\easytamiltools\\app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 623-361-361
+INFO:werkzeug: * Detected change in 'D:\\easytamiltools\\app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 623-361-361
+INFO:werkzeug: * Detected change in 'D:\\easytamiltools\\app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 623-361-361
+INFO:werkzeug: * Detected change in 'D:\\easytamiltools\\app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 623-361-361
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 12:06:55] "GET /tools HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 12:06:55] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 12:06:56] "GET /case-converter HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 12:06:56] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 12:07:00] "GET /unit-converter HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 12:07:01] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 12:07:03] "GET /number-to-words HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 12:07:03] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 623-361-361
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 12:18:07] "GET /tools HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 12:18:07] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 12:18:13] "GET /image-compressor HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 12:18:13] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 12:19:44] "GET /image-compressor HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 12:19:44] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 12:19:55] "POST /image-compressor HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 12:19:55] "GET /static/compressed/download.png HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 12:19:55] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 12:20:02] "GET /static/compressed/download.png HTTP/1.1" 200 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 623-361-361
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 623-361-361
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 17:59:18] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 17:59:18] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 17:59:19] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 17:59:21] "GET /tools HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 17:59:21] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 17:59:24] "GET /tamil-typing HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 17:59:24] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 18:03:15] "GET /tamil-typing HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 18:03:15] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 18:03:28] "GET /tamil-typing HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 18:03:28] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 18:03:58] "GET /tamil-typing HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 18:03:58] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 18:04:14] "GET /tamil-typing HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 18:04:14] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 18:06:32] "GET /tamil-typing HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 18:06:32] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 623-361-361
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 18:07:19] "GET /tamil-typing HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 18:07:19] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 18:10:00] "GET /tamil-typing HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 18:10:01] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 18:12:00] "GET /tamil-typing HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 18:12:00] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 623-361-361
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 18:12:39] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 18:12:40] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 18:12:43] "GET /tools HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 18:12:43] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 18:12:45] "GET /tamil-typing HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 18:12:45] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 18:14:29] "GET /tamil-typing HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 18:14:29] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 18:15:57] "GET /tamil-typing HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 18:15:57] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 18:16:06] "GET /tamil-typing HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 18:16:06] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 18:16:07] "GET /tamil-typing HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 18:16:07] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 18:17:45] "GET /tamil-typing HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 18:17:45] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 18:17:59] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 18:17:59] "[33mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 18:19:58] "GET /tamil-typing HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 18:19:59] "GET /static/style.css HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 18:19:59] "[33mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 18:20:12] "GET /tamil-typing HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 18:20:12] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 18:20:12] "[33mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 18:20:18] "GET /tamil-typing HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 18:20:18] "GET /static/style.css HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 18:20:18] "[33mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 18:22:15] "GET /tamil-typing HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 18:22:15] "GET /static/style.css HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 18:22:15] "[33mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 18:22:16] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 18:25:55] "GET /tamil-typing HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 18:25:55] "GET /static/style.css HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 18:25:55] "[33mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 18:25:58] "GET /tamil-typing HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 18:25:58] "GET /static/style.css HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 18:25:58] "[33mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 18:25:59] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug: * Detected change in 'D:\\easytamiltools\\app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 623-361-361
+INFO:werkzeug: * Detected change in 'D:\\easytamiltools\\app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 623-361-361
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 18:27:17] "[33mGET /tamil-typing HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 18:27:17] "[33mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 18:27:33] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 18:27:33] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 18:27:42] "GET /tools HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 18:27:42] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 18:27:45] "GET /image-compressor HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [14/Feb/2026 18:27:45] "[36mGET /static/style.css HTTP/1.1[0m" 304 -

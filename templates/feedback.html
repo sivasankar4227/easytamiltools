@@ -1,25 +1,43 @@
 {% extends "base.html" %}
 {% block content %}
 
-<section class="page-container">
-    <h1>Feedback</h1>
+<section class="page-container legal-page">
 
-    <p>We value your feedback. Please share your experience and suggestions and your needs to improve our website .</p>
+<h1 class="page-title">Feedback</h1>
 
-    <form method="POST" action="/feedback">
+<p class="legal-text">
+EasyTamilTools-ஐ மேலும் சிறப்பாக மாற்ற
+உங்கள் கருத்துகள் எங்களுக்கு மிகவும் முக்கியம்.
+இந்தப் பக்கத்தின் மூலம் உங்கள்
+feedback, suggestions மற்றும் ideas-ஐ
+எங்களுக்கு அனுப்பலாம்.
+</p>
 
-        <label>Your Name</label>
-        <input type="text" name="name" required>
+<div class="contact-box">
 
-        <label>Your Email</label>
-        <input type="email" name="email" required>
+<form method="POST" class="feedback-form">
 
-        <label>Your Feedback</label>
-        <textarea name="feedback" rows="5" required></textarea>
+<label>Your Name</label>
+<input type="text" name="name" placeholder="Enter your name" required>
 
-        <button type="submit">Submit Feedback</button>
+<label>Email Address</label>
+<input type="email" name="email" placeholder="Enter your email" required>
 
-    </form>
+<label>Your Feedback</label>
+<textarea name="feedback" rows="6"
+placeholder="Write your feedback here..." required></textarea>
+
+<button type="submit">Send Feedback</button>
+
+</form>
+
+</div>
+
+<p class="legal-text">
+நாங்கள் பொதுவாக 24–48 மணி நேரத்திற்குள்
+உங்களுக்கு பதிலளிப்போம்.
+</p>
+
 </section>
 
 {% endblock %}

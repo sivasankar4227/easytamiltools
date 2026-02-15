@@ -1,84 +1,128 @@
 {% extends "base.html" %}
-
-{% block title %}EMI Calculator – EasyTamilTools{% endblock %}
-
 {% block content %}
 
-<section class="calculator-page">
-<div class="emi-card">
+<section class="age-page emi-page">
 
-<h1>🏦 EMI Calculator</h1>
-<p class="subtitle">Calculate your monthly loan installment easily</p>
+  <!-- HERO + FORM WRAPPER -->
+  <div class="age-wrapper">
 
-<form method="post" class="emi-form">
+    <!-- LEFT INTRO -->
+    <div class="age-intro">
+      <h1>EMI Calculator – Loan EMI Calculator Tamil</h1>
 
-  <div class="input-grid">
-
-    <div class="input-group">
-      <label>Loan Amount (₹)</label>
-      <input type="number" name="principal" required>
+      <p>
+        உங்கள் கடன் தொகை, வட்டி விகிதம் மற்றும் கால அளவை
+        உள்ளிட்டு மாத தவணை (EMI) தொகையை
+        உடனடியாக கணக்கிடுங்கள்.
+      </p>
     </div>
 
-    <div class="input-group">
-      <label>Interest Rate (%)</label>
-      <input type="number" step="0.01" name="rate" required>
-    </div>
+    <!-- CALCULATOR CARD -->
+    <div class="age-card">
 
-    <div class="input-group">
-      <label>Loan Tenure (Years)</label>
-      <input type="number" name="years" required>
+      <form method="POST" class="age-form">
+
+        <label>💰 Loan Amount (₹)</label>
+        <input type="number" name="principal" required>
+
+        <label>📈 Interest Rate (%)</label>
+        <input type="number" step="0.01" name="rate" required>
+
+        <label>📆 Loan Tenure (Years)</label>
+        <input type="number" name="years" required>
+
+        <button type="submit" class="age-btn">
+          🔍 Calculate EMI
+        </button>
+
+      </form>
+
+      {% if emi %}
+      <div class="age-result">
+
+        <h2>Your EMI Result</h2>
+
+        <div class="age-grid">
+
+          <div class="age-box">
+            <span>₹ {{ emi }}</span>
+            Monthly EMI
+          </div>
+
+          <div class="age-box">
+            <span>₹ {{ interest }}</span>
+            Total Interest
+          </div>
+
+          <div class="age-box">
+            <span>₹ {{ total }}</span>
+            Total Payment
+          </div>
+
+        </div>
+
+      </div>
+      {% endif %}
+
     </div>
 
   </div>
 
-  <button class="calc-btn">Calculate EMI</button>
+  <!-- SEO CONTENT -->
+  <div class="age-content">
 
-</form>
+    <h2>EMI Calculator என்றால் என்ன?</h2>
+    <p>
+      EMI Calculator என்பது உங்கள் கடனுக்கான
+      மாத தவணை (Equated Monthly Installment)
+      தொகையை கணக்கிட உதவும் ஆன்லைன் கருவியாகும்.
+    </p>
 
-{% if emi %}
+    <h2>இந்த EMI Calculator எப்படி வேலை செய்கிறது?</h2>
+    <p>
+      நீங்கள் கடன் தொகை, வட்டி விகிதம் மற்றும்
+      கடன் கால அளவை உள்ளிடும்போது,
+      சரியான சூத்திரம் பயன்படுத்தி
+      மாத தவணை, மொத்த வட்டி மற்றும்
+      மொத்த செலுத்த வேண்டிய தொகையை
+      கணக்கிடுகிறது.
+    </p>
 
-<div class="emi-result-box">
+    <h2>இந்த கருவியின் முக்கிய பயன்கள்</h2>
+    <ul>
+      <li>100% இலவச EMI கணக்கீடு</li>
+      <li>வீட்டு கடன், தனிநபர் கடன், வாகன கடன் ஆகியவற்றிற்கு பொருந்தும்</li>
+      <li>உடனடி மற்றும் துல்லியமான முடிவுகள்</li>
+      <li>மொபைல் & டெஸ்க்டாப் ஆதரவு</li>
+      <li>பதிவு தேவையில்லை</li>
+    </ul>
 
-  <div class="emi-values">
-    <p><strong>Monthly EMI:</strong> ₹ {{ emi }}</p>
-    <p><strong>Total Interest:</strong> ₹ {{ interest }}</p>
-    <p><strong>Total Payment:</strong> ₹ {{ total }}</p>
+    <h2>யாருக்காக இந்த EMI Calculator?</h2>
+    <p>
+      மாணவர்கள், வேலைபார்ப்பவர்கள்,
+      வியாபாரிகள் மற்றும் பொதுமக்கள்
+      அனைவரும் இந்த கருவியை
+      பயன்படுத்தலாம்.
+    </p>
+
+    <h2>EMI Calculator பயன்படுத்துவதின் நன்மைகள்</h2>
+    <p>
+      கடன் எடுக்கும் முன்
+      உங்கள் மாத தவணை தொகையை
+      முன்கூட்டியே தெரிந்து கொள்ள
+      இந்த கருவி உதவும்.
+    </p>
+
+    <h2>முடிவுரை</h2>
+    <p>
+      EasyTamilTools EMI Calculator
+      உங்கள் நிதி திட்டமிடலை
+      எளிதாகவும் பாதுகாப்பாகவும்
+      செய்ய உதவும் சிறந்த கருவியாகும்.
+    </p>
+
   </div>
 
-  <div class="chart-box">
-    <canvas id="emiChart"></canvas>
-  </div>
-
-</div>
-
-<!-- Load Chart.js -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<script>
-const principalValue = JSON.parse('{{ principal | default(0) }}');
-const interestValue = JSON.parse('{{ interest | default(0) }}');
-
-if(principalValue > 0 && interestValue > 0){
-
-  const ctx = document.getElementById('emiChart');
-
-  new Chart(ctx, {
-    type: 'pie',
-    data: {
-      labels: ['Principal', 'Interest'],
-      datasets: [{
-        data: [principalValue, interestValue],
-        backgroundColor: ['#4f46e5','#f97316']
-      }]
-    }
-  });
-
-}
-</script>
-
-{% endif %}
-
-</div>
 </section>
 
 {% endblock %}

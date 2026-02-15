@@ -995,3 +995,583 @@ select{
     padding:8px 16px;
     border-radius:6px;
 }
+/* index page modified codes  */
+/* REVIEWS */
+
+.reviews{
+background:#f9f9f9;
+padding:50px 20px;
+text-align:center;
+}
+
+.review-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+max-width:900px;
+margin:auto;
+}
+
+.review-card{
+background:#fff;
+padding:20px;
+border-radius:12px;
+box-shadow:0 4px 8px rgba(0,0,0,0.1);
+}
+
+.review-form{
+max-width:400px;
+margin:30px auto;
+background:#fff;
+padding:20px;
+border-radius:10px;
+box-shadow:0 4px 8px rgba(0,0,0,0.1);
+}
+
+.review-form input,
+.review-form textarea,
+.review-form select{
+width:100%;
+padding:10px;
+margin-bottom:10px;
+border-radius:6px;
+border:1px solid #ccc;
+}
+
+.review-form button{
+background:#4CAF50;
+color:white;
+border:none;
+padding:12px;
+width:100%;
+border-radius:6px;
+cursor:pointer;
+}
+/* ================= ABOUT EASYTAMILTOOLS ================= */
+
+.about-site{
+max-width:1000px;
+margin:60px auto;
+padding:40px 25px;
+background:#ffffff;
+border-radius:14px;
+box-shadow:0 4px 12px rgba(0,0,0,0.08);
+text-align:center;
+}
+
+.about-site h2{
+font-size:30px;
+margin-bottom:20px;
+color:#222;
+}
+
+.about-site p{
+font-size:16px;
+line-height:1.8;
+color:#444;
+margin-bottom:18px;
+}
+/* ================= WHY CHOOSE US ================= */
+
+.why-us{
+background:#f5f8ff;
+padding:60px 20px;
+text-align:center;
+}
+
+.why-us h2{
+font-size:30px;
+margin-bottom:25px;
+color:#222;
+}
+
+.why-us ul{
+list-style:none;
+padding:0;
+margin:0 auto 30px;
+max-width:600px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:15px;
+}
+
+.why-us li{
+background:#ffffff;
+padding:15px 18px;
+border-radius:10px;
+font-size:16px;
+box-shadow:0 3px 8px rgba(0,0,0,0.08);
+font-weight:500;
+}
+
+.why-us p{
+max-width:800px;
+margin:auto;
+font-size:16px;
+line-height:1.8;
+color:#444;
+}
+/* ================= HERO SECTION ================= */
+
+.hero{
+background:linear-gradient(135deg,#4CAF50,#2e7d32);
+color:#fff;
+padding:90px 20px;
+text-align:center;
+animation:fadeIn 1.5s ease-in-out;
+}
+
+.hero h1{
+font-size:38px;
+margin-bottom:15px;
+animation:slideDown 1.2s ease;
+}
+
+.hero p{
+max-width:800px;
+margin:auto;
+font-size:18px;
+line-height:1.7;
+animation:slideUp 1.2s ease;
+}
+
+.hero .btn{
+display:inline-block;
+margin-top:25px;
+padding:14px 32px;
+background:#ffffff;
+color:#2e7d32;
+font-size:16px;
+border-radius:30px;
+font-weight:600;
+transition:0.3s;
+text-decoration:none;
+}
+
+.hero .btn:hover{
+background:#f1f1f1;
+transform:scale(1.05);
+}
+
+/* ANIMATIONS */
+
+@keyframes fadeIn{
+from{opacity:0;}
+to{opacity:1;}
+}
+
+@keyframes slideDown{
+from{transform:translateY(-40px);opacity:0;}
+to{transform:translateY(0);opacity:1;}
+}
+
+@keyframes slideUp{
+from{transform:translateY(40px);opacity:0;}
+to{transform:translateY(0);opacity:1;}
+}
+/* ================= FEATURES ================= */
+
+.features{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:25px;
+max-width:1100px;
+margin:60px auto;
+padding:0 20px;
+}
+
+.feature-card{
+background:#ffffff;
+padding:30px 25px;
+border-radius:14px;
+text-decoration:none;
+color:#222;
+box-shadow:0 4px 10px rgba(0,0,0,0.08);
+transition:0.3s ease;
+text-align:center;
+}
+
+.feature-card h3{
+font-size:22px;
+margin-bottom:10px;
+}
+
+.feature-card p{
+font-size:15px;
+line-height:1.6;
+color:#555;
+}
+
+.feature-card:hover{
+transform:translateY(-8px);
+box-shadow:0 10px 20px rgba(0,0,0,0.15);
+background:#f9fff9;
+}
+/* ================= POPULAR TOOLS ================= */
+
+.popular{
+background:#fafafa;
+padding:60px 20px;
+text-align:center;
+}
+
+.popular h2{
+font-size:30px;
+margin-bottom:30px;
+}
+
+.popular-list{
+max-width:900px;
+margin:auto;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:15px;
+}
+
+.popular-list a{
+background:#ffffff;
+padding:14px 16px;
+border-radius:10px;
+text-decoration:none;
+color:#333;
+font-size:15px;
+box-shadow:0 3px 8px rgba(0,0,0,0.08);
+transition:0.3s;
+}
+
+.popular-list a:hover{
+background:#4CAF50;
+color:#ffffff;
+transform:translateY(-4px);
+}
+/* ===== GLOBAL LAYOUT ===== */
+
+body {
+    font-family: "Segoe UI", sans-serif;
+    background: #f4f7fb;
+    margin: 0;
+    padding: 0;
+    color: #222;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* ===== CONTAINER ===== */
+
+/* .calculator-page {
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+.calculator-card {
+    background: #ffffff;
+    width: 100%;
+    max-width: 1200px;
+    padding: 50px;
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+} */
+
+/* ===== HEADINGS ===== */
+
+/* .calculator-card h1 {
+    text-align: center;
+    font-size: 2.4rem;
+    margin-bottom: 10px;
+}
+
+.calculator-card h2 {
+    margin-top: 40px;
+    font-size: 1.6rem;
+    color: #333;
+}
+
+.calculator-card p {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-top: 10px;
+} */
+
+/* ===== GRID ===== */
+
+.tools-grid {
+    margin-top: 30px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+}
+
+/* ===== TOOL BOX ===== */
+
+.tool-box {
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    color: #fff;
+    padding: 22px;
+    border-radius: 14px;
+    font-size: 1.05rem;
+    text-align: center;
+    font-weight: 600;
+    transition: 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+}
+
+.tool-box:hover {
+    transform: translateY(-6px) scale(1.03);
+    background: linear-gradient(135deg, #1e40af, #1e3a8a);
+}
+
+/* ===== BUTTON ===== */
+
+.btn {
+    background: #16a34a;
+    color: white;
+    padding: 14px 28px;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background: #15803d;
+}
+
+/* ===== UL LIST ===== */
+
+.calculator-card ul {
+    margin-top: 15px;
+    padding-left: 20px;
+}
+
+.calculator-card li {
+    margin: 8px 0;
+    font-size: 1rem;
+}
+
+/* ===== HR ===== */
+
+.calculator-card hr {
+    border: none;
+    border-top: 1px solid #ddd;
+    margin: 40px 0;
+}
+
+/* ===== DESKTOP ENHANCEMENTS ===== */
+
+@media (min-width: 1024px) {
+
+    .calculator-card {
+        padding: 70px;
+    }
+
+    .calculator-card h1 {
+        font-size: 2.8rem;
+    }
+
+    .calculator-card p {
+        font-size: 1.1rem;
+    }
+
+    .tool-box {
+        font-size: 1.1rem;
+        padding: 26px;
+    }
+
+}
+
+/* ===== MOBILE ===== */
+
+@media (max-width: 600px) {
+
+    .calculator-card {
+        padding: 25px;
+    }
+
+    .calculator-card h1 {
+        font-size: 1.9rem;
+    }
+
+    .calculator-card h2 {
+        font-size: 1.3rem;
+    }
+
+    .tool-box {
+        padding: 18px;
+        font-size: 1rem;
+    }
+
+}
+/* ===========================
+   AGE CALCULATOR (PRO UI)
+=========================== */
+
+.age-page{
+  background:#f4f7fb;
+  padding:30px 15px;
+}
+
+/* Layout */
+.age-wrapper{
+  max-width:1100px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:40px;
+  align-items:center;
+}
+
+/* Intro */
+.age-intro h1{
+  font-size:clamp(1.6rem,3vw,2.4rem);
+  margin-bottom:12px;
+}
+
+.age-intro p{
+  color:#555;
+  line-height:1.7;
+  font-size:1rem;
+}
+
+/* Card */
+.age-card{
+  background:#ffffff;
+  padding:30px;
+  border-radius:16px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.08);
+}
+
+/* Form */
+.age-form{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+
+.age-form label{
+  font-weight:600;
+}
+
+.age-form input{
+  padding:12px;
+  border-radius:10px;
+  border:1px solid #ccc;
+  font-size:16px;
+}
+
+.age-form input:focus{
+  border-color:#2563eb;
+  outline:none;
+}
+
+.age-btn{
+  background:#2563eb;
+  color:#fff;
+  padding:12px;
+  border:none;
+  border-radius:10px;
+  font-size:16px;
+  cursor:pointer;
+}
+
+.age-btn:hover{
+  background:#1d4ed8;
+}
+
+/* Result */
+.age-result{
+  margin-top:25px;
+  background:#eef2ff;
+  padding:20px;
+  border-radius:12px;
+  text-align:center;
+}
+
+.age-result h2{
+  margin-bottom:15px;
+}
+
+.age-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+}
+
+.age-box{
+  background:#fff;
+  padding:15px;
+  border-radius:10px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.08);
+  font-weight:600;
+}
+
+.age-box span{
+  display:block;
+  font-size:1.8rem;
+  color:#2563eb;
+}
+
+/* SEO CONTENT */
+.age-content{
+  max-width:900px;
+  margin:60px auto 0;
+  background:#fff;
+  padding:30px;
+  border-radius:16px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.05);
+}
+
+.age-content h2{
+  margin-top:20px;
+}
+
+.age-content ul{
+  padding-left:18px;
+}
+
+.age-content li{
+  margin:8px 0;
+}
+
+/* ===========================
+   MOBILE OPTIMIZATION
+=========================== */
+
+@media(max-width:768px){
+
+  .age-wrapper{
+    grid-template-columns:1fr;
+    text-align:center;
+  }
+
+  .age-card{
+    padding:22px;
+  }
+
+  .age-grid{
+    grid-template-columns:1fr;
+  }
+
+  .age-box span{
+    font-size:1.6rem;
+  }
+
+}
+.qr-image{
+  width:200px;
+  max-width:100%;
+  margin:15px auto;
+  display:block;
+}
+
+.download-btn{
+  display:inline-block;
+  margin-top:10px;
+  padding:10px 16px;
+  background:#0a5cff;
+  color:#fff;
+  border-radius:8px;
+  text-decoration:none;
+}

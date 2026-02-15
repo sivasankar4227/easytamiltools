@@ -1,37 +1,103 @@
 {% extends "base.html" %}
 {% block content %}
 
-<section class="page-container">
+<section class="age-page qr-page">
 
-<h1>📱 QR Code Generator</h1>
+  <!-- HERO + TOOL WRAPPER -->
+  <div class="age-wrapper">
 
-<p>Create QR code for website URL, text, phone number or any data.</p>
+    <!-- LEFT INTRO -->
+    <div class="age-intro">
+      <h1>QR Code Generator – Free Online Tool</h1>
 
-<form method="POST">
+      <p>
+        Website URL, Text, Phone Number அல்லது எந்த தகவலுக்கும்
+        உடனடியாக QR Code உருவாக்க
+        இந்த இலவச QR Code Generator Tool பயன்படுத்துங்கள்.
+      </p>
+    </div>
 
-    <input type="text"
-           name="data"
-           placeholder="Enter text or URL"
-           value="{{ data }}"
-           required>
+    <!-- TOOL CARD -->
+    <div class="age-card">
 
-    <button type="submit">Generate QR Code</button>
+      <form method="POST" class="age-form">
 
-</form>
+        <label>📥 Enter Text / URL</label>
+        <input type="text"
+               name="data"
+               placeholder="Enter website link, text or phone number"
+               value="{{ data or '' }}"
+               required>
 
-{% if qr_image %}
-<div class="qr-result">
+        <button type="submit" class="age-btn">
+          📲 Generate QR Code
+        </button>
 
-    <img src="/{{ qr_image }}" alt="QR Code">
-
-    <p>
-        <a href="/{{ qr_image }}" download>
-            ⬇ Download QR Code
+        <a href="/qr-code-generator" class="age-btn secondary-btn">
+          ♻ Clear
         </a>
+
+      </form>
+
+      {% if qr_image %}
+      <div class="age-result">
+
+        <h2>Your QR Code</h2>
+
+        <img src="/{{ qr_image }}" alt="Generated QR Code" class="qr-image">
+
+        <a href="/{{ qr_image }}" download class="download-btn">
+          ⬇ Download QR Code
+        </a>
+
+      </div>
+      {% endif %}
+
+    </div>
+
+  </div>
+
+  <!-- SEO CONTENT -->
+  <div class="age-content">
+
+    <h2>QR Code Generator என்றால் என்ன?</h2>
+    <p>
+      QR Code Generator என்பது
+      எந்தவொரு தகவலையும் QR Code வடிவமாக
+      மாற்றும் ஆன்லைன் கருவியாகும்.
     </p>
 
-</div>
-{% endif %}
+    <h2>இந்த QR Code Generator எப்படி வேலை செய்கிறது?</h2>
+    <p>
+      நீங்கள் URL அல்லது Text உள்ளிட்டால்,
+      இந்த கருவி தானாகவே QR Code உருவாக்கி காட்டும்.
+    </p>
+
+    <h2>இந்த கருவியின் முக்கிய பயன்கள்</h2>
+
+    <ul>
+      <li>100% இலவசம்</li>
+      <li>உடனடி QR Code உருவாக்கம்</li>
+      <li>உயர் தரமான Download</li>
+      <li>மொபைல் மற்றும் டெஸ்க்டாப் ஆதரவு</li>
+      <li>பதிவு தேவையில்லை</li>
+    </ul>
+
+    <h2>யாருக்காக இந்த QR Code Generator?</h2>
+    <p>
+      வணிக உரிமையாளர்கள், மாணவர்கள்,
+      மார்க்கெட்டர்கள் மற்றும் பொதுமக்கள்
+      அனைவருக்கும் பயன்படும்.
+    </p>
+
+    <h2>முடிவுரை</h2>
+    <p>
+      EasyTamilTools QR Code Generator
+      உங்கள் QR Code தேவைகளை
+      எளிதாகவும் வேகமாகவும் தீர்க்கும்.
+    </p>
+
+  </div>
 
 </section>
 

@@ -1,38 +1,135 @@
 {% extends "base.html" %}
 {% block content %}
 
-<section class="tool-page">
+<section class="age-page tool-text-page">
 
-  <div class="tool-card">
+  <!-- HERO + TOOL WRAPPER -->
+  <div class="age-wrapper">
 
-    <h1>🧮 Text Counter</h1>
-    <p class="subtitle">Count words in your text instantly</p>
+    <!-- LEFT INTRO -->
+    <div class="age-intro">
+      <h1>Text Counter – Word & Character Counter Tool</h1>
 
-    <form method="POST" class="text-form" id="textForm">
-
-      <textarea
-        id="textInput"
-        name="text"
-        placeholder="Type or paste your text here..."
-        rows="10">{{ text or "" }}</textarea>
-
-      <div class="btn-row">
-        <button class="calc-btn" type="submit">Count Text</button>
-        <button class="reset-btn" type="button" onclick="clearText()">Clear</button>
-      </div>
-
-    </form>
-
-    {% if text %}
-    <div class="text-result" id="resultBox">
-        <h3>Text Statistics</h3>
-
-        <p>📝 Words: <b>{{ word_count }}</b></p>
-        <p>🔠 Characters (with space): <b>{{ char_count }}</b></p>
-        <p>🔡 Characters (without space): <b>{{ char_no_space }}</b></p>
-        <p>📄 Lines: <b>{{ line_count }}</b></p>
+      <p>
+        உங்கள் உரையில் உள்ள வார்த்தைகள் (Words),
+        எழுத்துக்கள் (Characters),
+        இடைவெளியுடன் மற்றும் இடைவெளியில்லாமல்
+        உடனடியாக கணக்கிட இந்த இலவச Text Counter Tool பயன்படுத்துங்கள்.
+      </p>
     </div>
-    {% endif %}
+
+    <!-- TOOL CARD -->
+    <div class="age-card">
+
+      <form method="POST" class="age-form" id="textForm">
+
+        <label>✍️ Enter Your Text</label>
+
+        <textarea
+          id="textInput"
+          name="text"
+          rows="10"
+          placeholder="Type or paste your text here...">{{ text or "" }}</textarea>
+
+        <button type="submit" class="age-btn">
+          🔍 Count Text
+        </button>
+
+        <button type="button" class="age-btn secondary-btn" onclick="clearText()">
+          ♻ Clear Text
+        </button>
+
+      </form>
+
+      {% if text %}
+      <div class="age-result">
+
+        <h2>Text Statistics</h2>
+
+        <div class="age-grid">
+
+          <div class="age-box">
+            <span>{{ word_count }}</span>
+            Words
+          </div>
+
+          <div class="age-box">
+            <span>{{ char_count }}</span>
+            Characters (with space)
+          </div>
+
+          <div class="age-box">
+            <span>{{ char_no_space }}</span>
+            Characters (without space)
+          </div>
+
+          <div class="age-box">
+            <span>{{ line_count }}</span>
+            Lines
+          </div>
+
+        </div>
+
+      </div>
+      {% endif %}
+
+    </div>
+
+  </div>
+
+  <!-- SEO CONTENT -->
+  <div class="age-content">
+
+    <h2>Text Counter என்றால் என்ன?</h2>
+    <p>
+      Text Counter என்பது நீங்கள் உள்ளிடும் உரையில்
+      எத்தனை வார்த்தைகள், எழுத்துக்கள் மற்றும் வரிகள் உள்ளன என்பதை
+      உடனடியாக கணக்கிட உதவும் ஆன்லைன் கருவியாகும்.
+    </p>
+
+    <h2>இந்த Text Counter Tool எப்படி வேலை செய்கிறது?</h2>
+    <p>
+      நீங்கள் உரையை உள்ளிடும்போது,
+      கருவி தானாகவே வார்த்தைகள்,
+      எழுத்துக்கள் மற்றும் வரிகளை
+      பிரித்து கணக்கிடுகிறது.
+      எந்த மென்பொருள் நிறுவலும் தேவையில்லை.
+    </p>
+
+    <h2>Text Counter Tool பயன்படுத்தும் பயன்கள்</h2>
+    <ul>
+      <li>100% இலவசம்</li>
+      <li>உடனடி முடிவுகள்</li>
+      <li>மொபைல் மற்றும் டெஸ்க்டாப் ஆதரவு</li>
+      <li>பதிவு தேவையில்லை</li>
+      <li>வேகமான செயல்பாடு</li>
+    </ul>
+
+    <h2>யாருக்காக இந்த Text Counter Tool?</h2>
+    <p>
+      மாணவர்கள், ஆசிரியர்கள்,
+      பிளாக்கர்கள், உள்ளடக்க எழுத்தாளர்கள்,
+      வேலைபார்ப்பவர்கள் மற்றும்
+      சமூக வலைதள பயனர்கள்
+      அனைவரும் இந்த கருவியை பயன்படுத்தலாம்.
+    </p>
+
+    <h2>Text Counter Tool முக்கிய பயன்பாடுகள்</h2>
+    <p>
+      கட்டுரைகள் எழுதுதல்,
+      அசைன்மென்ட் தயாரித்தல்,
+      சமூக வலைதள பதிவுகள்,
+      மின்னஞ்சல் எழுதுதல் போன்ற
+      பல இடங்களில் இந்த கருவி பயன்படும்.
+    </p>
+
+    <h2>முடிவுரை</h2>
+    <p>
+      EasyTamilTools Text Counter Tool
+      உங்கள் உரை பணிகளை
+      எளிதாகவும் வேகமாகவும்
+      முடிக்க உதவும் சிறந்த கருவியாகும்.
+    </p>
 
   </div>
 
@@ -40,11 +137,7 @@
 
 <script>
 function clearText(){
-    document.getElementById("textInput").value = "";
-    let result = document.getElementById("resultBox");
-    if(result){
-        result.style.display = "none";
-    }
+  document.getElementById("textInput").value = "";
 }
 </script>
 

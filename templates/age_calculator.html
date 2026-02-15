@@ -1,28 +1,234 @@
 {% extends "base.html" %}
-
 {% block content %}
 
-<section class="calculator-page">
-    <div class="calculator-card">
+<section class="age-page">
 
-        <h1>Age Calculator</h1>
-        <p>உங்கள் பிறந்த தேதியை உள்ளிட்டு வயதை கணக்கிடுங்கள்</p>
+  <!-- HERO + FORM WRAPPER -->
+  <div class="age-wrapper">
 
-        <form method="POST">
-            <label>Date of Birth</label>
-            <input type="date" name="dob" required>
-            <button type="submit">உங்களது சரியான வயது </button>
-        </form>
+    <!-- LEFT CONTENT -->
+    <div class="age-intro">
+      <h1>Age Calculator – Tamil Online Tool</h1>
 
-        {% if age %}
-        <div class="result-box">
-            🎂 {{ age.years }} Years,
-            {{ age.months }} Months,
-            {{ age.days }} Days
+      <p>
+        உங்கள் பிறந்த தேதியை உள்ளிட்டு உங்கள் சரியான வயதை
+        Years, Months மற்றும் Days ஆக உடனடியாக கணக்கிடுங்கள்.
+      </p>
+    </div>
+
+    <!-- CALCULATOR CARD -->
+    <div class="age-card">
+
+      <form method="POST" class="age-form">
+
+        <label for="dob">📅 Date of Birth</label>
+        <input type="date" id="dob" name="dob" required>
+
+        <button type="submit" class="age-btn">
+          🔍 Calculate Age
+        </button>
+
+      </form>
+
+      {% if age %}
+      <div class="age-result">
+
+        <h2>Your Age</h2>
+
+        <div class="age-grid">
+
+          <div class="age-box">
+            <span>{{ age.years }}</span>
+            Years
+          </div>
+
+          <div class="age-box">
+            <span>{{ age.months }}</span>
+            Months
+          </div>
+
+          <div class="age-box">
+            <span>{{ age.days }}</span>
+            Days
+          </div>
+
         </div>
-        {% endif %}
+
+      </div>
+      {% endif %}
 
     </div>
+
+  </div>
+
+  <!-- SEO CONTENT -->
+  <div class="age-content">
+
+<h2>Age Calculator – Tamil Online Age Calculator Tool</h2>
+
+<p>
+Age Calculator என்பது உங்கள் பிறந்த தேதி (Date of Birth) அடிப்படையில்,
+உங்கள் தற்போதைய வயதை Years, Months மற்றும் Days ஆக துல்லியமாக
+கணக்கிட உதவும் ஒரு இலவச ஆன்லைன் கருவியாகும்.
+EasyTamilTools வழங்கும் இந்த Age Calculator
+தமிழ் பயனர்களுக்காக சிறப்பாக வடிவமைக்கப்பட்டுள்ளது.
+</p>
+
+<p>
+இன்றைய காலத்தில் பல்வேறு அரசு மற்றும் தனியார் விண்ணப்பங்களில்
+சரியான வயது அவசியமாகிறது.
+அத்தகைய சூழ்நிலைகளில்,
+இந்த ஆன்லைன் Age Calculator உங்களுக்கு
+உடனடி மற்றும் துல்லியமான முடிவுகளை வழங்குகிறது.
+</p>
+
+<hr>
+
+<h2>Age Calculator என்றால் என்ன?</h2>
+
+<p>
+Age Calculator என்பது,
+உங்கள் பிறந்த தேதியை உள்ளிடும் போது,
+இன்றைய தேதியுடன் ஒப்பிட்டு,
+நீங்கள் எத்தனை வருடங்கள்,
+எத்தனை மாதங்கள்,
+மற்றும் எத்தனை நாட்கள் வாழ்ந்துள்ளீர்கள் என்பதை
+தானாக கணக்கிடும் கருவியாகும்.
+</p>
+
+<p>
+கைமுறையாக வயதை கணக்கிடுவது
+சிரமமாகவும்,
+தவறுகளுக்கு இடமளிப்பதாகவும் இருக்கும்.
+ஆனால் இந்த ஆன்லைன் Age Calculator மூலம்
+ஒரே கிளிக்கில் சரியான முடிவுகளை பெறலாம்.
+</p>
+
+<hr>
+
+<h2>இந்த Online Age Calculator எப்படி வேலை செய்கிறது?</h2>
+
+<p>
+நீங்கள் உங்கள் Date of Birth-ஐ உள்ளிடும் போது,
+இந்த கருவி தற்போதைய தேதியுடன் ஒப்பிட்டு
+கணக்கீடு செய்து,
+உங்கள் வயதை Years, Months மற்றும் Days ஆக பிரித்து காட்டுகிறது.
+</p>
+
+<p>
+இந்த செயல்முறை முழுவதும் தானாக நடைபெறுவதால்,
+எந்தவிதமான கணித அறிவும் தேவையில்லை.
+</p>
+
+<hr>
+
+<h2>Age Calculator Tool பயன்படுத்தும் முறை</h2>
+
+<ol>
+<li>Date of Birth பகுதியில் உங்கள் பிறந்த தேதியை தேர்வு செய்யவும்.</li>
+<li>Calculate Age பட்டனை கிளிக் செய்யவும்.</li>
+<li>உங்கள் வயது Years, Months, Days ஆக காட்டப்படும்.</li>
+</ol>
+
+<hr>
+
+<h2>Age Calculator Tool – முக்கிய அம்சங்கள்</h2>
+
+<ul>
+<li>100% இலவசம்</li>
+<li>மொபைல் மற்றும் டெஸ்க்டாப் ஆதரவு</li>
+<li>உடனடி முடிவுகள்</li>
+<li>பதிவு தேவையில்லை</li>
+<li>வேகமான லோடிங்</li>
+<li>துல்லியமான கணக்கீடு</li>
+</ul>
+
+<hr>
+
+<h2>இந்த Age Calculator யாருக்காக?</h2>
+
+<p>
+இந்த கருவி கீழ்கண்ட அனைவருக்கும் பயனுள்ளதாக இருக்கும்:
+</p>
+
+<ul>
+<li>மாணவர்கள்</li>
+<li>அரசு வேலை விண்ணப்பதாரர்கள்</li>
+<li>பெற்றோர்</li>
+<li>ஆசிரியர்கள்</li>
+<li>மருத்துவ பணியாளர்கள்</li>
+<li>பொதுமக்கள்</li>
+</ul>
+
+<hr>
+
+<h2>Online Age Calculator பயன்படுத்துவதன் நன்மைகள்</h2>
+
+<p>
+ஆன்லைன் Age Calculator பயன்படுத்துவதன் மூலம்,
+நேரத்தை சேமிக்கலாம்,
+தவறுகளை தவிர்க்கலாம்,
+மற்றும் துல்லியமான முடிவுகளை பெறலாம்.
+</p>
+
+<p>
+இந்த கருவி 24/7 கிடைக்கக்கூடியது,
+எப்போது வேண்டுமானாலும் பயன்படுத்தலாம்.
+</p>
+
+<hr>
+
+<h2>இந்த Age Calculator பாதுகாப்பானதா?</h2>
+
+<p>
+ஆம்.
+EasyTamilTools எந்தவொரு தனிப்பட்ட தகவலையும் சேமிக்காது.
+நீங்கள் உள்ளிடும் தகவல்கள்
+கணக்கீட்டிற்காக மட்டுமே பயன்படுத்தப்படும்.
+</p>
+
+<hr>
+
+<h2>EasyTamilTools ஏன் சிறந்தது?</h2>
+
+<ul>
+<li>தமிழ் பயனர்களுக்காக உருவாக்கப்பட்டது</li>
+<li>எளிய மற்றும் சுத்தமான வடிவமைப்பு</li>
+<li>வேகமான கருவிகள்</li>
+<li>தொடர்ந்து புதிய கருவிகள் சேர்க்கப்படும்</li>
+</ul>
+
+<hr>
+
+<h2>Frequently Asked Questions (FAQ)</h2>
+
+<h3>இந்த Age Calculator இலவசமா?</h3>
+<p>ஆம், இந்த கருவி 100% இலவசம்.</p>
+
+<h3>மொபைலில் பயன்படுத்த முடியுமா?</h3>
+<p>ஆம், மொபைல் மற்றும் டெஸ்க்டாப் இரண்டிலும் வேலை செய்யும்.</p>
+
+<h3>எனது தகவல்கள் சேமிக்கப்படுமா?</h3>
+<p>இல்லை, எந்த தகவலும் சேமிக்கப்படாது.</p>
+
+<h3>இந்த Age Calculator துல்லியமா?</h3>
+<p>ஆம், தற்போதைய தேதியை அடிப்படையாக கொண்டு துல்லியமாக கணக்கிடுகிறது.</p>
+
+<hr>
+
+<h2>முடிவுரை</h2>
+
+<p>
+EasyTamilTools Age Calculator
+உங்கள் வயதை துல்லியமாக கணக்கிட உதவும்
+ஒரு சிறந்த ஆன்லைன் கருவியாகும்.
+இப்போது உங்கள் Date of Birth-ஐ உள்ளிட்டு
+உங்கள் சரியான வயதை கணக்கிடுங்கள்.
+</p>
+
+</div>
+
+
 </section>
 
 {% endblock %}

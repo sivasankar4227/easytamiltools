@@ -1,36 +1,111 @@
 {% extends "base.html" %}
-
 {% block content %}
 
-<section class="calculator-page">
-    <div class="calculator-card">
+<section class="age-page percentage-page">
 
-        <h1>Percentage Calculator</h1>
-        <p>சதவீதத்தை எளிதாக கணக்கிடுங்கள்</p>
+  <!-- HERO + FORM WRAPPER -->
+  <div class="age-wrapper">
 
-        <form method="POST">
-            <label>Value</label>
-            <input type="number" step="any" name="value" required>
+    <!-- LEFT CONTENT -->
+    <div class="age-intro">
+      <h1>Percentage Calculator – Tamil Online Tool</h1>
 
-            <label>Total</label>
-            <input type="number" step="any" name="total" required>
+      <p>
+        எளிய முறையில் சதவீதத்தை (Percentage)
+        Value மற்றும் Total பயன்படுத்தி
+        உடனடியாக கணக்கிடுங்கள்.
+      </p>
+    </div>
 
-            <button type="submit">Calculate</button>
-        </form>
+    <!-- CALCULATOR CARD -->
+    <div class="age-card">
 
-        {% if result %}
-            {% if result == "error" %}
-                <div class="result-box error">
-                    தவறான மதிப்பு!
-                </div>
-            {% else %}
-                <div class="result-box">
-                    Result: {{ result }}%
-                </div>
-            {% endif %}
+      <form method="POST" class="age-form">
+
+        <label for="value">📌 Value</label>
+        <input type="number" step="any" id="value" name="value" required>
+
+        <label for="total">📊 Total</label>
+        <input type="number" step="any" id="total" name="total" required>
+
+        <button type="submit" class="age-btn">
+          🔍 Calculate Percentage
+        </button>
+
+      </form>
+
+      {% if result %}
+      <div class="age-result">
+
+        {% if result == "error" %}
+          <h2>❌ Invalid Input</h2>
+          <p>சரியான மதிப்புகளை உள்ளிடவும்.</p>
+        {% else %}
+
+        <h2>Percentage Result</h2>
+
+        <div class="age-grid">
+
+          <div class="age-box">
+            <span>{{ result }}</span>
+            %
+          </div>
+
+        </div>
+
         {% endif %}
 
+      </div>
+      {% endif %}
+
     </div>
+
+  </div>
+
+  <!-- SEO CONTENT -->
+  <div class="age-content">
+
+    <h2>Percentage Calculator என்றால் என்ன?</h2>
+    <p>
+      Percentage Calculator என்பது ஒரு எண்ணின்
+      சதவீத மதிப்பை கணக்கிட உதவும்
+      இலவச ஆன்லைன் கருவியாகும்.
+    </p>
+
+    <h2>இந்த கருவி எப்படி வேலை செய்கிறது?</h2>
+    <p>
+      நீங்கள் Value மற்றும் Total ஆகிய இரண்டு
+      எண்ணுகளை உள்ளிடும்போது,
+      (Value / Total) × 100 என்ற சூத்திரத்தின்
+      மூலம் சதவீதம் கணக்கிடப்படுகிறது.
+    </p>
+
+    <h2>இந்த Percentage Calculator பயன்கள்</h2>
+    <ul>
+      <li>100% இலவசம்</li>
+      <li>மொபைல் & டெஸ்க்டாப் ஆதரவு</li>
+      <li>உடனடி முடிவுகள்</li>
+      <li>பதிவு தேவையில்லை</li>
+      <li>துல்லியமான கணக்கீடு</li>
+    </ul>
+
+    <h2>யாருக்காக இந்த கருவி?</h2>
+    <p>
+      மாணவர்கள், ஆசிரியர்கள், வியாபாரிகள்,
+      கணக்காளர்கள் மற்றும் பொதுமக்கள்
+      அனைவரும் பயன்படுத்தலாம்.
+    </p>
+
+    <h2>முடிவுரை</h2>
+    <p>
+      EasyTamilTools Percentage Calculator
+      உங்கள் கணக்கீடுகளை வேகமாகவும்
+      எளிதாகவும் செய்ய உதவும்
+      சிறந்த ஆன்லைன் கருவியாகும்.
+    </p>
+
+  </div>
+
 </section>
 
 {% endblock %}

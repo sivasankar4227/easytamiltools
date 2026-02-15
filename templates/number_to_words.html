@@ -1,45 +1,103 @@
 {% extends "base.html" %}
 {% block content %}
 
-<section class="calculator-page">
+<section class="age-page number-page">
 
-<div class="calculator-card">
+  <!-- HERO + TOOL WRAPPER -->
+  <div class="age-wrapper">
 
-<h1>🔢 Number To Words</h1>
-<p class="subtitle">Convert numbers into English or Tamil words</p>
+    <!-- LEFT INTRO -->
+    <div class="age-intro">
+      <h1>Number To Words Converter – English & Tamil</h1>
 
-<form method="POST" class="calc-form">
+      <p>
+        எண்களை (Numbers) உடனடியாக
+        English அல்லது Tamil வார்த்தைகளாக மாற்ற
+        இந்த இலவச Number To Words Converter Tool பயன்படுத்துங்கள்.
+        எந்த பதிவு தேவையில்லை.
+      </p>
+    </div>
 
-<div class="input-group">
-<label>Enter Number</label>
-<input type="number" name="number" value="{{ number }}" required>
-</div>
+    <!-- TOOL CARD -->
+    <div class="age-card">
 
-<div class="input-group">
-<label>Select Language</label>
-<select name="lang">
-    <option value="en" {% if lang=="en" %}selected{% endif %}>English</option>
-    <option value="ta" {% if lang=="ta" %}selected{% endif %}>Tamil</option>
-</select>
-</div>
+      <form method="POST" class="age-form">
 
-<div class="btn-group">
-<button type="submit" class="calc-btn">Convert</button>
-<a href="/number-to-words" class="reset-btn">Clear</a>
-</div>
+        <label>🔢 Enter Number</label>
+        <input type="number" name="number" value="{{ number or '' }}" required>
 
-</form>
+        <label>🌐 Select Language</label>
+        <select name="lang">
+          <option value="en" {% if lang=="en" %}selected{% endif %}>English</option>
+          <option value="ta" {% if lang=="ta" %}selected{% endif %}>Tamil</option>
+        </select>
 
-{% if result %}
+        <button type="submit" class="age-btn">
+          🔁 Convert
+        </button>
 
-<div class="result-box">
-<h2>Result</h2>
-<p>{{ result }}</p>
-</div>
+        <a href="/number-to-words" class="age-btn secondary-btn">
+          ♻ Clear
+        </a>
 
-{% endif %}
+      </form>
 
-</div>
+      {% if result %}
+      <div class="age-result">
+
+        <h2>Converted Result</h2>
+        <p class="big-result">{{ result }}</p>
+
+      </div>
+      {% endif %}
+
+    </div>
+
+  </div>
+
+  <!-- SEO CONTENT -->
+  <div class="age-content">
+
+    <h2>Number To Words Converter என்றால் என்ன?</h2>
+    <p>
+      Number To Words Converter என்பது
+      எண்களை (0, 1, 25, 1500 போன்றவை)
+      வாசிக்க கூடிய வார்த்தைகளாக மாற்றும் ஆன்லைன் கருவியாகும்.
+    </p>
+
+    <h2>இந்த கருவி எப்படி வேலை செய்கிறது?</h2>
+    <p>
+      நீங்கள் எண்ணை உள்ளிட்டு மொழியை தேர்வு செய்தால்,
+      இந்த கருவி தானாகவே சரியான வார்த்தை வடிவத்தை
+      உருவாக்கி காட்டும்.
+    </p>
+
+    <h2>இந்த கருவியின் முக்கிய பயன்கள்</h2>
+
+    <ul>
+      <li>100% இலவசம்</li>
+      <li>English மற்றும் Tamil ஆதரவு</li>
+      <li>உடனடி முடிவுகள்</li>
+      <li>மொபைல் மற்றும் டெஸ்க்டாப் ஆதரவு</li>
+      <li>பதிவு தேவையில்லை</li>
+    </ul>
+
+    <h2>யாருக்கு இந்த கருவி பயனுள்ளதாக இருக்கும்?</h2>
+    <p>
+      மாணவர்கள், ஆசிரியர்கள், கணக்காளர்கள்,
+      வணிக உரிமையாளர்கள் மற்றும் பொதுமக்கள் அனைவருக்கும்
+      இந்த கருவி பயனுள்ளதாக இருக்கும்.
+    </p>
+
+    <h2>முடிவுரை</h2>
+    <p>
+      EasyTamilTools Number To Words Converter Tool
+      உங்கள் தினசரி எண்ணை வார்த்தைகளாக மாற்றும் தேவையை
+      எளிதாகவும் வேகமாகவும் தீர்க்க உதவும்.
+    </p>
+
+  </div>
+
 </section>
 
 {% endblock %}

@@ -1,62 +1,204 @@
 {% extends "base.html" %}
 {% block content %}
 
+<!-- ================= HERO SECTION ================= -->
+
 <header class="hero">
-    <h1>EasyTamilTools</h1>
-    <p>தமிழில் calculators, letter formats & useful online tools</p>
-    <a href="/letters" class="btn">Start Using</a>
+<h1>EasyTamilTools – Free Online Tamil Tools & Calculators</h1>
+
+<p>
+EasyTamilTools என்பது மாணவர்கள், ஆசிரியர்கள், வேலைபார்ப்பவர்கள் மற்றும் 
+பொதுமக்களுக்கு பயன்படும் இலவச Online Tamil Tools Website.  
+இங்கு நீங்கள் Tamil Letter Formats, Calculators, Converters மற்றும் பல 
+useful online utilities-ஐ ஒரே இடத்தில் பயன்படுத்தலாம்.
+</p>
+
+<a href="/tools" class="btn">Start Using Tools</a>
 </header>
+
+<!-- ================= ABOUT WEBSITE ================= -->
+
+<section class="about-site">
+<h2>About EasyTamilTools</h2>
+
+<p>
+EasyTamilTools உருவாக்கப்பட்டதின் முக்கிய நோக்கம் –  
+தமிழில் எளிதாக பயன்படுத்தக்கூடிய calculators மற்றும் tools வழங்குவது.
+தினசரி வாழ்க்கையில் தேவையான வேலைகளை செய்ய பல்வேறு websites தேடுவதற்குப் பதிலாக,
+இங்கு ஒரே platform-ல் அனைத்தையும் பெறலாம்.
+</p>
+
+<p>
+மாணவர்கள் Age Calculator, Percentage Calculator, Unit Converter போன்றவற்றை
+பயன்படுத்தி தங்கள் கணக்குகளை எளிதாக முடிக்கலாம்.  
+வேலைபார்ப்பவர்கள் EMI Calculator, Date Difference Calculator போன்ற tools மூலம்
+நேரம் சேமிக்கலாம்.  
+அதேபோல் School Leave Letter, Office Leave Letter, Bank Letter போன்ற 
+தயாரான Letter Formats-ஐ copy செய்து உடனே பயன்படுத்தலாம்.
+</p>
+
+<p>
+EasyTamilTools ஒரு user-friendly website ஆக வடிவமைக்கப்பட்டுள்ளது.
+Mobile, Tablet மற்றும் Desktop எல்லா devices-லயும் சரியாக வேலை செய்யும்.
+எந்த software installation-மும் தேவையில்லை.
+</p>
+</section>
+
+<!-- ================= FEATURES ================= -->
 
 <section class="features">
 
-    <a href="/letters" class="feature-card">
-        <h3>📄 Letters</h3>
-        <p>Tamil letter formats</p>
-    </a>
+<a href="/letters" class="feature-card">
+<h3>📄 Tamil Letters</h3>
+<p>
+School Leave Letter, Office Leave Letter, Bank Letter உள்ளிட்ட
+பல்வேறு Tamil Letter Formats.
+</p>
+</a>
 
-    <a href="/calculators" class="feature-card">
-        <h3>🧮 Calculators</h3>
-        <p>Age, EMI, BMI & more</p>
-    </a>
+<a href="/calculators" class="feature-card">
+<h3>🧮 Calculators</h3>
+<p>
+Age Calculator, EMI Calculator, BMI Calculator, Percentage Calculator
+மற்றும் பல.
+</p>
+</a>
 
-    <a href="/tools" class="feature-card">
-        <h3>🛠 Tools</h3>
-        <p>Image to text & utilities</p>
-    </a>
+<a href="/tools" class="feature-card">
+<h3>🛠 Online Tools</h3>
+<p>
+Text Counter, Unit Converter, Case Converter, QR Code Generator
+போன்ற பயனுள்ள tools.
+</p>
+</a>
 
 </section>
 
+<!-- ================= WHY CHOOSE US ================= -->
 
+<section class="why-us">
+<h2>Why Choose EasyTamilTools?</h2>
 
+<ul>
+<li>✔ 100% Free Tools</li>
+<li>✔ No Registration Required</li>
+<li>✔ Tamil Language Support</li>
+<li>✔ Fast & Secure</li>
+<li>✔ Mobile Friendly Design</li>
+</ul>
 
-<!-- POPULAR TOOLS -->
+<p>
+EasyTamilTools-ஐ பயன்படுத்துவதன் மூலம் நீங்கள் நேரமும் முயற்சியும் சேமிக்கலாம்.
+எங்களின் நோக்கம் – அனைவருக்கும் எளிய தொழில்நுட்ப வசதிகளை தமிழில் வழங்குவது.
+</p>
+</section>
+
+<!-- ================= POPULAR TOOLS ================= -->
+
 <section class="popular">
-    <h2>Popular Tamil Utilities</h2>
-    <div class="popular-list">
-        <a href="/leave-letter">✔ Leave Letter Format</a>
-        <a href="/age-calculator">✔ Age Calculator</a>
-        <a href="/emi-calculator">✔ EMI Calculator</a>
-        <a href="/letters">✔ Application Letter</a>
-        <!-- <a href="/image-to-text">✔ Image to Text</a> -->
-        <a href="/qr-code-generator">✔ QR Code Generator</a>
+<h2>Popular Tamil Utilities</h2>
 
-    </div>
+<div class="popular-list">
+<a href="/letters/school-leave">✔ School Leave Letter</a>
+<a href="/letters/office-leave">✔ Office Leave Letter</a>
+<a href="/age-calculator">✔ Age Calculator</a>
+<a href="/emi-calculator">✔ EMI Calculator</a>
+<a href="/qr-code-generator">✔ QR Code Generator</a>
+<a href="/text-counter">✔ Text Counter</a>
+</div>
 </section>
 
+<!-- ================= HOW IT HELPS ================= -->
 
-<!-- HOW IT HELPS -->
 <section class="helps">
-    <h2>How EasyTamilTools Helps You</h2>
-    <p>
-        EasyTamilTools is designed to help students, employees, teachers and common people
-        to save time by using ready-made Tamil letter formats, calculators and online tools.
-    </p>
+<h2>How EasyTamilTools Helps You</h2>
+
+<p>
+EasyTamilTools உங்கள் தினசரி தேவைகளை பூர்த்தி செய்ய உருவாக்கப்பட்டுள்ளது.
+கல்வி, வேலை, வணிகம் மற்றும் தனிப்பட்ட பயன்பாடு என பல துறைகளில்
+இந்த website உங்களுக்கு உதவும்.
+</p>
+
+<p>
+எங்களின் tools அனைத்தும் சரியான கணக்கீடுகளுடன் உருவாக்கப்பட்டுள்ளன.
+எதிர்காலத்தில் மேலும் பல Tamil tools சேர்க்கப்படும்.
+</p>
 </section>
 
-<!-- CALL TO ACTION -->
+<!-- ================= STATIC USER REVIEWS ================= -->
+
+<section class="reviews">
+<h2>User Reviews</h2>
+
+<div class="review-grid">
+
+<div class="review-card">
+<p class="stars">⭐⭐⭐⭐⭐</p>
+<p>EasyTamilTools எனக்கு ரொம்ப உதவியாக இருக்கு. Letter formats மிகவும் பயனுள்ளதாக இருக்கிறது.</p>
+<span>- Karthik (Student)</span>
+</div>
+
+<div class="review-card">
+<p class="stars">⭐⭐⭐⭐⭐</p>
+<p>EMI Calculator மிகவும் accurate-ஆ இருக்கிறது. Simple & easy website.</p>
+<span>- Priya (Employee)</span>
+</div>
+
+<div class="review-card">
+<p class="stars">⭐⭐⭐⭐</p>
+<p>Tamil language support இருப்பது நல்ல விஷயம். மேலும் tools சேர்த்தால் இன்னும் சிறப்பு.</p>
+<span>- Arun (Freelancer)</span>
+</div>
+
+</div>
+</section>
+
+<!-- ================= DYNAMIC REVIEWS ================= -->
+
+{% if reviews %}
+<section class="reviews">
+<h2>More User Reviews</h2>
+
+<div class="review-grid">
+{% for r in reviews %}
+<div class="review-card">
+<p class="stars">{{ "⭐" * (r.rating | int) }}</p>
+<p>{{ r.review }}</p>
+<span>- {{ r.name }}</span>
+</div>
+{% endfor %}
+</div>
+</section>
+{% endif %}
+
+<!-- ================= REVIEW FORM ================= -->
+
+<section class="reviews">
+<h2>Leave Your Review</h2>
+
+<form method="POST" action="/add-review" class="review-form">
+
+<input type="text" name="name" placeholder="Your Name" required>
+
+<textarea name="review" placeholder="Write your review..." required></textarea>
+
+<select name="rating" required>
+<option value="">Select Rating</option>
+<option value="5">⭐⭐⭐⭐⭐ Excellent</option>
+<option value="4">⭐⭐⭐⭐ Good</option>
+<option value="3">⭐⭐⭐ Average</option>
+</select>
+
+<button type="submit">Submit Review</button>
+
+</form>
+</section>
+
+<!-- ================= CALL TO ACTION ================= -->
+
 <section class="cta">
-    <h2>Start Using Free Tamil Tools Today</h2>
-    <a href="/letters" class="btn">View Letter Formats</a>
+<h2>Start Using Free Tamil Tools Today</h2>
+<a href="/tools" class="btn">Explore All Tools</a>
 </section>
 
 {% endblock %}
