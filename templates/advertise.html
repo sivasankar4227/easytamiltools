@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section class="page-container">
+
+<h1>Advertise With EasyTamilTools</h1>
+
+<p>
+EasyTamilTools என்பது தமிழில் பயனுள்ள Online Tools & Calculators வழங்கும்
+வேகமாக வளர்ந்து வரும் website ஆகும்.  
+மாணவர்கள், ஆசிரியர்கள், வேலைபார்ப்பவர்கள் மற்றும் வணிகர்கள் தினமும்
+எங்கள் website-ஐ பயன்படுத்துகிறார்கள்.
+உங்கள் brand / product / service-ஐ எங்கள் audience முன்
+promote செய்ய இதுவே சரியான இடம்.
+</p>
+
+<hr>
+
+<h2>📊 Why Advertise With Us?</h2>
+
+<ul>
+<li>Growing Tamil audience</li>
+<li>High intent users</li>
+<li>Mobile & Desktop traffic</li>
+<li>Affordable pricing</li>
+<li>Long-term partnership</li>
+</ul>
+
+<hr>
+
+<h2>📢 Advertising Options</h2>
+
+<h3>1️⃣ Sponsored Blog Post</h3>
+<p>SEO optimized sponsored article with backlink.</p>
+
+<h3>2️⃣ Banner Advertisement</h3>
+<p>Home page & tool pages banner ads.</p>
+
+<h3>3️⃣ Text Link Promotion</h3>
+<p>Contextual text link placement.</p>
+
+<hr>
+
+<h2>💰 Estimated Pricing</h2>
+
+<!-- <ul>
+<li>Sponsored Post – ₹1,500 to ₹5,000</li>
+<li>Banner Ads – ₹1,000 to ₹3,000 / month</li>
+<li>Text Links – ₹800 to ₹2,000</li>
+</ul> -->
+
+<hr>
+
+<h2>📩 Send Your Enquiry</h2>
+
+<form method="POST">
+
+<input type="text" name="name" placeholder="Your Name" required>
+
+<input type="email" name="email" placeholder="Your Email" required>
+
+<input type="text" name="company" placeholder="Company / Website">
+
+<textarea name="message" placeholder="Tell us about your advertising requirement" required></textarea>
+
+<button type="submit">Send Enquiry</button>
+
+</form>
+
+{% if success %}
+<p style="color:green; font-weight:bold;">
+Your enquiry has been sent successfully. We will contact you soon.
+</p>
+{% endif %}
+
+</section>
+
+{% endblock %}

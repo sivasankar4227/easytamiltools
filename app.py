@@ -8,6 +8,8 @@ import logging
 from werkzeug.utils import secure_filename
 from pdf2docx import Converter
 import uuid
+import smtplib
+from email.message import EmailMessage
 
 
 
@@ -413,6 +415,41 @@ def feedback():
         feedback_text = request.form.get("feedback")
         print(name, email, feedback_text)
     return render_template("feedback.html")
+
+
+
+@app.route("/advertise", methods=["GET","POST"])
+def advertise():
+    if request.method=="POST":
+        name=request.form.get("name")
+        email=request.form.get("email")
+        company=request.form.get("company")
+        message=request.form.get("message")
+
+        msg=EmailMessage()
+        msg["Subject"]="New Sponsor Enquiry - EasyTamilTools"
+        msg["From"]="yourgmail@gmail.com"
+        msg["To"]="yourgmail@gmail.com"
+
+        msg.set_content(f"""
+New Advertising Enquiry
+
+Name: {name}
+Email: {email}
+Company/Website: {company}
+
+Message:
+{message}
+""")
+
+        with smtplib.SMTP_SSL("smtp.gmail.com",465) as server:
+            server.login("easytamiltools@gmail.com","rmqu yjgx tvnu eoty")
+            server.send_message(msg)
+
+        return render_template("advertise.html", success=True)
+
+    return render_template("advertise.html")
+
 
 
 # ================= RUN =================
