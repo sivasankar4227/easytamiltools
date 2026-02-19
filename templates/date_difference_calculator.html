@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% block head %}
+<title>Date Difference Calculator in Tamil | Calculate Days Between Two Dates</title>
+<meta name="description" content="Free Date Difference Calculator in Tamil. Calculate total days, years and months between two dates instantly. 100% free and mobile friendly tool.">
+<meta name="keywords" content="Date Difference Calculator Tamil, Days Between Two Dates, Date Calculator in Tamil">
+{% endblock %}
+
+{% block content %}
+
+<section class="calculator-page">
+<div class="calculator-card">
+
+<h1>📅 Date Difference Calculator in Tamil</h1>
+
+<p>
+இரண்டு தேதிகளுக்கு இடையிலான ஆண்டுகள், மாதங்கள் மற்றும் நாட்கள் வித்தியாசத்தை
+துல்லியமாக கணக்கிட இந்த இலவச Date Difference Calculator உதவும்.
+</p>
+
+<form method="POST" class="calc-form">
+
+<label for="start_date">Start Date</label>
+<input type="date" name="start_date" required>
+
+<label for="end_date">End Date</label>
+<input type="date" name="end_date" required>
+
+<button type="submit" class="btn">Calculate Difference</button>
+
+</form>
+
+{% if error %}
+<div class="error-box">
+❌ {{ error }}
+</div>
+{% endif %}
+
+{% if result %}
+<div class="result-box">
+<h2>📊 Calculation Result</h2>
+
+<p><strong>Total Difference:</strong> 
+{{ result.years }} Years, 
+{{ result.months }} Months, 
+{{ result.days }} Days
+</p>
+
+<p><strong>Total Days:</strong> {{ result.total_days }} days</p>
+</div>
+{% endif %}
+
+<hr>
+
+<h2>🎯 Why Use This Date Calculator?</h2>
+<ul>
+<li>✔ 100% Free</li>
+<li>✔ Accurate Year-Month-Day Calculation</li>
+<li>✔ Tamil Friendly Interface</li>
+<li>✔ No Registration Required</li>
+<li>✔ Mobile & Desktop Compatible</li>
+</ul>
+
+<hr>
+
+<h2>❓ Frequently Asked Questions (FAQ)</h2>
+
+<h3>How to calculate days between two dates?</h3>
+<p>Start Date மற்றும் End Date உள்ளிட்டு Calculate பட்டனை அழுத்தினால் உடனே total days மற்றும் years/months/day result கிடைக்கும்.</p>
+
+<h3>Is this Date Difference Calculator free?</h3>
+<p>ஆம், EasyTamilTools வழங்கும் இந்த tool 100% இலவசம்.</p>
+
+<h3>Can I use this for government forms?</h3>
+<p>ஆம், அரசு விண்ணப்பங்கள் மற்றும் வேலை விண்ணப்பங்களில் தேதிகளுக்கிடையிலான வித்தியாசம் கணக்கிட பயன்படுத்தலாம்.</p>
+
+<hr>
+
+<h2>🔗 Related Calculators</h2>
+
+<ul>
+<li><a href="/age-calculator">Age Calculator</a></li>
+<li><a href="/bmi-calculator">BMI Calculator</a></li>
+<li><a href="/percentage-calculator">Percentage Calculator</a></li>
+</ul>
+
+</div>
+</section>
+
+{% endblock %}

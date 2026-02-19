@@ -409,7 +409,7 @@ button:hover{
 }
 
 .footer-box h3{
-    color:#facc15;
+    color:#fa1515;
     margin-bottom:10px;
 }
 
@@ -1610,4 +1610,34 @@ a {
   color:#fff;
   border-radius:8px;
   text-decoration:none;
+}
+/* date difference calcultor codes */
+.result-box {
+    background: #f4f8ff;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.error-box {
+    background: #ffe6e6;
+    padding: 15px;
+    border-radius: 6px;
+    margin-top: 15px;
+    color: red;
+}
+
+.calc-form input {
+    display: block;
+    margin-bottom: 15px;
+    padding: 8px;
+    width: 100%;
+}
+
+.btn {
+    padding: 10px 20px;
+    background: #0066ff;
+    color: white;
+    border: none;
+    cursor: pointer;
 }

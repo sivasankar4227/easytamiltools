@@ -10,6 +10,8 @@ from pdf2docx import Converter
 import uuid
 import smtplib
 from email.message import EmailMessage
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
 
 
 
@@ -158,6 +160,38 @@ def percentage_calculator():
         total=float(request.form["total"])
         result=round((value/total)*100,2) if total!=0 else "error"
     return render_template("percentage_calculator.html",result=result)
+
+@app.route('/date-difference-calculator', methods=['GET', 'POST'])
+def date_difference_calculator():
+    result = None
+    error = None
+
+    if request.method == 'POST':
+        start_date = request.form.get('start_date')
+        end_date = request.form.get('end_date')
+
+        try:
+            d1 = datetime.strptime(start_date, "%Y-%m-%d")
+            d2 = datetime.strptime(end_date, "%Y-%m-%d")
+
+            if d2 < d1:
+                d1, d2 = d2, d1
+
+            difference = relativedelta(d2, d1)
+            total_days = (d2 - d1).days
+
+            result = {
+                "years": difference.years,
+                "months": difference.months,
+                "days": difference.days,
+                "total_days": total_days
+            }
+
+        except:
+            error = "Invalid Date Entered"
+
+    return render_template("date_difference_calculator.html", result=result, error=error)
+
 
 # ================= TOOLS =================
 # ================= TOOLS HOME =================
