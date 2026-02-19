@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+<!-- Homepage -->
+<url>
+<loc>https://easytamiltools.in/</loc>
+<lastmod>2026-02-19</lastmod>
+<priority>1.0</priority>
+</url>
+
+<!-- Main Categories -->
+<url>
+<loc>https://easytamiltools.in/calculators</loc>
+<priority>0.9</priority>
+</url>
+
+<url>
+<loc>https://easytamiltools.in/tools</loc>
+<priority>0.9</priority>
+</url>
+
+<url>
+<loc>https://easytamiltools.in/letters</loc>
+<priority>0.9</priority>
+</url>
+
+<!-- Calculators -->
+<url><loc>https://easytamiltools.in/age-calculator</loc><priority>0.8</priority></url>
+<url><loc>https://easytamiltools.in/emi-calculator</loc><priority>0.8</priority></url>
+<url><loc>https://easytamiltools.in/percentage-calculator</loc><priority>0.8</priority></url>
+<url><loc>https://easytamiltools.in/date-difference-calculator</loc><priority>0.8</priority></url>
+
+<!-- Tools -->
+<url><loc>https://easytamiltools.in/tamil-pdf-to-word</loc></url>
+<url><loc>https://easytamiltools.in/text-counter</loc></url>
+<url><loc>https://easytamiltools.in/case-converter</loc></url>
+<url><loc>https://easytamiltools.in/unit-converter</loc></url>
+<url><loc>https://easytamiltools.in/number-to-words</loc></url>
+<url><loc>https://easytamiltools.in/qr-code-generator</loc></url>
+<url><loc>https://easytamiltools.in/image-compressor</loc></url>
+
+<!-- Letters -->
+<url><loc>https://easytamiltools.in/letters/school-leave</loc></url>
+<url><loc>https://easytamiltools.in/letters/office-leave</loc></url>
+<url><loc>https://easytamiltools.in/letters/bank-close</loc></url>
+
+<!-- Legal Pages -->
+<url><loc>https://easytamiltools.in/privacy</loc></url>
+<url><loc>https://easytamiltools.in/terms</loc></url>
+<url><loc>https://easytamiltools.in/disclaimer</loc></url>
+
+<!-- Company -->
+<url><loc>https://easytamiltools.in/about</loc></url>
+<url><loc>https://easytamiltools.in/contact</loc></url>
+<url><loc>https://easytamiltools.in/feedback</loc></url>
+<url><loc>https://easytamiltools.in/advertise</loc></url>
+
+</urlset>
