@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block head %}
+<title>{{ category|capitalize }} Articles | EasyTamilTools</title>
+<meta name="description" content="Latest {{ category }} articles in Tamil.">
+{% endblock %}
+
+{% block content %}
+
+<h1>{{ category|capitalize }} Articles</h1>
+
+<div class="blog-list">
+
+{% for post in posts %}
+<div class="blog-card">
+    <h2>
+        <!-- <a href="/blog/{{ category }}/{{ post.replace('.html','') }}">
+            {{ post.replace('.html','').replace('-',' ').title() }}
+        </a> -->
+        <a href="{{ url_for('blog_post', category=category, post=post) }}">
+            {{ post.replace('-', ' ').title() }}
+        </a>
+
+    </h2>
+</div>
+{% endfor %}
+
+</div>
+
+{% endblock %}

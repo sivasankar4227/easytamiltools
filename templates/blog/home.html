@@ -1,0 +1,206 @@
+{% extends "base.html" %}
+
+{% block head %}
+<title>EasyTamilTools – இலவச ஆன்லைன் தமிழ் கருவிகள் & கணக்கீட்டுகள்</title>
+<meta name="description" content="EasyTamilTools இல் இலவச EMI Calculator, BMI Calculator, Percentage Calculator, Age Calculator மற்றும் பயனுள்ள தமிழ் வலைப்பதிவு கட்டுரைகள் கிடைக்கும்.">
+<meta name="keywords" content="தமிழ் கருவிகள், இலவச calculator, EMI கணக்கீடு, BMI கணக்கீடு, சதவீத கணக்கீடு, தமிழ் blog, OTT updates">
+<meta name="author" content="EasyTamilTools">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% endblock %}
+
+{% block content %}
+
+<style>
+.hero {
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    color: white;
+    padding: 90px 20px;
+    text-align: center;
+    border-radius: 15px;
+}
+.hero h1 {
+    font-size: 40px;
+    font-weight: 700;
+}
+.hero p {
+    font-size: 18px;
+    margin-top: 15px;
+}
+
+.section {
+    max-width: 1200px;
+    margin: 70px auto;
+    padding: 0 20px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 25px;
+}
+
+.card {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    transition: 0.3s ease;
+}
+.card:hover {
+    transform: translateY(-6px);
+}
+.card a {
+    text-decoration: none;
+    font-weight: 600;
+    color: #203a43;
+}
+.card p {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #555;
+}
+
+.blog-links a {
+    text-decoration: none;
+    color: #2c5364;
+    font-weight: 500;
+}
+.blog-links li {
+    margin-bottom: 12px;
+}
+
+.trust-box {
+    background: #f4f7fa;
+    padding: 40px;
+    border-radius: 15px;
+}
+</style>
+
+<!-- HERO -->
+<div class="hero">
+    <h1>EasyTamilTools – உங்கள் தினசரி தேவைகளுக்கான இலவச தமிழ் கருவிகள்</h1>
+    <p>வேகமான • எளிமையான • 100% இலவச ஆன்லைன் கணக்கீட்டு கருவிகள் & பயனுள்ள வலைப்பதிவுகள்</p>
+</div>
+
+<!-- TOOLS -->
+<div class="section">
+    <h2>🔥 பிரபலமான இலவச கணக்கீட்டு கருவிகள்</h2>
+    <div class="grid">
+
+        <div class="card">
+            <a href="/age-calculator">Age Calculator</a>
+            <p>உங்கள் சரியான வயதை ஆண்டுகள், மாதங்கள், நாட்களில் கணக்கிடுங்கள்.</p>
+        </div>
+
+        <div class="card">
+            <a href="/percentage-calculator">Percentage Calculator</a>
+            <p>சதவீத உயர்வு, குறைவு மற்றும் மொத்த மதிப்பை உடனடியாக கண்டறியுங்கள்.</p>
+        </div>
+
+        <div class="card">
+            <a href="/bmi-calculator">BMI Calculator</a>
+            <p>உங்கள் உடல் எடை நிலையை பரிசோதிக்க BMI கணக்கிடுங்கள்.</p>
+        </div>
+
+        <div class="card">
+            <a href="/emi-calculator">EMI Calculator</a>
+            <p>கடன் மாத தவணை தொகையை துல்லியமாக கணக்கிடுங்கள்.</p>
+        </div>
+
+    </div>
+</div>
+
+<!-- PREMIUM BLOG SECTION -->
+<div class="section blog-section">
+
+    <h2 class="section-title">📰 தமிழ் வலைப்பதிவு பிரிவுகள்</h2>
+
+    <div class="blog-grid">
+
+        <!-- OTT -->
+        <div class="blog-card">
+            <h3>🎬 OTT Updates</h3>
+            <p>
+                புதிய தமிழ் திரைப்படங்கள், வெப் சீரிஸ் மற்றும் வாராந்திர OTT வெளியீட்டு தகவல்கள்.
+                Netflix, Amazon Prime, Aha, SunNXT போன்ற தளங்களின் அப்டேட்கள்.
+            </p>
+            <a href="/blog/ott" class="read-btn">மேலும் படிக்க →</a>
+        </div>
+
+        <!-- TECH -->
+        <div class="blog-card">
+            <h3>💻 Tech Articles</h3>
+            <p>
+                சமீபத்திய தொழில்நுட்ப செய்திகள், AI tools, online earning ideas,
+                blogging tips மற்றும் digital updates பற்றிய விரிவான கட்டுரைகள்.
+            </p>
+            <a href="/blog/tech" class="read-btn">மேலும் படிக்க →</a>
+        </div>
+
+        <!-- GUIDES -->
+        <div class="blog-card">
+            <h3>📘 Guides</h3>
+            <p>
+                படிப்படியான வழிகாட்டிகள், practical tutorials,
+                online tools பயன்படுத்தும் முறை மற்றும் பயனுள்ள life hacks.
+            </p>
+            <a href="/blog/guides" class="read-btn">மேலும் படிக்க →</a>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- SEO CONTENT -->
+<div class="section">
+    <h2>EasyTamilTools பற்றி</h2>
+
+    <p>
+    EasyTamilTools என்பது தமிழ் பயனர்களுக்காக உருவாக்கப்பட்ட ஒரு இலவச ஆன்லைன் கருவிகள் தளம் ஆகும். 
+    தினசரி வாழ்க்கையில் தேவையான கணக்கீடுகளை எளிதாகவும் வேகமாகவும் செய்ய உதவுவது எங்கள் நோக்கம்.
+    </p>
+
+    <p>
+    மாணவர்கள், வேலை செய்பவர்கள், வணிகர்கள் மற்றும் குடும்ப நிர்வாகிகள் ஆகிய அனைவருக்கும் 
+    பயன்படும் கருவிகளை ஒரே இடத்தில் வழங்குகிறோம்.
+    </p>
+
+    <p>
+    EMI கணக்கீடு, BMI கணக்கீடு, வயது கணக்கீடு, சதவீத கணக்கீடு போன்ற பல கருவிகள் 
+    துல்லியமான முடிவுகளை வழங்கும் வகையில் வடிவமைக்கப்பட்டுள்ளன.
+    </p>
+
+    <p>
+    அதே சமயம், OTT அப்டேட்கள், தொழில்நுட்ப செய்திகள் மற்றும் பயனுள்ள வழிகாட்டி கட்டுரைகள் 
+    மூலம் பயனர்களுக்கு சமீபத்திய தகவல்களை வழங்குகிறோம்.
+    </p>
+
+    <p>
+    எங்கள் அனைத்து உள்ளடக்கங்களும் அசல் மற்றும் தரமானவை. 
+    காப்புரிமை மீறல் இல்லாமல், பயனர்களுக்கு உண்மையான மதிப்பை வழங்குவதே எங்கள் இலக்கு.
+    </p>
+
+    <p>
+    EasyTamilTools மொபைல் நட்பு வடிவமைப்பு, வேகமான லோடிங், 
+    SEO மேம்பாடு மற்றும் AdSense கொள்கைகளுக்கு ஏற்ப அமைக்கப்பட்டுள்ளது.
+    </p>
+
+    <p>
+    எதிர்காலத்தில் மேலும் பல புதிய கருவிகள் மற்றும் பயனுள்ள அம்சங்களை சேர்க்க திட்டமிட்டுள்ளோம். 
+    உங்கள் ஆதரவு எங்களுக்கு மிக முக்கியம்.
+    </p>
+</div>
+
+<!-- TRUST SECTION -->
+<div class="section trust-box">
+    <h2>ஏன் EasyTamilTools?</h2>
+    <ul>
+        <li>✔ 100% இலவச பயன்பாடு</li>
+        <li>✔ பதிவு தேவையில்லை</li>
+        <li>✔ வேகமான மற்றும் பாதுகாப்பான தளம்</li>
+        <li>✔ தமிழ் பயனர்களுக்கான சிறப்பு வடிவமைப்பு</li>
+        <li>✔ தரமான மற்றும் புதுப்பிக்கப்பட்ட உள்ளடக்கம்</li>
+    </ul>
+</div>
+
+{% endblock %}

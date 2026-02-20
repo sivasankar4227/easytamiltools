@@ -12,6 +12,7 @@ import smtplib
 from email.message import EmailMessage
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
+from flask import abort
 
 
 
@@ -484,8 +485,74 @@ Message:
 
     return render_template("advertise.html")
 
+# blog routes codes 
+
+# ==============================
+# BLOG HOME
+# ==============================
+@app.route("/blog")
+def blog_list():
+    blog_path = os.path.join("content", "blog")
+
+    if not os.path.isdir(blog_path):
+        abort(404)
+
+    categories = [
+        d for d in os.listdir(blog_path)
+        if os.path.isdir(os.path.join(blog_path, d))
+    ]
+
+    return render_template("blog/home.html", categories=categories)
 
 
+# ==============================
+# CATEGORY PAGE
+# ==============================
+@app.route("/blog/<category>")
+def blog_category(category):
+    path = os.path.join("content", "blog", category)
+
+    if not os.path.isdir(path):
+        abort(404)
+
+    posts = [
+        p.replace(".html", "")
+        for p in os.listdir(path)
+        if p.endswith(".html")
+    ]
+
+    return render_template(
+        "blog/category.html",
+        category=category,
+        posts=posts
+    )
+
+
+# ==============================
+# SINGLE BLOG POST
+# ==============================
+@app.route("/blog/<category>/<post>")
+def blog_post(category, post):
+    file_path = os.path.join("content", "blog", category, post + ".html")
+
+    if not os.path.isfile(file_path):
+        abort(404)
+
+    with open(file_path, "r", encoding="utf-8") as f:
+        content = f.read()
+
+    return render_template(
+        "blog/post.html",
+        content=content,
+        slug=post,
+        category=category
+    )
+
+@app.route("/test-image")
+def test_image():
+    return '''
+    <img src="/static/images/ott/inth-avaram-ott-movies.avif" width="500">
+    '''
 # ================= RUN =================
 if __name__ == "__main__":
     print("Starting EasyTamilTools Server...")

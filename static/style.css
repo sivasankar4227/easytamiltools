@@ -1641,3 +1641,58 @@ a {
     border: none;
     cursor: pointer;
 }
+body {
+    background: #f4f6f9;
+}
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 20px;
+    background: #203a43;
+    color: white;
+    position: relative;
+}
+
+.navbar .logo {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.mobile-home {
+    display: none;
+    font-size: 22px;
+    text-decoration: none;
+    color: white;
+    margin-left: auto;
+    margin-right: 10px;
+}
+
+.menu-toggle {
+    font-size: 22px;
+    cursor: pointer;
+}
+
+/* Mobile View */
+@media (max-width: 768px) {
+
+    .mobile-home {
+        display: block;
+    }
+
+    .search-box {
+        display: none;
+    }
+
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        background: #203a43;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        width: 200px;
+        padding: 20px;
+    }
+
+}

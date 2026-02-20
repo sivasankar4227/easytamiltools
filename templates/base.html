@@ -76,6 +76,8 @@ Free Tamil calculators, converters and letter formats online.
 
 <!-- ================= CSS ================= -->
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='blog.css') }}">
+
 
 </head>
 
@@ -85,6 +87,10 @@ Free Tamil calculators, converters and letter formats online.
 <nav class="navbar">
 
 <div class="logo">EasyTamilTools</div>
+<!-- Mobile Home Icon -->
+<a href="/" class="mobile-home">
+    🏠
+</a>
 
 <div class="menu-toggle" id="mobile-menu">☰</div>
 
@@ -94,6 +100,7 @@ Free Tamil calculators, converters and letter formats online.
 <li><a href="/letters">Letters</a></li>
 <li><a href="/calculators">Calculators</a></li>
 <li><a href="/tools">Tools</a></li>
+<li><a href="{{ url_for('blog_list') }}">Blog</a></li>
 </ul>
 
 <form action="/search" method="GET" class="search-box">
@@ -124,6 +131,9 @@ designed for everyday needs.
 <li><a href="/letters">Letters</a></li>
 <li><a href="/calculators">Calculators</a></li>
 <li><a href="/tools">Tools</a></li>
+<li><a href="{{ url_for('blog_list') }}">Blog</a></li>
+<!-- Optional recent posts -->
+<li><a href="{{ url_for('blog_post', category='ai-tools', post='ai-tools-2026') }}">2026 AI Tools Guide</a></li>
 </ul>
 </div>
 
