@@ -1,0 +1,11 @@
+flask
+pillow
+werkzeug
+qrcode
+num2words
+gunicorn
+python-dotenv
+pdf2docx==0.5.6
+python-dateutil
+PyPDF2
+email-validator

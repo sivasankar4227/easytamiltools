@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="search-container">
+
+    <h1 class="search-title">
+        🔎 Search Results for "{{ query }}"
+    </h1>
+
+    {% if message %}
+        <div class="search-message">
+            {{ message }}
+        </div>
+    {% endif %}
+
+    {% if results %}
+        <p class="result-count">
+            {{ results|length }} result(s) found
+        </p>
+
+        <div class="search-grid">
+            {% for item in results %}
+            <div class="search-card">
+                
+                <div class="search-card-content">
+                    <h2>
+                        <a href="{{ item.url }}">
+                            {{ item.name }}
+                        </a>
+                    </h2>
+
+                    {% if item.type %}
+                        <span class="result-badge">
+                            {{ item.type }}
+                        </span>
+                    {% endif %}
+                </div>
+
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="no-results">
+            😔 No results found. Try different keywords.
+        </div>
+    {% endif %}
+
+    <div class="back-home">
+        <a href="/">⬅ Back to Home</a>
+    </div>
+
+</div>
+
+{% endblock %}

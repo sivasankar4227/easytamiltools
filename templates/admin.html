@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div style="max-width:700px;margin:auto;padding:30px;">
+
+<h2>🛠 Admin Panel - Add Blog Post</h2>
+
+<form method="POST">
+
+<label>Title</label><br>
+<input type="text" name="title" required style="width:100%;padding:8px;"><br><br>
+
+<label>Category</label><br>
+<select name="category" style="width:100%;padding:8px;">
+    <option value="ott">OTT</option>
+    <option value="tech">Tech</option>
+    <option value="news">News</option>
+    <option value="entertainment">Entertainment</option>
+</select><br><br>
+
+<label>Content (HTML Allowed)</label><br>
+<textarea name="content" rows="10" style="width:100%;padding:8px;"></textarea><br><br>
+
+<button type="submit" style="padding:10px 20px;background:black;color:white;">
+    Publish Post
+</button>
+
+</form>
+
+</div>
+
+{% endblock %}

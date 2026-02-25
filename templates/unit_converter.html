@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section class="age-page unit-page">
+
+  <!-- HERO + TOOL WRAPPER -->
+  <div class="age-wrapper">
+
+    <!-- LEFT INTRO -->
+    <div class="age-intro">
+      <h1>Unit Converter – Online Measurement Conversion Tool</h1>
+
+      <p>
+        Length, Weight மற்றும் Temperature Units-ஐ
+        உடனடியாக மாற்ற இந்த இலவச Unit Converter Tool பயன்படுத்துங்கள்.
+        எந்த பதிவு தேவையில்லை. மொபைல் மற்றும் டெஸ்க்டாப் சாதனங்களில்
+        எளிதாக பயன்படுத்தலாம்.
+      </p>
+    </div>
+
+    <!-- TOOL CARD -->
+    <div class="age-card">
+
+      <form method="POST" class="age-form">
+
+        <label>🔢 Enter Value</label>
+        <input type="number" step="any" name="value" value="{{ value or '' }}" required>
+
+        <label>🔁 Select Conversion Type</label>
+
+        <select name="unit">
+
+          <!-- LENGTH -->
+          <option value="cm_to_m" {% if unit=="cm_to_m" %}selected{% endif %}>Centimeter → Meter</option>
+          <option value="m_to_cm" {% if unit=="m_to_cm" %}selected{% endif %}>Meter → Centimeter</option>
+
+          <option value="m_to_ft" {% if unit=="m_to_ft" %}selected{% endif %}>Meter → Feet</option>
+          <option value="ft_to_m" {% if unit=="ft_to_m" %}selected{% endif %}>Feet → Meter</option>
+
+          <option value="km_to_mile" {% if unit=="km_to_mile" %}selected{% endif %}>Kilometer → Mile</option>
+          <option value="mile_to_km" {% if unit=="mile_to_km" %}selected{% endif %}>Mile → Kilometer</option>
+
+          <option value="inch_to_cm" {% if unit=="inch_to_cm" %}selected{% endif %}>Inch → Centimeter</option>
+          <option value="cm_to_inch" {% if unit=="cm_to_inch" %}selected{% endif %}>Centimeter → Inch</option>
+
+          <!-- WEIGHT -->
+          <option value="kg_to_g" {% if unit=="kg_to_g" %}selected{% endif %}>Kilogram → Gram</option>
+          <option value="g_to_kg" {% if unit=="g_to_kg" %}selected{% endif %}>Gram → Kilogram</option>
+
+          <option value="pound_to_kg" {% if unit=="pound_to_kg" %}selected{% endif %}>Pound → Kilogram</option>
+          <option value="kg_to_pound" {% if unit=="kg_to_pound" %}selected{% endif %}>Kilogram → Pound</option>
+
+          <!-- TEMPERATURE -->
+          <option value="c_to_f" {% if unit=="c_to_f" %}selected{% endif %}>Celsius → Fahrenheit</option>
+          <option value="f_to_c" {% if unit=="f_to_c" %}selected{% endif %}>Fahrenheit → Celsius</option>
+
+        </select>
+
+        <button type="submit" class="age-btn">
+          🔄 Convert
+        </button>
+
+        <a href="/unit-converter" class="age-btn secondary-btn">
+          ♻ Clear
+        </a>
+
+      </form>
+
+      {% if result is not none %}
+      <div class="age-result">
+
+        <h2>Conversion Result</h2>
+        <p class="big-result">{{ result }}</p>
+
+      </div>
+      {% endif %}
+
+    </div>
+
+  </div>
+
+  <!-- SEO CONTENT -->
+  <div class="age-content">
+
+    <h2>Unit Converter என்றால் என்ன?</h2>
+    <p>
+      Unit Converter என்பது அளவீட்டு மதிப்புகளை
+      (Length, Weight, Temperature) ஒரு Unit-இலிருந்து
+      மற்றொரு Unit-க்கு மாற்ற உதவும் ஆன்லைன் கருவியாகும்.
+    </p>
+
+    <h2>இந்த Unit Converter Tool எப்படி வேலை செய்கிறது?</h2>
+    <p>
+      நீங்கள் மதிப்பை உள்ளிட்டு தேவையான Conversion Type தேர்வு செய்தால்,
+      இந்த கருவி தானாகவே சரியான மாற்றத்தை கணக்கிட்டு காட்டும்.
+    </p>
+
+    <h2>இந்த கருவியின் முக்கிய பயன்கள்</h2>
+
+    <ul>
+      <li>100% இலவசம்</li>
+      <li>உடனடி முடிவுகள்</li>
+      <li>துல்லியமான கணக்கீடு</li>
+      <li>மொபைல் மற்றும் டெஸ்க்டாப் ஆதரவு</li>
+      <li>பதிவு தேவையில்லை</li>
+    </ul>
+
+    <h2>யாருக்கு இந்த Unit Converter Tool பயன்படும்?</h2>
+    <p>
+      மாணவர்கள், பொறியாளர்கள், ஆசிரியர்கள்,
+      ஆராய்ச்சியாளர்கள் மற்றும் பொதுமக்கள் அனைவருக்கும்
+      இந்த கருவி பயனுள்ளதாக இருக்கும்.
+    </p>
+
+    <h2>முடிவுரை</h2>
+    <p>
+      EasyTamilTools Unit Converter Tool
+      உங்கள் தினசரி அளவீட்டு மாற்ற தேவைகளை
+      எளிதாகவும் வேகமாகவும் தீர்க்க உதவும்.
+    </p>
+
+  </div>
+
+</section>
+
+{% endblock %}

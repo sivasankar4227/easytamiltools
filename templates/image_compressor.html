@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section class="age-page">
+
+  <!-- HERO SECTION -->
+  <div class="age-wrapper">
+
+    <!-- LEFT INTRO -->
+    <div class="age-intro">
+      <h1>Image Compressor – Tamil Online Tool</h1>
+
+      <p>
+        உங்கள் புகைப்படத்தின் (Image) அளவை தரம் குறையாமல்
+        சுருக்க (Compress) செய்ய இந்த இலவச ஆன்லைன் கருவியை
+        பயன்படுத்துங்கள்.
+      </p>
+    </div>
+
+    <!-- COMPRESSOR CARD -->
+    <div class="age-card">
+
+      <form method="POST"
+            enctype="multipart/form-data"
+            class="age-form">
+
+        <label>📤 Upload Image</label>
+
+        <input type="file"
+               name="image"
+               accept="image/*"
+               required>
+
+        <button type="submit" class="age-btn">
+          🗜 Compress Image
+        </button>
+
+      </form>
+
+      {% if compressed_image %}
+
+      <div class="age-result">
+
+        <h2>Compressed Image</h2>
+
+        <div style="text-align:center; margin-top:15px;">
+
+          <img src="/{{ compressed_image }}"
+               style="max-width:100%; border-radius:10px;">
+
+          <p style="margin-top:12px;">
+            <a href="/{{ compressed_image }}"
+               download
+               class="age-btn">
+              ⬇ Download Image
+            </a>
+          </p>
+
+        </div>
+
+      </div>
+
+      {% endif %}
+
+    </div>
+
+  </div>
+
+  <!-- SEO CONTENT -->
+  <div class="age-content">
+
+    <h2>Image Compressor என்றால் என்ன?</h2>
+
+    <p>
+      Image Compressor என்பது உங்கள் புகைப்படத்தின்
+      file size-ஐ குறைத்து, அதே நேரத்தில்
+      தரத்தை (quality) பாதுகாக்கும்
+      ஒரு ஆன்லைன் கருவியாகும்.
+    </p>
+
+    <h2>இந்த கருவியின் பயன்கள்</h2>
+
+    <ul>
+      <li>படத்தின் அளவை வேகமாக குறைக்கும்</li>
+      <li>Website speed அதிகரிக்கும்</li>
+      <li>AdSense friendly images</li>
+      <li>Mobile & Desktop support</li>
+      <li>100% இலவசம்</li>
+    </ul>
+
+    <h2>யாருக்குப் பயனுள்ளது?</h2>
+
+    <p>
+      Website owners, bloggers, students,
+      designers மற்றும் பொதுமக்கள்
+      அனைவருக்கும் இந்த கருவி பயனுள்ளதாக இருக்கும்.
+    </p>
+
+  </div>
+
+</section>
+
+{% endblock %}

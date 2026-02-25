@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section class="age-page case-page">
+
+  <!-- HERO + TOOL WRAPPER -->
+  <div class="age-wrapper">
+
+    <!-- LEFT INTRO -->
+    <div class="age-intro">
+      <h1>Case Converter – Online Text Case Conversion Tool</h1>
+
+      <p>
+        உங்கள் உரையை Uppercase, Lowercase அல்லது Title Case ஆக
+        உடனடியாக மாற்ற இந்த இலவச Case Converter Tool பயன்படுத்துங்கள்.
+        எந்த பதிவு தேவையில்லை.
+      </p>
+    </div>
+
+    <!-- TOOL CARD -->
+    <div class="age-card">
+
+      <form method="POST" class="age-form">
+
+        <label>✍️ Enter Your Text</label>
+        <textarea name="text" rows="8" placeholder="Type or paste your text here..." required>{{ text or "" }}</textarea>
+
+        <label>🔁 Choose Conversion Type</label>
+        <select name="action">
+
+          <option value="upper" {% if action=="upper" %}selected{% endif %}>
+            UPPERCASE
+          </option>
+
+          <option value="lower" {% if action=="lower" %}selected{% endif %}>
+            lowercase
+          </option>
+
+          <option value="title" {% if action=="title" %}selected{% endif %}>
+            Title Case
+          </option>
+
+        </select>
+
+        <button type="submit" class="age-btn">
+          🔄 Convert Text
+        </button>
+
+        <a href="/case-converter" class="age-btn secondary-btn">
+          ♻ Clear Text
+        </a>
+
+      </form>
+
+      {% if result %}
+      <div class="age-result">
+
+        <h2>Converted Text</h2>
+
+        <textarea rows="8" id="resultText">{{ result }}</textarea>
+
+        <button class="age-btn"
+          onclick="navigator.clipboard.writeText(document.getElementById('resultText').value)">
+          📋 Copy Text
+        </button>
+
+      </div>
+      {% endif %}
+
+    </div>
+
+  </div>
+
+  <!-- SEO CONTENT -->
+  <div class="age-content">
+
+    <h2>Case Converter என்றால் என்ன?</h2>
+    <p>
+      Case Converter என்பது நீங்கள் உள்ளிடும் உரையை
+      Uppercase, Lowercase மற்றும் Title Case ஆக
+      உடனடியாக மாற்ற உதவும் ஆன்லைன் கருவியாகும்.
+    </p>
+
+    <h2>Case Converter Tool எப்படி வேலை செய்கிறது?</h2>
+    <p>
+      நீங்கள் உரையை உள்ளிடி மாற்ற வேண்டிய format தேர்வு செய்தால்,
+      இந்த கருவி தானாகவே உங்கள் உரையை மாற்றி காட்டும்.
+      எந்த மென்பொருள் நிறுவலும் தேவையில்லை.
+    </p>
+
+    <h2>இந்த கருவியின் முக்கிய பயன்கள்</h2>
+    <ul>
+      <li>100% இலவசம்</li>
+      <li>வேகமான மாற்றம்</li>
+      <li>மொபைல் மற்றும் டெஸ்க்டாப் ஆதரவு</li>
+      <li>பதிவு தேவையில்லை</li>
+      <li>பாதுகாப்பான பயன்பாடு</li>
+    </ul>
+
+    <h2>யாருக்கு இந்த Case Converter Tool பயன்படும்?</h2>
+    <p>
+      மாணவர்கள், ஆசிரியர்கள், பிளாக்கர்கள்,
+      உள்ளடக்க எழுத்தாளர்கள், சமூக வலைதள பயனர்கள்,
+      டெவலப்பர்கள் அனைவருக்கும் பயனுள்ளதாக இருக்கும்.
+    </p>
+
+    <h2>முடிவுரை</h2>
+    <p>
+      EasyTamilTools Case Converter Tool
+      உங்கள் உரை திருத்த பணிகளை
+      எளிதாகவும் வேகமாகவும்
+      செய்ய உதவும் சிறந்த கருவியாகும்.
+    </p>
+
+  </div>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,186 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section class="calculator-page">
+<div class="letter-card">
+
+<h1>🏢 Office Leave Letter Generator – Free Online Tool</h1>
+
+<p class="letter-subtitle">
+EasyTamilTools வழங்கும் இந்த Office Leave Letter Generator மூலம்  
+பணியாளர்கள் தமிழிலும் ஆங்கிலத்திலும்  
+எளிதாக விடுப்பு விண்ணப்பக் கடிதம் உருவாக்கலாம்.  
+இந்த tool வேலைபார்ப்பவர்களுக்கு மிகவும் பயனுள்ளதாகும்.
+</p>
+
+<!-- ================= FORM ================= -->
+
+<h2>Fill Your Details</h2>
+
+<div class="letter-form">
+<input type="text" id="name" placeholder="Your Name">
+<input type="text" id="company" placeholder="Company Name">
+<input type="text" id="from" placeholder="From Date">
+<input type="text" id="to" placeholder="To Date">
+<input type="text" id="empid" placeholder="Employee ID">
+<input type="date" id="date">
+</div>
+
+<!-- ================= LETTER OUTPUT ================= -->
+
+<h2>Generated Office Leave Letter</h2>
+
+<div class="letter-box" id="officeLetter">
+
+To  
+The Manager  
+<span id="companyPreview">________ Company</span>  
+
+Subject: Leave Application  
+
+Respected Sir / Madam,  
+
+I would like to inform you that due to personal reasons,  
+I will not be able to attend office from  
+<span id="fromPreview">________</span> to  
+<span id="toPreview">________</span>.  
+
+Kindly grant me leave for the mentioned period.  
+
+Thanking you,  
+
+Yours sincerely,  
+Name: <span id="namePreview">________</span>  
+Employee ID: <span id="empidPreview">________</span>  
+Signature: __________  
+Date: <span id="datePreview">________</span>  
+
+</div>
+
+<button class="copy-btn" onclick="copyOffice()">📋 Copy Letter</button>
+
+<hr>
+
+<!-- ================= CONTENT SECTION ================= -->
+
+<h2>What is an Office Leave Letter?</h2>
+
+<p>
+Office Leave Letter என்பது ஒரு பணியாளர்  
+தன்னால் குறிப்பிட்ட நாட்களில்  
+அலுவலகத்திற்கு வர இயலாது என்பதை  
+மேலாளருக்கு அல்லது நிர்வாகத்திற்கு  
+அதிகாரபூர்வமாக தெரிவிக்கும் கடிதமாகும்.
+</p>
+
+<p>
+இந்தக் கடிதம் மூலம் leave period,  
+leave reason மற்றும் employee details  
+தெளிவாக குறிப்பிடப்படுகின்றன.
+</p>
+
+<h2>Why Use Office Leave Letter Generator?</h2>
+
+<p>
+எல்லா பணியாளர்களுக்கும்  
+சரியான format-ல் letter எழுத தெரியாது.  
+இந்த generator பயன்படுத்துவதன் மூலம்  
+சில விநாடிகளில் professional leave letter  
+உருவாக்கலாம்.
+</p>
+
+<ul>
+<li>நேரம் சேமிக்கும்</li>
+<li>Professional format</li>
+<li>Error-free text</li>
+<li>Mobile friendly</li>
+</ul>
+
+<h2>Who Can Use This Tool?</h2>
+
+<p>
+Private company employees,  
+government staff,  
+interns மற்றும் contract workers  
+எல்லோரும் இந்த tool-ஐ பயன்படுத்தலாம்.
+</p>
+
+<h2>How to Use This Tool?</h2>
+
+<ol>
+<li>மேலே உள்ள form-ல் விவரங்களை உள்ளிடவும்</li>
+<li>Letter preview உடனே update ஆகும்</li>
+<li>Copy button அழுத்தவும்</li>
+<li>Paste செய்து பயன்படுத்தவும்</li>
+</ol>
+
+<h2>Important Tips</h2>
+
+<p>
+✔ Leave dates தெளிவாக எழுதுங்கள்  
+✔ Company name சரியாக கொடுக்கவும்  
+✔ Professional tone பயன்படுத்தவும்  
+</p>
+
+<h2>Advantages of Writing Leave Letter Properly</h2>
+
+<p>
+சரியான முறையில் leave letter எழுதினால்  
+மேலாளரிடம் நல்ல பெயர் கிடைக்கும்.  
+மேலும் leave approval பெறுவது எளிதாகும்.
+</p>
+
+<h2>Frequently Asked Questions</h2>
+
+<p><strong>Q: Email-ல பயன்படுத்தலாமா?</strong></p>
+<p>A: ஆம், copy செய்து email body-ல் paste செய்யலாம்.</p>
+
+<p><strong>Q: இது free-ஆ?</strong></p>
+<p>A: ஆம், 100% free.</p>
+
+<p><strong>Q: Mobile-ல் வேலை செய்யுமா?</strong></p>
+<p>A: ஆம், அனைத்து devices-லயும் வேலை செய்யும்.</p>
+
+<h2>About EasyTamilTools</h2>
+
+<p>
+EasyTamilTools என்பது  
+தமிழ் பயனர்களுக்காக உருவாக்கப்பட்ட  
+இலவச online tools website.  
+Calculators, Letter formats மற்றும்  
+பல useful utilities இங்கு கிடைக்கின்றன.
+</p>
+
+<p>
+எங்களின் நோக்கம் –  
+அனைவருக்கும் எளிய தொழில்நுட்ப வசதிகளை  
+தமிழில் வழங்குவது.
+</p>
+
+</div>
+</section>
+
+<!-- ================= SCRIPT ================= -->
+
+<script>
+function u(i,t){
+ document.getElementById(t).innerText=
+ document.getElementById(i).value||"________";
+}
+
+["name","company","from","to","empid","date"]
+.forEach(id=>{
+ document.getElementById(id).addEventListener("input",()=>{
+   u(id,id+"Preview");
+ });
+});
+
+function copyOffice(){
+ navigator.clipboard.writeText(
+  document.getElementById("officeLetter").innerText
+ );
+ alert("Letter Copied Successfully!");
+}
+</script>
+
+{% endblock %}
