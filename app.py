@@ -75,26 +75,23 @@ def admin_login():
             return "Wrong Password"
 
     return render_template("admin_login.html")
+# ===========firebase connected ===========
+firebase_json = os.environ.get("FIREBASE_KEY")
 
-# Initialize Firebase only once
-if not firebase_admin._apps:
-
-    firebase_json = os.environ.get("FIREBASE_KEY")
-
+try:
     if firebase_json:
-        # 🔥 Production (Render)
         firebase_dict = json.loads(firebase_json)
         cred = credentials.Certificate(firebase_dict)
         firebase_admin.initialize_app(cred)
-
+        print("🔥 Firebase Connected Successfully")
     else:
-        # 🔥 Local Development
-        cred = credentials.Certificate("firebase_key.json")
-        firebase_admin.initialize_app(cred)
+        print("❌ FIREBASE_KEY not found")
 
-db = firestore.client()
+    db = firestore.client()
 
-print("🔥 Firebase Connected Successfully")
+except Exception as e:
+    print("🔥 Firebase Initialization Error:", e)
+    db = None
 # ================= CONFIG =================
 app.config["MAX_CONTENT_LENGTH"] = 5 * 1024 * 1024
 app.config["UPLOAD_FOLDER"] = "uploads"
