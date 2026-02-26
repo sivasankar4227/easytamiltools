@@ -55,7 +55,7 @@ SEARCH_ITEMS = [
 
 
 app = Flask(__name__)
-app.secret_key = "super-secret-admin-key-change-this"
+app.secret_key = os.environ.get("SECRET_KEY")
 
 @app.route("/admin/login", methods=["GET", "POST"])
 def admin_login():
@@ -851,4 +851,4 @@ def home():
 # ================= RUN =================
 if __name__ == "__main__":
     print("Starting EasyTamilTools Server...")
-    app.run(debug=True)
+    app.run()
