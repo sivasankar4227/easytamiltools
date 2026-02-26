@@ -122,65 +122,50 @@ def add_review():
 
 @app.route("/sitemap.xml")
 def sitemap():
-
     pages = []
-# ================= STATIC ROUTES =================
-    for rule in app.url_map.iter_rules():
-        if "GET" in rule.methods and len(rule.arguments) == 0:
-            if not rule.rule.startswith("/static"):
-                url = url_for(rule.endpoint, _external=True)
 
-                # Assign priority & changefreq
-                if rule.rule == "/":
-                    priority = "1.0"
-                    changefreq = "daily"
-                elif rule.rule.startswith("/blog"):
-                    priority = "0.9"
-                    changefreq = "weekly"
-                elif rule.rule.startswith("/tools") or rule.rule.startswith("/calculators"):
-                    priority = "0.8"
-                    changefreq = "monthly"
-                else:
-                    priority = "0.7"
-                    changefreq = "monthly"
+    # ================= STATIC USER-FACING PAGES =================
+    user_pages = [
+        "/", "/privacy", "/terms", "/disclaimer", "/about", "/contact",
+        "/feedback", "/advertise", "/letters", "/tools", "/calculators", "/search"
+    ]
 
-                pages.append({
-                    "loc": url,
-                    "priority": priority,
-                    "changefreq": changefreq
-                })
+    for route in user_pages:
+        try:
+            url = url_for(route.strip("/").replace("/", "_") or "home", _external=True)
+        except:
+            # fallback for routes like "/search" that may not have endpoint name exactly
+            url = url_for("home", _external=True) if route == "/" else request.url_root[:-1] + route
+        pages.append({
+            "loc": url,
+            "priority": "0.8" if route not in ["/", "/search"] else "1.0",
+            "changefreq": "daily" if route == "/" else "monthly"
+        })
 
-    # ================= BLOG DYNAMIC POSTS =================
-    blog_path = os.path.join("content", "blog")
+    # ================= BLOG DYNAMIC POSTS (Firebase) =================
+    posts_ref = db.collection("posts").stream()
+    categories = set()
 
-    if os.path.isdir(blog_path):
-        for category in os.listdir(blog_path):
-            category_path = os.path.join(blog_path, category)
+    for doc in posts_ref:
+        data = doc.to_dict()
+        category = data.get("category", "general")
+        slug = doc.id
+        categories.add(category)
 
-            if os.path.isdir(category_path):
+        # Individual blog post
+        pages.append({
+            "loc": url_for("blog_post", category=category, post=slug, _external=True),
+            "priority": "0.7",
+            "changefreq": "weekly"
+        })
 
-                # Add category page
-                pages.append({
-                    "loc": url_for("blog_category", category=category, _external=True),
-                    "priority": "0.8",
-                    "changefreq": "weekly"
-                })
-
-                # Add individual posts
-                for file in os.listdir(category_path):
-                    if file.endswith(".html"):
-                        slug = file.replace(".html", "")
-
-                        pages.append({
-                            "loc": url_for(
-                                "blog_post",
-                                category=category,
-                                post=slug,
-                                _external=True
-                            ),
-                            "priority": "0.7",
-                            "changefreq": "weekly"
-                        })
+    # Add category pages
+    for category in categories:
+        pages.append({
+            "loc": url_for("blog_category", category=category, _external=True),
+            "priority": "0.8",
+            "changefreq": "weekly"
+        })
 
     # ================= BUILD XML =================
     xml = """<?xml version="1.0" encoding="UTF-8"?>
@@ -188,17 +173,18 @@ def sitemap():
 
     for page in pages:
         xml += f"""
-<url>
-<loc>{page['loc']}</loc>
-<lastmod>{datetime.now().date()}</lastmod>
-<changefreq>{page['changefreq']}</changefreq>
-<priority>{page['priority']}</priority>
-</url>"""
+  <url>
+    <loc>{page['loc']}</loc>
+    <lastmod>{datetime.now().date()}</lastmod>
+    <changefreq>{page['changefreq']}</changefreq>
+    <priority>{page['priority']}</priority>
+  </url>"""
 
     xml += "\n</urlset>"
 
     return Response(xml, mimetype="application/xml")
 
+# =============ROBOTS TEXT==========
 @app.route("/robots.txt")
 def robots():
     return app.send_static_file("robots.txt")
@@ -247,7 +233,7 @@ def bank_close():
 
 # ================= CALCULATORS =================
 
-# ================= CALCULATORS HOME =================
+# ===CALCULATORS HOME ====
 @app.route("/calculators")
 def calculators():
     return render_template("calculators.html")
@@ -344,7 +330,7 @@ def date_difference_calculator():
 
 # ================= TOOLS =================
 
-# ================= TOOLS HOME ROUTES=================
+# ===== TOOLS HOME ROUTES====
 @app.route("/tools")
 def tools():
     return render_template("tools.html")
