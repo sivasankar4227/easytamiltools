@@ -55,6 +55,12 @@ SEARCH_ITEMS = [
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY")
 
+# ================= HEALTH CHECK =================
+@app.route("/health")
+def health():
+    return "Server is live! ✅"
+
+
 @app.route("/admin/login", methods=["GET", "POST"])
 def admin_login():
 
@@ -834,7 +840,5 @@ def home():
 
 # ================= RUN =================
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))  # default 5000 for local testing
-    print(f"Starting EasyTamilTools Server on port {port}...")
-
-    app.run(host="0.0.0.0", port=port)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port, debug=False)  # production
