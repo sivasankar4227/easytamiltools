@@ -10,13 +10,11 @@ from pdf2docx import Converter
 import uuid
 import smtplib
 from email.message import EmailMessage
-from datetime import datetime
 from dateutil.relativedelta import relativedelta
 from flask import abort
 from flask import send_file
 from PyPDF2 import PdfMerger, PdfReader, PdfWriter
 import json
-from flask import request, redirect, url_for
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
@@ -836,5 +834,7 @@ def home():
 
 # ================= RUN =================
 if __name__ == "__main__":
-    print("Starting EasyTamilTools Server...")
-    app.run()
+    port = int(os.environ.get("PORT", 5000))  # default 5000 for local testing
+    print(f"Starting EasyTamilTools Server on port {port}...")
+
+    app.run(host="0.0.0.0", port=port)
