@@ -24,10 +24,9 @@
 
     
     {% if post.image %}
-    <img src="{{ url_for('static', filename=post.image) }}"
-         class="img-fluid mb-4"
-         alt="{{ post.title }}">
+    <img src="{{ url_for('static', filename=post.image) }}" alt="{{ post.title }}">
     {% endif %}
+    
     <!-- Dynamic Blog Content -->
     <div class="article-content">
         {{ content|safe }}

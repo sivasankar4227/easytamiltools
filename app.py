@@ -99,7 +99,7 @@ except Exception as e:
     db = None
 # ================= CONFIG =================
 app.config["MAX_CONTENT_LENGTH"] = 5 * 1024 * 1024
-app.config["UPLOAD_FOLDER"] = "uploads"
+app.config["UPLOAD_FOLDER"] = os.path.join(app.root_path, "static", "uploads")
 app.config["OUTPUT_FOLDER"] = "output"
 os.makedirs("uploads", exist_ok=True)
 os.makedirs("output", exist_ok=True)
@@ -212,12 +212,16 @@ def admin():
 
         image_filename = None
 
-        if image:
+        if image and image.filename != "":
             filename = secure_filename(image.filename)
-            image_path = os.path.join(app.config["UPLOAD_FOLDER"], filename)
-            image.save(image_path)
-            image_filename = f"uploads/{filename}"
 
+            upload_folder = app.config["UPLOAD_FOLDER"]
+            os.makedirs(upload_folder, exist_ok=True)
+
+            upload_path = os.path.join(upload_folder, filename)
+            image.save(upload_path)
+
+        image_filename = f"uploads/{filename}"
         db.collection("posts").document(slug).set({
             "title": title,
             "slug": slug,
@@ -818,6 +822,10 @@ def blog_post(category, post):
     # Update View Count
     post_ref.update({"views": firestore.Increment(1)})
     views = data.get("views", 0) + 1
+
+    # Safe defaults
+    data.setdefault("image", None)
+    data.setdefault("views", 0)
 
     # Fetch reviews for this specific post
     reviews_ref = db.collection("reviews").where("post", "==", post).stream()
