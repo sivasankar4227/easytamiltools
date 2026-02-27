@@ -834,6 +834,7 @@ def blog_post(category, post):
     title=data.get("title"),
     image=data.get("image"),
     slug=post,
+    post=data, 
     category=category,
     views=views,
     avg_rating=avg_rating,
