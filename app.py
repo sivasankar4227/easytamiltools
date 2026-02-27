@@ -53,7 +53,7 @@ SEARCH_ITEMS = [
 
 
 app = Flask(__name__)
-app.secret_key = os.environ.get("SECRET_KEY")
+app.secret_key = os.environ.get("SECRET_KEY") or "temporarysecret123"
 
 # ================= HEALTH CHECK =================
 @app.route("/health")
@@ -80,12 +80,16 @@ firebase_json = os.environ.get("FIREBASE_KEY")
 
 try:
     if firebase_json:
+        # 🔥 Render (Production) method
         firebase_dict = json.loads(firebase_json)
         cred = credentials.Certificate(firebase_dict)
         firebase_admin.initialize_app(cred)
-        print("🔥 Firebase Connected Successfully")
+        print("🔥 Firebase Connected (Render Mode)")
     else:
-        print("❌ FIREBASE_KEY not found")
+        # 🔥 Local method (serviceAccountKey.json file)
+        cred = credentials.Certificate("firebase_key.json")
+        firebase_admin.initialize_app(cred)
+        print("🔥 Firebase Connected (Local Mode)")
 
     db = firestore.client()
 
@@ -201,14 +205,24 @@ def admin():
         title = request.form.get("title")
         category = request.form.get("category")
         content = request.form.get("content")
+        image = request.files.get("image")
 
         slug = title.lower().replace(" ", "-")
+
+        image_filename = None
+
+        if image:
+            filename = secure_filename(image.filename)
+            image_path = os.path.join(app.config["UPLOAD_FOLDER"], filename)
+            image.save(image_path)
+            image_filename = f"uploads/{filename}"
 
         db.collection("posts").document(slug).set({
             "title": title,
             "slug": slug,
             "category": category,
             "content": content,
+            "image": image_filename,
             "views": 0
         })
 

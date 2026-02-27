@@ -23,10 +23,10 @@
     </div>
 
     
-    {% if image %}
-    <img src="{{ url_for('static', filename=image) }}"
+    {% if post.image %}
+    <img src="{{ url_for('static', filename=post.image) }}"
          class="img-fluid mb-4"
-         alt="{{ title }}">
+         alt="{{ post.title }}">
     {% endif %}
     <!-- Dynamic Blog Content -->
     <div class="article-content">
