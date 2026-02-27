@@ -19,6 +19,7 @@ import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
 from flask import session
+from slugify import slugify
 
 
 # ================= SEARCH DATA =================
@@ -207,7 +208,7 @@ def admin():
         content = request.form.get("content")
         image = request.files.get("image")
 
-        slug = title.lower().replace(" ", "-")
+        slug = slugify(title)
 
         image_filename = None
 
