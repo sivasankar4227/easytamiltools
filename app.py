@@ -20,6 +20,10 @@ from firebase_admin import credentials
 from firebase_admin import firestore
 from flask import session
 from slugify import slugify
+import pillow_avif
+import os, uuid, threading
+from flask import jsonify
+from flask import send_from_directory
 
 
 # ================= SEARCH DATA =================
@@ -398,8 +402,71 @@ def tools():
 def json_formatter():
     return render_template("json_formatter.html")
 
+@app.route('/converted/<filename>')
+def download_file(filename):
+    return send_from_directory(CONVERT_FOLDER, filename, as_attachment=True)
+
+# =============image converter code=============
+
+UPLOAD_FOLDER = "uploads"
+CONVERT_FOLDER = "converted"
+
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+os.makedirs(CONVERT_FOLDER, exist_ok=True)
+
+ALLOWED_EXTENSIONS = {"png","jpg","jpeg","webp","avif"}
+
+app.config['MAX_CONTENT_LENGTH'] = 15 * 1024 * 1024
+
+@app.route("/image-converter")
+def image_converter():
+    return render_template("image_converter.html")
 
 
+@app.route("/convert-image", methods=["POST"])
+def convert_image():
+    files = request.files.getlist("images")
+    output_format = request.form.get("format")
+
+    format_map = {
+        "jpg": "JPEG",
+        "jpeg": "JPEG",
+        "png": "PNG",
+        "webp": "WEBP",
+        "avif": "AVIF"
+    }
+
+    save_format = format_map.get(output_format.lower())
+
+    if not save_format:
+        return jsonify({"error": "Invalid format"}), 400
+
+    converted_files = []
+
+    for file in files:
+        filename = secure_filename(file.filename)
+
+        if "." not in filename:
+            continue
+
+        unique = str(uuid.uuid4())
+        input_path = os.path.join(UPLOAD_FOLDER, unique + "_" + filename)
+        file.save(input_path)
+
+        img = Image.open(input_path)
+
+        output_filename = unique + "." + output_format
+        output_path = os.path.join(CONVERT_FOLDER, output_filename)
+
+        # RGB fix for JPG
+        if save_format == "JPEG":
+            img = img.convert("RGB")
+
+        img.save(output_path, save_format)
+
+        converted_files.append(output_filename)
+
+    return jsonify({"files": converted_files})
 @app.route("/compress-pdf")
 def compress_pdf():
     return render_template("compress_pdf.html")

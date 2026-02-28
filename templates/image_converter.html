@@ -1,0 +1,299 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% block head %}
+<title>Free Image Converter Online – Convert PNG, JPG, WEBP, AVIF | EasyTamilTools</title>
+
+<meta name="description" content="Free online Image Converter tool to convert PNG, JPG, WEBP, AVIF images instantly. Batch convert multiple images with drag and drop support. Fast, secure and mobile friendly.">
+
+<meta name="keywords" content="image converter online, png to jpg, jpg to webp, webp to png, avif converter, free image converter tool, batch image converter">
+
+<link rel="canonical" href="https://easytamiltools.in/image-converter">
+{% endblock %}
+<section class="age-page case-page">
+
+  <!-- HERO + TOOL WRAPPER -->
+  <div class="age-wrapper">
+
+    <!-- LEFT INTRO -->
+    <div class="age-intro">
+      <h1>Image Converter – Free Online Image Format Converter</h1>
+
+      <p>
+        PNG, JPG, WEBP, AVIF போன்ற image formats-ஐ
+        மற்ற format-ஆக உடனடியாக மாற்ற இந்த இலவச
+        Image Converter Tool பயன்படுத்துங்கள்.
+        Drag & Drop support மற்றும் batch conversion வசதி உண்டு.
+      </p>
+    </div>
+
+    <!-- TOOL CARD -->
+    <div class="age-card">
+
+      <div class="drop-zone" id="dropZone">
+        📂 Drag & Drop Images Here or Click to Upload
+        <input type="file" id="fileInput" multiple hidden>
+      </div>
+
+      <div id="preview" class="mt-3 text-center"></div>
+
+      <label class="mt-3">🔁 Select Output Format</label>
+      <select id="format" class="form-select mt-2">
+        <option value="">Select Format</option>
+        <option value="png">PNG</option>
+        <option value="jpg">JPG</option>
+        <option value="webp">WEBP</option>
+        <option value="avif">AVIF</option>
+      </select>
+
+      <button class="age-btn mt-3 w-100" onclick="convertImages()">
+        🔄 Convert Images
+      </button>
+
+      <div class="progress mt-3">
+        <div class="progress-bar progress-bar-striped progress-bar-animated"
+             style="width:0%">0%</div>
+      </div>
+
+      <div id="downloadLinks" class="text-center mt-3"></div>
+
+    </div>
+
+  </div>
+
+
+  <!-- SEO CONTENT -->
+  <div class="age-content">
+
+    <h2>Image Converter என்றால் என்ன?</h2>
+    <p>
+      Image Converter என்பது ஒரு ஆன்லைன் கருவியாகும்.
+      இது PNG, JPG, WEBP, AVIF போன்ற image format-களை
+      வேறு format-ஆக மாற்ற உதவுகிறது.
+      எந்த software install செய்யாமல் browser மூலம்
+      நேரடியாக பயன்படுத்தலாம்.
+    </p>
+
+    <h2>இந்த Image Converter Tool எப்படி வேலை செய்கிறது?</h2>
+    <p>
+      நீங்கள் உங்கள் image file-ஐ upload செய்து
+      வேண்டிய output format-ஐ தேர்வு செய்தால்,
+      இந்த tool அதனை உடனடியாக convert செய்து
+      download link வழங்கும்.
+      Multiple images upload செய்து batch convert செய்யவும் முடியும்.
+    </p>
+
+    <h2>Image Converter Tool முக்கிய அம்சங்கள்</h2>
+    <ul>
+      <li>✔ 100% இலவசம்</li>
+      <li>✔ Drag & Drop Upload</li>
+      <li>✔ Multiple File Support</li>
+      <li>✔ Fast Processing</li>
+      <li>✔ Mobile Friendly Design</li>
+      <li>✔ Secure & Safe Usage</li>
+    </ul>
+
+    <h2>இந்த கருவி யாருக்கு பயன்படும்?</h2>
+    <p>
+      Graphic Designers, Bloggers, Web Developers,
+      Students மற்றும் Social Media Users அனைவருக்கும்
+      இந்த tool மிகவும் பயனுள்ளதாக இருக்கும்.
+      Website optimization மற்றும் file size control-க்கும் உதவும்.
+    </p>
+
+    <h2>Image Format Conversion ஏன் தேவையானது?</h2>
+    <p>
+      சில website-கள் குறிப்பிட்ட image format-ஐ மட்டுமே ஆதரிக்கும்.
+      SEO optimization-க்கும் lightweight image formats
+      முக்கியமானது.
+      அதனால் format conversion தேவையாகிறது.
+    </p>
+
+    <h2>முடிவுரை</h2>
+    <p>
+      EasyTamilTools Image Converter Tool
+      உங்கள் image format மாற்ற பணிகளை
+      எளிதாகவும் வேகமாகவும் செய்ய உதவும்.
+      பதிவு தேவையில்லை, software தேவையில்லை —
+      உடனடியாக பயன்படுத்த தொடங்குங்கள்.
+    </p>
+    <hr>
+
+        <h2>❓ Frequently Asked Questions (FAQ)</h2>
+
+        <h3>1. Is this Image Converter free?</h3>
+        <p>
+        ஆம், இந்த Image Converter 100% இலவசம்.
+        எந்த பதிவு தேவையில்லை.
+        </p>
+
+        <h3>2. Can I convert multiple images at once?</h3>
+        <p>
+        ஆம், நீங்கள் பல image files upload செய்து
+        batch conversion செய்யலாம்.
+        </p>
+
+        <h3>3. Are my images stored on the server?</h3>
+        <p>
+        இல்லை. உங்கள் images தற்காலிகமாக மட்டும் process செய்யப்படும்.
+        பின்னர் automatically delete செய்யப்படும்.
+        </p>
+
+        <h3>4. Which formats are supported?</h3>
+        <p>
+        PNG, JPG, WEBP, AVIF போன்ற முக்கியமான formats
+        இந்த tool மூலம் convert செய்யலாம்.
+        </p>
+
+        <h3>5. Is it safe to use?</h3>
+        <p>
+        ஆம். உங்கள் images third-party க்கு share செய்யப்படாது.
+        Secure processing நடைபெறும்.
+        </p>
+  </div>
+
+            <p>
+            மேலும், <a href="/image-compressor">Image Compressor</a>,
+            <a href="/tamil-pdf-to-word">PDF Tools</a>,
+            <a href="/json-formatter">JSON Formatter</a>
+            போன்ற பல இலவச கருவிகளும் EasyTamilTools-ல் கிடைக்கின்றன.
+            </p>
+</section>
+
+
+
+<!-- TOOL SCRIPT -->
+<script>
+
+let selectedFiles = [];
+
+const dropZone = document.getElementById("dropZone");
+const fileInput = document.getElementById("fileInput");
+const preview = document.getElementById("preview");
+const progressBar = document.querySelector(".progress");
+const progress = document.querySelector(".progress-bar");
+
+dropZone.addEventListener("click", () => fileInput.click());
+
+fileInput.addEventListener("change", (e) => {
+  selectedFiles = e.target.files;
+  showPreview();
+});
+
+dropZone.addEventListener("dragover", (e)=>{
+  e.preventDefault();
+  dropZone.classList.add("dragover");
+});
+
+dropZone.addEventListener("dragleave", ()=>{
+  dropZone.classList.remove("dragover");
+});
+
+dropZone.addEventListener("drop",(e)=>{
+  e.preventDefault();
+  dropZone.classList.remove("dragover");
+  selectedFiles = e.dataTransfer.files;
+  showPreview();
+});
+
+function showPreview(){
+  preview.innerHTML="";
+  for(let file of selectedFiles){
+    let img = document.createElement("img");
+    img.src = URL.createObjectURL(file);
+    img.style.maxWidth="100px";
+    img.style.margin="5px";
+    img.style.borderRadius="8px";
+    preview.appendChild(img);
+  }
+}
+
+function convertImages(){
+  let format = document.getElementById("format").value;
+
+  if(!format || selectedFiles.length===0){
+    alert("Select files & format");
+    return;
+  }
+
+  let formData = new FormData();
+  for(let file of selectedFiles){
+    formData.append("images",file);
+  }
+  formData.append("format",format);
+
+  let xhr = new XMLHttpRequest();
+  xhr.open("POST","/convert-image",true);
+
+  xhr.upload.onprogress = function(e){
+    if(e.lengthComputable){
+      let percent = Math.round((e.loaded/e.total)*100);
+      progressBar.style.display="block";
+      progress.style.width = percent+"%";
+      progress.innerText = percent+"%";
+    }
+  };
+
+  xhr.onload = function(){
+    let response = JSON.parse(xhr.responseText);
+    let container = document.getElementById("downloadLinks");
+    container.innerHTML="";
+
+    response.files.forEach(file=>{
+      let link = document.createElement("a");
+      link.href = "/converted/"+file;
+      link.download = file;
+      link.className="age-btn";
+      link.innerText="⬇ Download "+file;
+      link.style.display="block";
+      link.style.margin="10px auto";
+      container.appendChild(link);
+    });
+
+    progress.innerText="Completed";
+  };
+
+  xhr.send(formData);
+}
+
+</script>
+
+<script type="application/ld+json">
+{
+"@context": "https://schema.org",
+"@type": "FAQPage",
+"mainEntity": [{
+  "@type": "Question",
+  "name": "Is this Image Converter free?",
+  "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Yes, this Image Converter is completely free and does not require registration."
+  }
+},
+{
+  "@type": "Question",
+  "name": "Can I convert multiple images at once?",
+  "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Yes, you can upload multiple images and convert them in batch."
+  }
+},
+{
+  "@type": "Question",
+  "name": "Are my images stored?",
+  "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "No, uploaded images are processed temporarily and automatically deleted."
+  }
+},
+{
+  "@type": "Question",
+  "name": "Which formats are supported?",
+  "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "PNG, JPG, WEBP and AVIF formats are supported."
+  }
+}]
+}
+</script>
+{% endblock %}
