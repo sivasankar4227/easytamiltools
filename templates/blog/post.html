@@ -4,38 +4,84 @@
     <title>{{ slug.replace('-', ' ').title() }} | EasyTamilTools</title>
     <meta name="description" content="Latest Tamil blog article on {{ slug.replace('-', ' ') }}. Read full guide and updates.">
     <link rel="canonical" href="{{ request.url }}">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="{{ slug.replace('-', ' ').title() }}">
+    <meta property="og:description" content="Latest Tamil blog article on {{ slug.replace('-', ' ') }}.">
+    {% if post.image %}
+    <meta property="og:image" content="{{ url_for('static', filename=post.image, _external=True) }}">
+    {% endif %}
+    <meta property="og:url" content="{{ request.url }}">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="EasyTamilTools">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ slug.replace('-', ' ').title() }}">
+    <meta name="twitter:description" content="Latest Tamil blog article on {{ slug.replace('-', ' ') }}.">
+    {% if post.image %}
+    <meta name="twitter:image" content="{{ url_for('static', filename=post.image, _external=True) }}">
+    {% endif %}
 {% endblock %}
 
 {% block content %}
 
-<main class="blog-content container" style="max-width: 900px; margin: auto; padding: 20px; line-height: 1.8; font-family: 'Roboto', sans-serif;">
+<main class="blog-content container">
 
     <!-- Blog Title -->
-    <h1 style="margin-bottom:10px;">
+    <h1 class="post-title">
         {{ slug.replace('-', ' ').title() }}
     </h1>
 
-    <!-- Meta Info (Views + Rating) -->
-    <div style="color:#6b7280; font-size:14px; margin-bottom:25px;">
+    <!-- Meta Info -->
+    <div class="meta-info">
         <span>👁️ {{ views }} Views</span>
         &nbsp; | &nbsp;
         <span>⭐ {{ avg_rating }} ({{ review_count }} Reviews)</span>
     </div>
 
-    
+    <!-- 🔥 Share Buttons -->
+    <div class="share-buttons">
+        <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.url }}"
+           target="_blank" rel="noopener"
+           class="share-btn facebook">
+            <i class="fab fa-facebook-f"></i>
+        </a>
+
+        <a href="https://twitter.com/intent/tweet?url={{ request.url }}&text={{ slug.replace('-', ' ').title() }}"
+           target="_blank" rel="noopener"
+           class="share-btn twitter">
+            <i class="fab fa-twitter"></i>
+        </a>
+
+        <a href="https://api.whatsapp.com/send?text={{ slug.replace('-', ' ').title() }} {{ request.url }}"
+           target="_blank" rel="noopener"
+           class="share-btn whatsapp">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+
+        <button onclick="copyLink()" class="share-btn copy">
+            <i class="fas fa-link"></i>
+        </button>
+    </div>
+
     {% if post.image %}
-    <img src="{{ url_for('static', filename=post.image) }}" alt="{{ post.title }}">
+    <div class="post-image">
+        <img src="{{ url_for('static', filename=post.image) }}"
+             alt="{{ slug.replace('-', ' ').title() }}"
+             loading="lazy">
+    </div>
     {% endif %}
-    
-    <!-- Dynamic Blog Content -->
+
+    <!-- Blog Content -->
     <div class="article-content">
         {{ content|safe }}
     </div>
 
-    <hr style="margin:40px 0;">
+    <hr>
 
-    <!-- Internal Tools Links (SEO Boost Section) -->
-    <div style="background:#f9f9f9; padding:20px; border-radius:10px;">
+    <!-- Internal Links -->
+    <div class="internal-tools">
         <h3>Useful Free Online Tools</h3>
         <ul>
             <li><a href="/age-calculator">Age Calculator</a></li>
@@ -46,5 +92,12 @@
     </div>
 
 </main>
+
+<script>
+function copyLink() {
+    navigator.clipboard.writeText(window.location.href);
+    alert("Link copied successfully!");
+}
+</script>
 
 {% endblock %}
