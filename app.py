@@ -196,6 +196,11 @@ def robots():
     return app.send_static_file("robots.txt")
 
 # ===============ADMIN PAGE ROUTE==================
+from datetime import datetime
+from flask import request, redirect, render_template, session
+import os
+from werkzeug.utils import secure_filename
+
 @app.route("/admin", methods=["GET", "POST"])
 def admin():
 
@@ -203,15 +208,20 @@ def admin():
         return redirect("/admin/login")
 
     if request.method == "POST":
+
         title = request.form.get("title")
+        slug = request.form.get("slug") or slugify(title)
         category = request.form.get("category")
         content = request.form.get("content")
+        tags = request.form.get("tags")
+        meta_title = request.form.get("meta_title")
+        meta_description = request.form.get("meta_description")
+        status = request.form.get("status")  # draft or publish
         image = request.files.get("image")
-
-        slug = slugify(title)
 
         image_filename = None
 
+        # 🔥 Featured Image Upload
         if image and image.filename != "":
             filename = secure_filename(image.filename)
 
@@ -221,19 +231,48 @@ def admin():
             upload_path = os.path.join(upload_folder, filename)
             image.save(upload_path)
 
-        image_filename = f"uploads/{filename}"
+            image_filename = f"uploads/{filename}"
+
+        # 🔥 Save to Firestore
         db.collection("posts").document(slug).set({
             "title": title,
             "slug": slug,
             "category": category,
+            "tags": tags,
+            "meta_title": meta_title,
+            "meta_description": meta_description,
             "content": content,
             "image": image_filename,
-            "views": 0
+            "status": status,
+            "views": 0,
+            "created_at": datetime.utcnow()
         })
+
+        # 🔔 If Published → Send Push
+        if status == "publish":
+            post_url = f"https://yourdomain.com/blog/{category}/{slug}"
+            # send_push_notification(title, "New update வந்துவிட்டது 🔥", post_url)
 
         return redirect(f"/blog/{category}/{slug}")
 
     return render_template("admin.html")
+
+# ===========upload inline images codes in admin.html============
+@app.route("/upload-inline-image", methods=["POST"])
+def upload_inline_image():
+
+    image = request.files.get("file")
+
+    filename = secure_filename(image.filename)
+    upload_folder = os.path.join(app.root_path, "static", "uploads")
+    os.makedirs(upload_folder, exist_ok=True)
+
+    path = os.path.join(upload_folder, filename)
+    image.save(path)
+
+    url = url_for('static', filename=f'uploads/{filename}')
+
+    return {"location": url}
 # ================= LETTERS =================
 @app.route("/letters")
 def letters():
@@ -354,6 +393,10 @@ def date_difference_calculator():
 @app.route("/tools")
 def tools():
     return render_template("tools.html")
+
+@app.route("/json-formatter")
+def json_formatter():
+    return render_template("json_formatter.html")
 
 
 

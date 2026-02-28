@@ -1,35 +1,123 @@
 {% extends "base.html" %}
 {% block content %}
 
-<div style="max-width:700px;margin:auto;padding:30px;">
+<div class="admin-container">
 
-<h2>🛠 Admin Panel - Add Blog Post</h2>
+<h2>📝 Create New Blog Post</h2>
 
 <form method="POST" enctype="multipart/form-data">
 
-<label>Title</label><br>
-<input type="text" name="title" required style="width:100%;padding:8px;"><br><br>
+<!-- Title -->
+<label>Title</label>
+<input type="text" id="title" name="title" required>
 
-<label>Category</label><br>
-<select name="category" style="width:100%;padding:8px;">
-    <option value="ott">OTT</option>
-    <option value="tech">Tech</option>
-    <option value="news">News</option>
+<!-- Slug -->
+<label>Slug (Auto Generated)</label>
+<input type="text" id="slug" name="slug">
+
+<!-- Category -->
+<label>Category</label>
+<select name="category">
     <option value="entertainment">Entertainment</option>
-</select><br><br>
+    <option value="news">News</option>
+    <option value="tech">Tech</option>
+    <option value="ott">OTT</option>
+</select>
 
-<label>Featured Image</label><br>
-<input type="file" name="image" accept="image/*" required style="width:100%;padding:8px;"><br><br>
+<!-- Tags -->
+<label>Tags (comma separated)</label>
+<input type="text" name="tags" placeholder="rashmika, vijay, wedding">
 
-<label>Content (HTML Allowed)</label><br>
-<textarea name="content" rows="10" style="width:100%;padding:8px;"></textarea><br><br>
+<!-- Featured Image -->
+<label>Featured Image</label>
+<input type="file" name="image" accept="image/*">
 
-<button type="submit" style="padding:10px 20px;background:black;color:white;">
+<!-- SEO -->
+<hr>
+<h3>🔍 SEO Settings</h3>
+
+<label>Meta Title</label>
+<input type="text" name="meta_title">
+
+<label>Meta Description</label>
+<textarea name="meta_description" rows="3"></textarea>
+
+<hr>
+
+<label>Content</label>
+<textarea id="editor" name="content"></textarea>
+
+<br><br>
+
+<button type="submit" name="status" value="draft" class="draft-btn">
+    Save Draft
+</button>
+
+<button type="submit" name="status" value="publish" class="publish-btn">
     Publish Post
 </button>
 
 </form>
-
 </div>
+
+<style>
+.admin-container{
+    max-width:900px;
+    margin:auto;
+    padding:30px;
+}
+
+input, select, textarea{
+    width:100%;
+    padding:10px;
+    margin-bottom:15px;
+}
+
+.publish-btn{
+    background:black;
+    color:white;
+    padding:10px 20px;
+    border:none;
+}
+
+.draft-btn{
+    background:gray;
+    color:white;
+    padding:10px 20px;
+    border:none;
+}
+</style>
+
+
+<!-- TinyMCE Advanced -->
+<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js"></script>
+
+<script>
+tinymce.init({
+  selector: '#editor',
+  height: 500,
+  plugins: 'lists link image media table code fullscreen preview',
+  toolbar: `
+    undo redo | styles | bold italic underline |
+    alignleft aligncenter alignright |
+    bullist numlist |
+    link image media table |
+    preview fullscreen | code
+  `,
+  automatic_uploads: true,
+  images_upload_url: '/upload-inline-image',
+  file_picker_types: 'image',
+});
+</script>
+
+<script>
+document.getElementById("title").addEventListener("keyup", function(){
+    let slug = this.value
+        .toLowerCase()
+        .replace(/ /g,'-')
+        .replace(/[^\w-]+/g,'');
+    document.getElementById("slug").value = slug;
+});
+</script>
 
 {% endblock %}

@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block head %}
+<title>Free JSON Formatter Online | EasyTamilTools</title>
+<meta name="description" content="Format, validate and minify JSON instantly using our free online JSON Formatter tool. Developer friendly and fast.">
+{% endblock %}
+
+{% block content %}
+
+<section class="calculator-page">
+<div class="calculator-card">
+
+<h1>🧾 Free JSON Formatter & Validator</h1>
+
+<p>
+Paste your JSON below and format or validate instantly.
+Useful for developers, API testing and debugging.
+</p>
+
+<textarea id="jsonInput" placeholder="Paste your JSON here..." 
+style="width:100%; height:200px; padding:10px;"></textarea>
+
+<div style="margin-top:15px;">
+<button onclick="formatJSON()" class="btn">Format</button>
+<button onclick="minifyJSON()" class="btn">Minify</button>
+<button onclick="validateJSON()" class="btn">Validate</button>
+<button onclick="copyJSON()" class="btn">Copy</button>
+</div>
+
+<h3 style="margin-top:20px;">Result:</h3>
+<pre id="jsonOutput" 
+style="background:#f4f4f4; padding:15px; overflow:auto;"></pre>
+
+</div>
+</section>
+
+<script>
+function formatJSON() {
+    try {
+        let input = document.getElementById("jsonInput").value;
+        let parsed = JSON.parse(input);
+        let formatted = JSON.stringify(parsed, null, 4);
+        document.getElementById("jsonOutput").textContent = formatted;
+    } catch (e) {
+        alert("Invalid JSON ❌");
+    }
+}
+
+function minifyJSON() {
+    try {
+        let input = document.getElementById("jsonInput").value;
+        let parsed = JSON.parse(input);
+        let minified = JSON.stringify(parsed);
+        document.getElementById("jsonOutput").textContent = minified;
+    } catch (e) {
+        alert("Invalid JSON ❌");
+    }
+}
+
+function validateJSON() {
+    try {
+        let input = document.getElementById("jsonInput").value;
+        JSON.parse(input);
+        alert("Valid JSON ✅");
+    } catch (e) {
+        alert("Invalid JSON ❌");
+    }
+}
+
+function copyJSON() {
+    let output = document.getElementById("jsonOutput").textContent;
+    navigator.clipboard.writeText(output);
+    alert("Copied to clipboard ✅");
+}
+</script>
+
+{% endblock %}
