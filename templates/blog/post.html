@@ -1,29 +1,57 @@
 {% extends "base.html" %}
 <meta itemprop="commentCount" content="{{ comments|length }}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:type" content="image/jpeg">
 {% block head %}
-    <title>{{ slug.replace('-', ' ').title() }} | EasyTamilTools</title>
-    <meta name="description" content="Latest Tamil blog article on {{ slug.replace('-', ' ') }}. Read full guide and updates.">
-    <link rel="canonical" href="{{ request.url }}">
 
-    <!-- Open Graph -->
-    <meta property="og:title" content="{{ slug.replace('-', ' ').title() }}">
-    <meta property="og:description" content="Latest Tamil blog article on {{ slug.replace('-', ' ') }}.">
-    {% if post.image %}
-    <meta property="og:image" content="{{ url_for('static', filename=post.image, _external=True) }}">
-    {% endif %}
-    <meta property="og:url" content="{{ request.url }}">
-    <meta property="og:type" content="article">
-    <meta property="og:site_name" content="EasyTamilTools">
+<title>{{ post.meta_title or slug.replace('-', ' ').title() }} | EasyTamilTools</title>
 
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="{{ slug.replace('-', ' ').title() }}">
-    <meta name="twitter:description" content="Latest Tamil blog article on {{ slug.replace('-', ' ') }}.">
-    {% if post.image %}
-    <meta name="twitter:image" content="{{ url_for('static', filename=post.image, _external=True) }}">
-    {% endif %}
+<meta name="description"
+      content="{{ post.meta_description or 'Latest Tamil news and updates.' }}">
+
+<link rel="canonical" href="{{ request.url }}">
+
+<!-- Open Graph (Facebook + WhatsApp) -->
+<meta property="og:title"
+      content="{{ post.meta_title or slug.replace('-', ' ').title() }}">
+
+<meta property="og:description"
+      content="{{ post.meta_description or 'Latest Tamil news and updates.' }}">
+
+<meta property="og:url"
+      content="{{ request.url }}">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="EasyTamilTools">
+
+{% if post.image %}
+<meta property="og:image"
+      content="{{ url_for('static', filename=post.image, _external=True) }}">
+
+<meta property="og:image:secure_url"
+      content="{{ url_for('static', filename=post.image, _external=True) }}">
+
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:type" content="image/jpeg">
+{% endif %}
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+
+<meta name="twitter:title"
+      content="{{ post.meta_title or slug.replace('-', ' ').title() }}">
+
+<meta name="twitter:description"
+      content="{{ post.meta_description or 'Latest Tamil news and updates.' }}">
+
+{% if post.image %}
+<meta name="twitter:image"
+      content="{{ url_for('static', filename=post.image, _external=True) }}">
+{% endif %}
+
 {% endblock %}
-
 {% block content %}
 
 <main class="blog-content container">
