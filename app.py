@@ -24,6 +24,7 @@ import pillow_avif
 import os, uuid, threading
 from flask import jsonify
 from flask import send_from_directory
+from markupsafe import escape
 
 
 # ================= SEARCH DATA =================
@@ -945,18 +946,42 @@ def blog_post(category, post):
         count += 1
     avg_rating = round(total / count, 1) if count > 0 else 0
 
+        # 🔥 FETCH COMMENTS
+    comments_ref = post_ref.collection("comments") \
+        .where("approved", "==", True) \
+        .order_by("created_at", direction=firestore.Query.ASCENDING)
+
+    comments_stream = comments_ref.stream()
+
+    comments = []
+    for c in comments_stream:
+        data_c = c.to_dict()
+        data_c["id"] = c.id
+        comments.append(data_c)
+
+    # Separate main comments & replies
+    main_comments = [c for c in comments if not c.get("parent_id")]
+    replies = [c for c in comments if c.get("parent_id")]
+
+    # Attach replies to main comments
+    for main in main_comments:
+        main["replies"] = [
+            r for r in replies if r.get("parent_id") == main["id"]
+        ]
+
     # Path change: "blog/post.html" -> "post.html"
     return render_template(
-    "blog/post.html",   # ✅ correct path
+    "blog/post.html",
     content=data.get("content"),
     title=data.get("title"),
     image=data.get("image"),
     slug=post,
-    post=data, 
+    post=data,
     category=category,
     views=views,
     avg_rating=avg_rating,
-    review_count=count
+    review_count=count,
+    comments=main_comments   
 )
 @app.route("/")
 def home():
@@ -968,6 +993,29 @@ def home():
         if cat:
             categories.add(cat)
     return render_template("index.html", categories=categories)
+
+# ===============comment sec add codes==========
+@app.route("/add-comment/<category>/<post>", methods=["POST"])
+def add_comment(category, post):
+
+    name = escape(request.form.get("name"))
+    message = escape(request.form.get("message"))
+    parent_id = request.form.get("parent_id") or None
+
+    comment_data = {
+        "name": name,
+        "message": message,
+        "parent_id": parent_id,
+        "created_at": firestore.SERVER_TIMESTAMP,
+        "approved": True
+    }
+
+    db.collection("posts") \
+      .document(post) \
+      .collection("comments") \
+      .add(comment_data)
+
+    return redirect(url_for("blog_post", category=category, post=post))
 
 # ================= RUN =================
 if __name__ == "__main__":

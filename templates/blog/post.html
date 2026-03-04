@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+<meta itemprop="commentCount" content="{{ comments|length }}">
 {% block head %}
     <title>{{ slug.replace('-', ' ').title() }} | EasyTamilTools</title>
     <meta name="description" content="Latest Tamil blog article on {{ slug.replace('-', ' ') }}. Read full guide and updates.">
@@ -39,30 +39,24 @@
         &nbsp; | &nbsp;
         <span>⭐ {{ avg_rating }} ({{ review_count }} Reviews)</span>
     </div>
-
     <!-- 🔥 Share Buttons -->
     <div class="share-buttons">
-        <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.url }}"
-           target="_blank" rel="noopener"
-           class="share-btn facebook">
-            <i class="fab fa-facebook-f"></i>
-        </a>
 
-        <a href="https://twitter.com/intent/tweet?url={{ request.url }}&text={{ slug.replace('-', ' ').title() }}"
-           target="_blank" rel="noopener"
-           class="share-btn twitter">
-            <i class="fab fa-twitter"></i>
-        </a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.url }}"
+            target="_blank" class="share-btn fb">
+                <i class="fa-brands fa-facebook-f"></i>
+            </a>
 
-        <a href="https://api.whatsapp.com/send?text={{ slug.replace('-', ' ').title() }} {{ request.url }}"
-           target="_blank" rel="noopener"
-           class="share-btn whatsapp">
-            <i class="fab fa-whatsapp"></i>
-        </a>
+            <a href="https://twitter.com/intent/tweet?url={{ request.url }}&text={{ slug.replace('-', ' ').title() }}"
+            target="_blank" class="share-btn tw">
+                <i class="fa-brands fa-x-twitter"></i>
+            </a>
 
-        <button onclick="copyLink()" class="share-btn copy">
-            <i class="fas fa-link"></i>
-        </button>
+            <a href="https://api.whatsapp.com/send?text={{ slug.replace('-', ' ').title() }} {{ request.url }}"
+            target="_blank" class="share-btn wa">
+                <i class="fa-brands fa-whatsapp"></i>
+            </a>
+
     </div>
 
     {% if post.image %}
@@ -90,7 +84,67 @@
             <li><a href="/emi-calculator">EMI Calculator</a></li>
         </ul>
     </div>
+<hr>
 
+<section class="comments-section">
+    <h3>💬 Comments</h3>
+
+    <!-- Main Comment Form -->
+    <form method="POST"
+          action="{{ url_for('add_comment', category=category, post=slug) }}"
+          class="comment-form">
+
+        <input type="text" name="name" placeholder="Your Name" required>
+        <textarea name="message" placeholder="Write your comment..." required></textarea>
+        <button type="submit">Post Comment</button>
+    </form>
+
+    <div class="comments-list">
+        {% for comment in comments %}
+            <div class="comment-box">
+
+                <div class="comment-header">
+                    <strong>{{ comment.name }}</strong>
+                    <span class="comment-date">
+                        {{ comment.created_at.strftime('%d %b %Y') if comment.created_at }}
+                    </span>
+                </div>
+
+                <p>{{ comment.message }}</p>
+
+                <!-- Reply Button -->
+                <button class="reply-btn"
+                        onclick="showReplyForm('{{ comment.id }}')">
+                        Reply
+                </button>
+
+                <!-- Reply Form -->
+                <form method="POST"
+                      action="{{ url_for('add_comment', category=category, post=slug) }}"
+                      class="reply-form"
+                      id="reply-{{ comment.id }}"
+                      style="display:none;">
+
+                    <input type="hidden" name="parent_id" value="{{ comment.id }}">
+                    <input type="text" name="name" placeholder="Your Name" required>
+                    <textarea name="message" placeholder="Write reply..." required></textarea>
+                    <button type="submit">Reply</button>
+                </form>
+
+                <!-- Replies -->
+                {% for reply in comment.replies %}
+                    <div class="reply-box">
+                        <strong>{{ reply.name }}</strong>
+                        <p>{{ reply.message }}</p>
+                    </div>
+                {% endfor %}
+
+            </div>
+        {% else %}
+            <p>No comments yet.</p>
+        {% endfor %}
+    </div>
+</section>
 </main>
 
 <script>
@@ -98,6 +152,12 @@ function copyLink() {
     navigator.clipboard.writeText(window.location.href);
     alert("Link copied successfully!");
 }
-</script>
 
+</script>
+<script>
+function showReplyForm(id) {
+    var form = document.getElementById("reply-" + id);
+    form.style.display = form.style.display === "none" ? "block" : "none";
+}
+</script>
 {% endblock %}

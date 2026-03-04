@@ -1726,7 +1726,7 @@ body {
 
 .search-message{
     background:#fee2e2;
-    color:#991b1b;
+    color:#93991b;
     padding:12px 18px;
     border-radius:8px;
     margin-bottom:20px;
@@ -1814,7 +1814,7 @@ body {
 }
 
 .category-seo-content a{
-    color:#2563eb;
+    color:#f4f6fa;
     text-decoration:none;
     font-weight:500;
 }
@@ -1844,61 +1844,85 @@ a:active {
     text-decoration: none !important;
 }
 /* blog style sharing */
-.blog-content {
-    max-width: 900px;
-    margin: auto;
-    padding: 20px;
-    line-height: 1.8;
-}
-
-.post-title {
-    margin-bottom: 10px;
-}
-
-.meta-info {
-    color: #6b7280;
-    font-size: 14px;
-    margin-bottom: 20px;
-}
-
+/* RESET share buttons completely */
 .share-buttons {
     display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
+    gap: 18px;
+    margin: 15px 0;
 }
 
 .share-btn {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    color: #fff;
-    text-decoration: none;
-    border: none;
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    text-decoration: none !important;
+    font-size: 22px;
     cursor: pointer;
+}
+
+/* Remove any red inherited color */
+.share-btn,
+.share-btn i {
+    color: inherit !important;
+}
+
+/* Brand colors only */
+.fb i { color: #1877f2 !important; }
+.tw i { color: #1da1f2 !important; }
+.wa i { color: #25d366 !important; }
+.cp i { color: #333 !important; }
+
+.share-btn:hover i {
+    transform: scale(1.2);
+    opacity: 0.8;
     transition: 0.3s ease;
 }
+/* comment section styles  */
 
-.facebook { background: #1877f2; }
-.twitter { background: #1da1f2; }
-.whatsapp { background: #25d366; }
-.copy { background: #333; }
-
-.share-btn:hover {
-    transform: scale(1.1);
-    opacity: 0.9;
+.comments-section {
+    margin-top: 40px;
 }
 
-.post-image img {
+.comment-form input,
+.comment-form textarea,
+.reply-form input,
+.reply-form textarea {
     width: 100%;
-    border-radius: 8px;
-    margin-bottom: 20px;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
 }
 
-.internal-tools {
+.comment-form button,
+.reply-form button {
+    background: #000;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.comment-box {
     background: #f9f9f9;
-    padding: 20px;
-    border-radius: 10px;
+    padding: 15px;
+    margin-top: 15px;
+    border-radius: 8px;
+}
+
+.reply-box {
+    margin-left: 30px;
+    margin-top: 10px;
+    background: #eee;
+    padding: 10px;
+    border-radius: 6px;
+}
+
+.reply-btn {
+    background: none;
+    border: none;
+    color: #1877f2;
+    cursor: pointer;
+    font-size: 14px;
 }
