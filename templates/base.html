@@ -332,5 +332,54 @@ function toggleLanguage(){
     document.querySelectorAll(".lang-ta").forEach(el=>el.classList.toggle("d-none"));
 }
 </script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+
+    const track = document.querySelector(".carousel-track");
+    const next = document.querySelector(".next");
+    const prev = document.querySelector(".prev");
+
+    if (!track) return;
+
+    let index = 0;
+    const cardWidth = 280;
+    const totalCards = track.children.length;
+
+    function updateCarousel() {
+        track.style.transform = `translateX(-${index * cardWidth}px)`;
+    }
+
+    next.addEventListener("click", () => {
+        if (index < totalCards - 1) {
+            index++;
+        } else {
+            index = 0;
+        }
+        updateCarousel();
+    });
+
+    prev.addEventListener("click", () => {
+        if (index > 0) {
+            index--;
+        } else {
+            index = totalCards - 1;
+        }
+        updateCarousel();
+    });
+
+    // Auto Slide
+    let autoSlide = setInterval(() => {
+        next.click();
+    }, 4000);
+
+    // Pause on hover
+    track.addEventListener("mouseenter", () => clearInterval(autoSlide));
+    track.addEventListener("mouseleave", () => {
+        autoSlide = setInterval(() => next.click(), 4000);
+    });
+
+});
+</script>
 </body>
 </html>

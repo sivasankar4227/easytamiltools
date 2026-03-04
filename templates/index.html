@@ -112,7 +112,50 @@ EasyTamilTools-ஐ பயன்படுத்துவதன் மூலம்
 எங்களின் நோக்கம் – அனைவருக்கும் எளிய தொழில்நுட்ப வசதிகளை தமிழில் வழங்குவது.
 </p>
 </section>
+<!--========== PREMIUM NEWS PORTAL BLOG SECTION========== -->
 
+{% if latest_posts %}
+<section class="news-portal">
+
+<h2 class="section-title">Latest From Our Blog</h2>
+
+<div class="news-container">
+
+    <!-- Featured Post -->
+    {% set featured = latest_posts[0] %}
+    <div class="featured-news">
+        <a href="/blog/{{ featured.category }}/{{ featured.slug }}">
+            <div class="featured-content">
+                <h2>{{ featured.title }}</h2>
+                <p>{{ featured.excerpt }}</p>
+                <span>{{ featured.views }} views</span>
+            </div>
+        </a>
+    </div>
+
+    <!-- Side Carousel -->
+    <div class="news-carousel">
+        <button class="nav prev">&#10094;</button>
+
+        <div class="carousel-track">
+            {% for post in latest_posts[1:] %}
+            <div class="news-card">
+                <a href="/blog/{{ post.category }}/{{ post.slug }}">
+                    <h3>{{ post.title }}</h3>
+                    <p>{{ post.excerpt }}</p>
+                    <span>{{ post.views }} views</span>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+
+        <button class="nav next">&#10095;</button>
+    </div>
+
+</div>
+
+</section>
+{% endif %}
 <!-- ================= POPULAR TOOLS ================= -->
 
 <section class="popular">

@@ -105,9 +105,10 @@ except Exception as e:
 # ================= CONFIG =================
 app.config["MAX_CONTENT_LENGTH"] = 5 * 1024 * 1024
 app.config["UPLOAD_FOLDER"] = os.path.join(app.root_path, "static", "uploads")
-app.config["OUTPUT_FOLDER"] = "output"
-os.makedirs("uploads", exist_ok=True)
-os.makedirs("output", exist_ok=True)
+app.config["OUTPUT_FOLDER"] = os.path.join(app.root_path, "static", "output")
+
+os.makedirs(app.config["UPLOAD_FOLDER"], exist_ok=True)
+os.makedirs(app.config["OUTPUT_FOLDER"], exist_ok=True)
 
 logging.basicConfig(filename="error.log", level=logging.ERROR)
 
@@ -250,7 +251,7 @@ def admin():
             "image": image_filename,
             "status": status,
             "views": 0,
-            "created_at": datetime.utcnow()
+            "created_at": firestore.SERVER_TIMESTAMP
         })
 
         # 🔔 If Published → Send Push
@@ -985,14 +986,33 @@ def blog_post(category, post):
 )
 @app.route("/")
 def home():
-    # Show blog categories as home page
+
+    # 🔹 Get All Categories
     posts_ref = db.collection("posts").stream()
     categories = set()
+
     for doc in posts_ref:
-        cat = doc.to_dict().get("category")
+        data = doc.to_dict()
+        cat = data.get("category")
         if cat:
             categories.add(cat)
-    return render_template("index.html", categories=categories)
+
+    # 🔥 Get Latest Posts for News Section
+    latest_query = db.collection("posts") \
+        .order_by("created_at", direction=firestore.Query.DESCENDING) \
+        .limit(8) \
+        .stream()
+
+    latest_posts = []
+    for doc in latest_query:
+        data = doc.to_dict()
+        latest_posts.append(data)
+
+    return render_template(
+        "index.html",
+        categories=categories,
+        latest_posts=latest_posts
+    )
 
 # ===============comment sec add codes==========
 @app.route("/add-comment/<category>/<post>", methods=["POST"])
