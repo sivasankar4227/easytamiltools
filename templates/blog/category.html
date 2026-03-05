@@ -14,9 +14,15 @@
 
         <!-- Image -->
         <div class="article-image">
-            <img src="{{ url_for('static', filename=post.image) if post.image else url_for('static', filename='images/default.jpg') }}"
-                 alt="{{ post.title }}"
-                 loading="lazy">
+            {% if post.image %}
+                <img src="{{ post.image }}"
+                alt="{{ post.title }}"
+                loading="lazy">
+            {% else %}
+                <img src="{{ url_for('static', filename='images/default.jpg') }}"
+                alt="Default Image"
+                loading="lazy">
+            {% endif %}
         </div>
 
         <!-- Content -->
