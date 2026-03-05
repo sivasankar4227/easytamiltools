@@ -25,7 +25,26 @@ import os, uuid, threading
 from flask import jsonify
 from flask import send_from_directory
 from markupsafe import escape
+import cloudinary
+import cloudinary.uploader
+from cloudinary.utils import cloudinary_url
+from dotenv import load_dotenv
+load_dotenv()
 
+
+
+# ===============cloudnary intregrated codes=============
+import cloudinary
+import cloudinary.uploader
+from cloudinary.utils import cloudinary_url
+
+# Configuration       
+cloudinary.config(
+    cloud_name=os.environ.get("CLOUD_NAME"),
+    api_key=os.environ.get("API_KEY"),
+    api_secret=os.environ.get("API_SECRET"),
+    secure=True
+)
 
 # ================= SEARCH DATA =================
 # All tools, calculators, PDF tools, and blog posts
@@ -112,7 +131,15 @@ os.makedirs(app.config["OUTPUT_FOLDER"], exist_ok=True)
 
 logging.basicConfig(filename="error.log", level=logging.ERROR)
 
+# ========cloudinary connect panni image store aaga==========
+def upload_image_to_cloudinary(file):
 
+    result = cloudinary.uploader.upload(
+        file,
+        folder="blog_images"
+    )
+
+    return result["secure_url"]
 
 # ================= ADD REVIEW =================
 @app.route("/add-review", methods=["POST"])
@@ -228,16 +255,10 @@ def admin():
         image_filename = None
 
         # 🔥 Featured Image Upload
+        image_url = None
+
         if image and image.filename != "":
-            filename = secure_filename(image.filename)
-
-            upload_folder = app.config["UPLOAD_FOLDER"]
-            os.makedirs(upload_folder, exist_ok=True)
-
-            upload_path = os.path.join(upload_folder, filename)
-            image.save(upload_path)
-
-            image_filename = f"uploads/{filename}"
+            image_url = upload_image_to_cloudinary(image)
 
         # 🔥 Save to Firestore
         db.collection("posts").document(slug).set({
@@ -248,7 +269,7 @@ def admin():
             "meta_title": meta_title,
             "meta_description": meta_description,
             "content": content,
-            "image": image_filename,
+            "image": image_url,
             "status": status,
             "views": 0,
             "created_at": firestore.SERVER_TIMESTAMP
@@ -269,16 +290,11 @@ def upload_inline_image():
 
     image = request.files.get("file")
 
-    filename = secure_filename(image.filename)
-    upload_folder = os.path.join(app.root_path, "static", "uploads")
-    os.makedirs(upload_folder, exist_ok=True)
+    if image:
+        image_url = upload_image_to_cloudinary(image)
+        return {"location": image_url}
 
-    path = os.path.join(upload_folder, filename)
-    image.save(path)
-
-    url = url_for('static', filename=f'uploads/{filename}')
-
-    return {"location": url}
+    return {"error": "Upload failed"}, 400
 # ================= LETTERS =================
 @app.route("/letters")
 def letters():

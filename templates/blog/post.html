@@ -26,12 +26,8 @@
 <meta property="og:site_name" content="EasyTamilTools">
 
 {% if post.image %}
-<meta property="og:image"
-      content="{{ url_for('static', filename=post.image, _external=True) }}">
-
-<meta property="og:image:secure_url"
-      content="{{ url_for('static', filename=post.image, _external=True) }}">
-
+<meta property="og:image" content="{{ post.image }}">
+<meta property="og:image:secure_url" content="{{ post.image }}">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:type" content="image/jpeg">
@@ -47,8 +43,7 @@
       content="{{ post.meta_description or 'Latest Tamil news and updates.' }}">
 
 {% if post.image %}
-<meta name="twitter:image"
-      content="{{ url_for('static', filename=post.image, _external=True) }}">
+<meta name="twitter:image" content="{{ post.image }}">
 {% endif %}
 
 {% endblock %}
@@ -89,9 +84,9 @@
 
     {% if post.image %}
     <div class="post-image">
-        <img src="{{ url_for('static', filename=post.image) }}"
-             alt="{{ slug.replace('-', ' ').title() }}"
-             loading="lazy">
+        <img src="{{ post.image }}"
+        alt="{{ slug.replace('-', ' ').title() }}"
+        loading="lazy">
     </div>
     {% endif %}
 
