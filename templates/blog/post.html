@@ -1,8 +1,5 @@
 {% extends "base.html" %}
-<meta itemprop="commentCount" content="{{ comments|length }}">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:type" content="image/jpeg">
+
 {% block head %}
 
 <title>{{ post.meta_title or slug.replace('-', ' ').title() }} | EasyTamilTools</title>
@@ -12,7 +9,6 @@
 
 <link rel="canonical" href="{{ request.url }}">
 
-<!-- Open Graph (Facebook + WhatsApp) -->
 <meta property="og:title"
       content="{{ post.meta_title or slug.replace('-', ' ').title() }}">
 
@@ -31,20 +27,10 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:type" content="image/jpeg">
-{% endif %}
-
-<!-- Twitter Card -->
-<meta name="twitter:card" content="summary_large_image">
-
-<meta name="twitter:title"
-      content="{{ post.meta_title or slug.replace('-', ' ').title() }}">
-
-<meta name="twitter:description"
-      content="{{ post.meta_description or 'Latest Tamil news and updates.' }}">
-
-{% if post.image %}
 <meta name="twitter:image" content="{{ post.image }}">
 {% endif %}
+
+<meta name="twitter:card" content="summary_large_image">
 
 {% endblock %}
 {% block content %}
