@@ -95,6 +95,32 @@
     </div>
 <hr>
 
+<hr>
+
+<section class="related-posts">
+
+<h3>📰 Related Articles</h3>
+
+<div class="related-grid">
+
+{% for r in related_posts %}
+
+<a href="/blog/{{ category }}/{{ r.slug }}" class="related-card">
+
+{% if r.image %}
+<img src="{{ r.image }}" alt="{{ r.title }}">
+{% endif %}
+
+<h4>{{ r.title }}</h4>
+
+</a>
+
+{% endfor %}
+
+</div>
+
+</section>
+
 <section class="comments-section">
     <h3>💬 Comments</h3>
 

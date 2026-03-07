@@ -18,6 +18,7 @@ import json
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
+from firebase_admin import messaging
 from flask import session
 from slugify import slugify
 import pillow_avif
@@ -30,6 +31,8 @@ import cloudinary.uploader
 from cloudinary.utils import cloudinary_url
 from dotenv import load_dotenv
 load_dotenv()
+import requests
+
 
 
 
@@ -98,6 +101,7 @@ def admin_login():
             return redirect("/admin")
         else:
             return "Wrong Password"
+        
 
     return render_template("admin_login.html")
 # ===========firebase connected ===========
@@ -105,13 +109,11 @@ firebase_json = os.environ.get("FIREBASE_KEY")
 
 try:
     if firebase_json:
-        # 🔥 Render (Production) method
         firebase_dict = json.loads(firebase_json)
         cred = credentials.Certificate(firebase_dict)
         firebase_admin.initialize_app(cred)
         print("🔥 Firebase Connected (Render Mode)")
     else:
-        # 🔥 Local method (serviceAccountKey.json file)
         cred = credentials.Certificate("firebase_key.json")
         firebase_admin.initialize_app(cred)
         print("🔥 Firebase Connected (Local Mode)")
@@ -121,6 +123,55 @@ try:
 except Exception as e:
     print("🔥 Firebase Initialization Error:", e)
     db = None
+# ================= PUSH NOTIFICATION =================
+def send_push_notification(title, body, url):
+
+    try:
+        tokens_ref = db.collection("fcm_tokens").stream()
+
+        for t in tokens_ref:
+
+            token = t.id
+
+            message = messaging.Message(
+
+                notification=messaging.Notification(
+                    title=title,
+                    body=body
+                ),
+
+                webpush=messaging.WebpushConfig(
+                    fcm_options=messaging.WebpushFCMOptions(
+                        link=url
+                    )
+                ),
+
+                token=token
+            )
+
+            response = messaging.send(message)
+            print("Notification sent:", response)
+
+    # except Exception as e:
+    #     print("Push Error:", e)
+    except Exception as e:
+        print("🔥 Firebase Initialization Error:", e)
+        db = None
+
+@app.route("/save-token", methods=["POST"])
+def save_token():
+
+    data = request.get_json()
+    token = data.get("token")
+
+    if token:
+        db.collection("fcm_tokens").document(token).set({
+            "created_at": firestore.SERVER_TIMESTAMP
+        })
+
+        return jsonify({"status": "saved"})
+
+    return jsonify({"error": "No token"}), 400
 # ================= CONFIG =================
 app.config["MAX_CONTENT_LENGTH"] = 5 * 1024 * 1024
 app.config["UPLOAD_FOLDER"] = os.path.join(app.root_path, "static", "uploads")
@@ -277,8 +328,8 @@ def admin():
 
         # 🔔 If Published → Send Push
         if status == "publish":
-            post_url = f"https://yourdomain.com/blog/{category}/{slug}"
-            # send_push_notification(title, "New update வந்துவிட்டது 🔥", post_url)
+            post_url = f"https://easytamiltools.in/blog/{category}/{slug}"
+            send_push_notification(title, "New update வந்துவிட்டது 🔥", post_url)
 
         return redirect(f"/blog/{category}/{slug}")
 
@@ -813,19 +864,67 @@ def pdf_split_tool():
 def search():
     query = request.args.get("q", "").strip().lower()
 
-    # If user didn't type anything
     if not query:
-        return render_template("search_results.html", query=query, results=[], message="Please enter something to search.")
+        return render_template(
+            "search_results.html",
+            query=query,
+            results=[],
+            message="Please enter something to search."
+        )
 
-    # Search in name (you can add description if needed)
-    results = [item for item in SEARCH_ITEMS if query in item["name"].lower()]
+    results = []
 
-    # If no results
+    # ================= STATIC SEARCH (TOOLS, CALCULATORS, LETTERS) =================
+    for item in SEARCH_ITEMS:
+        searchable_text = (
+            item.get("name", "") + " " +
+            item.get("type", "")
+        ).lower()
+
+        if query in searchable_text:
+            results.append(item)
+
+    # ================= BLOG POSTS SEARCH (FIREBASE) =================
+    try:
+        posts_ref = db.collection("posts").stream()
+
+        for doc in posts_ref:
+            data = doc.to_dict()
+
+            title = data.get("title", "").lower()
+            category = data.get("category", "")
+            slug = doc.id
+
+            if query in title:
+                results.append({
+                    "name": data.get("title"),
+                    "url": f"/blog/{category}/{slug}",
+                    "type": "blog"
+                })
+
+    except Exception as e:
+        print("Search Blog Error:", e)
+
+    # ================= REMOVE DUPLICATES =================
+    unique_results = []
+    seen_urls = set()
+
+    for item in results:
+        if item["url"] not in seen_urls:
+            unique_results.append(item)
+            seen_urls.add(item["url"])
+
+    # ================= MESSAGE =================
     message = None
-    if not results:
-        message = f"No results found for '{query}'"
+    if not unique_results:
+        message = f"Item not found for '{query}'"
 
-    return render_template("search_results.html", query=query, results=results, message=message)
+    return render_template(
+        "search_results.html",
+        query=query,
+        results=unique_results,
+        message=message
+    )
 
 # ================= LEGAL =================
 @app.route("/privacy")
@@ -897,12 +996,13 @@ Message:
 def blog_list():
     posts_ref = db.collection("posts").stream()
     categories = set()
+
     for doc in posts_ref:
         cat = doc.to_dict().get("category")
         if cat:
             categories.add(cat)
-    # Note: Using index.html or create a dedicated blog_home.html in templates/
-    return render_template("index.html", categories=categories)
+
+    return render_template("blog/home.html", categories=categories)
 
 @app.route("/blog/<category>")
 def blog_category(category):
@@ -962,8 +1062,23 @@ def blog_post(category, post):
         total += r.to_dict().get("rating", 0)
         count += 1
     avg_rating = round(total / count, 1) if count > 0 else 0
+    # ================= RELATED POSTS =================
+    related_query = db.collection("posts").limit(4).stream()
+    related_posts = []
+    for r in related_query:
+        if r.id != post:
+            data_r = r.to_dict()
+            data_r["slug"] = r.id
+            related_posts.append(data_r)
 
-        # 🔥 FETCH COMMENTS
+        related_posts = []
+
+        for r in related_query:
+            if r.id != post:
+                data_r = r.to_dict()
+                data_r["slug"] = r.id
+                related_posts.append(data_r)
+    # 🔥 FETCH COMMENTS
     comments_ref = post_ref.collection("comments") \
         .where("approved", "==", True) \
         .order_by("created_at", direction=firestore.Query.ASCENDING)
@@ -998,7 +1113,8 @@ def blog_post(category, post):
     views=views,
     avg_rating=avg_rating,
     review_count=count,
-    comments=main_comments   
+    comments=main_comments,  
+    related_posts=related_posts
 )
 @app.route("/")
 def home():
@@ -1021,7 +1137,7 @@ def home():
 
     latest_posts = []
     for doc in latest_query:
-        data = doc.to_dict()
+        data["slug"] = doc.id
         latest_posts.append(data)
 
     return render_template(
@@ -1053,6 +1169,53 @@ def add_comment(category, post):
 
     return redirect(url_for("blog_post", category=category, post=post))
 
+# =========web-push-notification======
+# @app.route("/save-token", methods=["POST"])
+# def save_token():
+#     data = request.get_json()
+#     token = data.get("token")
+#     if token:
+#         db.collection("fcm_tokens").document(token).set({
+#             "token": token,
+#             "subscribed_at": firestore.SERVER_TIMESTAMP
+#         })
+#         return jsonify({"success": True})
+#     return jsonify({"success": False}), 400
+
+# def send_push_notification(title, body, url=None):
+#     tokens_ref = db.collection("fcm_tokens").stream()
+#     tokens = [t.id for t in tokens_ref]
+
+#     headers = {
+#         "Authorization": f"key={os.environ.get('FCM_SERVER_KEY')}",
+#         "Content-Type": "application/json"
+#     }
+
+#     payload = {
+#         "registration_ids": tokens,
+#         "notification": {
+#             "title": title,
+#             "body": body,
+#             "click_action": url or "https://yourdomain.com",
+#             "icon": "https://yourdomain.com/static/logo.png"
+#         }
+#     }
+
+#     r = requests.post("https://fcm.googleapis.com/fcm/send", headers=headers, json=payload)
+#     print("FCM Response:", r.text)
+
+# @app.route("/save-token", methods=["POST"])
+# def save_token():
+
+#     data = request.json
+#     token = data.get("token")
+
+#     if token:
+#         db.collection("fcm_tokens").document(token).set({
+#             "created_at": firestore.SERVER_TIMESTAMP
+#         })
+
+#     return {"status": "success"}
 # ================= RUN =================
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
