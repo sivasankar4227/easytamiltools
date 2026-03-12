@@ -48,26 +48,28 @@
         &nbsp; | &nbsp;
         <span>⭐ {{ avg_rating }} ({{ review_count }} Reviews)</span>
     </div>
-    <!-- 🔥 Share Buttons -->
     <div class="share-buttons">
 
-            <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.url }}"
+            <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.url|urlencode }}"
             target="_blank" class="share-btn fb">
-                <i class="fa-brands fa-facebook-f"></i>
+            <i class="fa-brands fa-facebook-f"></i>
             </a>
 
-            <a href="https://twitter.com/intent/tweet?url={{ request.url }}&text={{ slug.replace('-', ' ').title() }}"
+            <a href="https://twitter.com/intent/tweet?url={{ request.url|urlencode }}&text={{ slug.replace('-', ' ').title()|urlencode }}"
             target="_blank" class="share-btn tw">
-                <i class="fa-brands fa-x-twitter"></i>
+            <i class="fa-brands fa-x-twitter"></i>
             </a>
 
-            <a href="https://api.whatsapp.com/send?text={{ slug.replace('-', ' ').title() }} {{ request.url }}"
+            <a href="https://api.whatsapp.com/send?text={{ (slug.replace('-', ' ').title() ~ ' ' ~ request.url)|urlencode }}"
             target="_blank" class="share-btn wa">
-                <i class="fa-brands fa-whatsapp"></i>
+            <i class="fa-brands fa-whatsapp"></i>
             </a>
 
+            <a href="https://t.me/share/url?url={{ request.url|urlencode }}&text={{ slug.replace('-', ' ').title()|urlencode }}"
+            target="_blank" class="share-btn tg">
+            <i class="fa-brands fa-telegram"></i>
+            </a>
     </div>
-
     {% if post.image %}
     <div class="post-image">
         <img src="{{ post.image }}"
