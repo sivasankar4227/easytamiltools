@@ -1047,6 +1047,9 @@ def blog_post(category, post):
         abort(404)
 
     data = doc.to_dict()
+    # 🔥 CATEGORY VALIDATION (SEO FIX)
+    if data.get("category") != category:
+        abort(404)
 
     # Update View Count
     post_ref.update({"views": firestore.Increment(1)})
@@ -1065,14 +1068,16 @@ def blog_post(category, post):
     avg_rating = round(total / count, 1) if count > 0 else 0
     # ================= RELATED POSTS =================
     related_query = db.collection("posts").limit(4).stream()
+
     related_posts = []
+
     for r in related_query:
+
         if r.id != post:
+
             data_r = r.to_dict()
             data_r["slug"] = r.id
             related_posts.append(data_r)
-
-        related_posts = []
 
         for r in related_query:
             if r.id != post:
@@ -1120,26 +1125,25 @@ def blog_post(category, post):
 @app.route("/")
 def home():
 
-    posts_ref = db.collection("posts").stream()
-    categories = set()
-
-    for doc in posts_ref:
-        data = doc.to_dict()
-        cat = data.get("category")
-        if cat:
-            categories.add(cat)
-
     latest_query = db.collection("posts") \
         .order_by("created_at", direction=firestore.Query.DESCENDING) \
         .limit(8) \
         .stream()
 
     latest_posts = []
+    categories = set()
 
     for doc in latest_query:
-        data = doc.to_dict()   # 🔥 இந்த line add பண்ணணும்
+
+        data = doc.to_dict()
+
         data["slug"] = doc.id
+        data["category"] = data.get("category", "general")
+
         latest_posts.append(data)
+
+        if data.get("category"):
+            categories.add(data["category"])
 
     return render_template(
         "index.html",

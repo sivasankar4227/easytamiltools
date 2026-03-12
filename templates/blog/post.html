@@ -50,26 +50,27 @@
     </div>
     <div class="share-buttons">
 
-            {% set share_url = request.url_root ~ 'blog/' ~ category ~ '/' ~ slug %}
+        <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.url | urlencode }}"
+        target="_blank" class="share-btn fb">
+        <i class="fa-brands fa-facebook-f"></i>
+        </a>
 
-            <div class="share-buttons">
+        <a href="https://twitter.com/intent/tweet?url={{ request.url | urlencode }}&text={{ post.title | urlencode }}"
+        target="_blank" class="share-btn tw">
+        <i class="fa-brands fa-x-twitter"></i>
+        </a>
 
-            <a href="https://www.facebook.com/sharer/sharer.php?u={{ share_url|urlencode }}"
-            target="_blank" class="share-btn fb">
-            <i class="fa-brands fa-facebook-f"></i>
-            </a>
+        <a href="https://api.whatsapp.com/send?text={{ (post.title ~ ' ' ~ request.url) | urlencode }}"
+        target="_blank" class="share-btn wa">
+        <i class="fa-brands fa-whatsapp"></i>
+        </a>
 
-            <a href="https://twitter.com/intent/tweet?url={{ share_url|urlencode }}&text={{ post.title|urlencode }}"
-            target="_blank" class="share-btn tw">
-            <i class="fa-brands fa-x-twitter"></i>
-            </a>
+        <a href="https://t.me/share/url?url={{ request.url | urlencode }}&text={{ post.title | urlencode }}"
+        target="_blank" class="share-btn tg">
+        <i class="fa-brands fa-telegram"></i>
+        </a>
 
-            <a href="https://api.whatsapp.com/send?text={{ (post.title ~ ' ' ~ share_url)|urlencode }}"
-            target="_blank" class="share-btn wa">
-            <i class="fa-brands fa-whatsapp"></i>
-            </a>
-
-</div>
+    </div>
     </div>
     {% if post.image %}
     <div class="post-image">

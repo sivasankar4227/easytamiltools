@@ -1060,3 +1060,22 @@ section h2{
         padding: 25px;
     }
 }
+/* breaking news style codes */
+.breaking-news{
+background:#d40000;
+color:#fff;
+padding:8px;
+font-size:14px;
+overflow:hidden;
+}
+
+.breaking-news a{
+color:white;
+text-decoration:none;
+margin-right:20px;
+}
+
+.breaking-label{
+font-weight:bold;
+margin-right:15px;
+}
