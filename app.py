@@ -320,6 +320,7 @@ def admin():
             "meta_title": meta_title,
             "meta_description": meta_description,
             "content": content,
+            "excerpt": content[:150],
             "image": image_url,
             "status": status,
             "views": 0,
@@ -1119,7 +1120,6 @@ def blog_post(category, post):
 @app.route("/")
 def home():
 
-    # 🔹 Get All Categories
     posts_ref = db.collection("posts").stream()
     categories = set()
 
@@ -1129,14 +1129,15 @@ def home():
         if cat:
             categories.add(cat)
 
-    # 🔥 Get Latest Posts for News Section
     latest_query = db.collection("posts") \
         .order_by("created_at", direction=firestore.Query.DESCENDING) \
         .limit(8) \
         .stream()
 
     latest_posts = []
+
     for doc in latest_query:
+        data = doc.to_dict()   # 🔥 இந்த line add பண்ணணும்
         data["slug"] = doc.id
         latest_posts.append(data)
 
@@ -1145,7 +1146,6 @@ def home():
         categories=categories,
         latest_posts=latest_posts
     )
-
 # ===============comment sec add codes==========
 @app.route("/add-comment/<category>/<post>", methods=["POST"])
 def add_comment(category, post):
