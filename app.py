@@ -476,6 +476,10 @@ def json_formatter():
 def download_file(filename):
     return send_from_directory(CONVERT_FOLDER, filename, as_attachment=True)
 
+@app.route("/english-to-tamil-typing")
+def english_to_tamil_typing():
+    return render_template("english_to_tamil_typing.html")
+
 # =============image converter code=============
 
 UPLOAD_FOLDER = "uploads"

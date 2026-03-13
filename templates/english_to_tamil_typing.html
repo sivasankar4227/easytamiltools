@@ -1,0 +1,195 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<section class="calculator-page">
+
+<div class="calculator-card">
+
+<title>English to Tamil Typing Tool Online | EasyTamilTools</title>
+<meta name="description" content="Free English to Tamil typing tool. Type English and get Tamil text instantly. Fast Tamil transliteration tool online.">
+
+<h1>⌨ English to Tamil Typing Tool</h1>
+
+<p>
+English to Tamil Typing Tool என்பது English எழுத்துக்களை
+type செய்தால் அதை Tamil மொழியாக மாற்றும்
+ஒரு online transliteration tool ஆகும்.
+தமிழில் typing keyboard layout தெரியாதவர்களுக்கும்
+இந்த tool மிகவும் உதவியாக இருக்கும்.
+</p>
+
+<p>
+உதாரணமாக நீங்கள் “vanakkam” என்று type செய்தால்
+அது தானாகவே “வணக்கம்” என்று convert ஆகும்.
+தமிழில் typing செய்ய தெரியாதவர்களுக்கும்
+இந்த tool மிகவும் உதவும்.
+</p>
+
+<hr>
+
+<h2>Start Typing in English</h2>
+
+<textarea 
+id="englishInput"
+placeholder="Type English here... Example: vanakkam"
+style="width:100%;height:120px;padding:10px;font-size:16px;">
+</textarea>
+
+<h3 style="margin-top:20px;">Tamil Output</h3>
+
+<textarea 
+id="tamilOutput"
+placeholder="Tamil text will appear here..."
+style="width:100%;height:120px;padding:10px;font-size:18px;">
+</textarea>
+
+<br><br>
+
+<button onclick="copyTamil()" class="btn">Copy Tamil Text</button>
+<button onclick="clearText()" class="btn">Clear</button>
+
+<hr>
+
+<h2>How to Use English to Tamil Typing Tool</h2>
+
+<p>
+இந்த tool பயன்படுத்துவது மிகவும் எளிது.
+கீழே உள்ள steps-ஐ follow செய்தால்
+நீங்கள் Tamil typing செய்ய முடியும்.
+</p>
+
+<ol>
+<li>English input box-ல் உங்கள் text-ஐ type செய்யவும்</li>
+<li>அது உடனே Tamil text ஆக convert ஆகும்</li>
+<li>Tamil output box-ல் result காணலாம்</li>
+<li>Copy button click செய்து Tamil text copy செய்யலாம்</li>
+</ol>
+
+<hr>
+
+<h2>Example English to Tamil Words</h2>
+
+<ul>
+<li>vanakkam → வணக்கம்</li>
+<li>amma → அம்மா</li>
+<li>tamil → தமிழ்</li>
+<li>nanri → நன்றி</li>
+<li>ungal peyar enna → உங்கள் பெயர் என்ன</li>
+</ul>
+
+<hr>
+
+<h2>Why Use English to Tamil Typing Tool?</h2>
+
+<p>
+தமிழில் typing செய்ய traditional Tamil keyboard layout
+பயன்படுத்த வேண்டும். ஆனால் பலருக்கு அது தெரியாது.
+அந்த பிரச்சினையை தீர்க்க English to Tamil typing tool உதவுகிறது.
+</p>
+
+<ul>
+<li>✔ Tamil keyboard தேவையில்லை</li>
+<li>✔ English typing போதும்</li>
+<li>✔ Instant Tamil conversion</li>
+<li>✔ Mobile friendly tool</li>
+<li>✔ 100% Free</li>
+</ul>
+
+<hr>
+
+<h2>Mobile Friendly Tamil Typing</h2>
+
+<p>
+இந்த tool mobile phones மற்றும் desktop browser
+இரண்டிலும் வேலை செய்யும்.
+Android மற்றும் iPhone users கூட browser மூலம்
+Tamil typing செய்ய முடியும்.
+</p>
+
+<hr>
+
+<h2>Where This Tool is Useful?</h2>
+
+<ul>
+<li>Tamil blog எழுத</li>
+<li>Social media posts</li>
+<li>WhatsApp messages</li>
+<li>School assignments</li>
+<li>Tamil content writing</li>
+</ul>
+
+<hr>
+
+<h2>Other Useful Tools</h2>
+
+<ul>
+<li><a href="/text-counter">Text Counter</a></li>
+<li><a href="/case-converter">Case Converter</a></li>
+<li><a href="/unit-converter">Unit Converter</a></li>
+<li><a href="/number-to-words">Number To Words</a></li>
+<li><a href="/qr-code-generator">QR Code Generator</a></li>
+</ul>
+
+<hr>
+
+<h2>Start Typing Tamil Now</h2>
+
+<p>
+மேலே உள்ள input box-ல் English-ல் type செய்து
+Tamil typing experience-ஐ இப்போதே தொடங்குங்கள்.
+</p>
+
+</div>
+</section>
+
+
+<script>
+
+const input = document.getElementById("englishInput");
+const output = document.getElementById("tamilOutput");
+
+input.addEventListener("keyup", function(){
+
+let text = input.value;
+
+if(text.length === 0){
+output.value="";
+return;
+}
+
+fetch(`https://inputtools.google.com/request?text=${text}&itc=ta-t-i0-und&num=1`)
+.then(res => res.json())
+.then(data => {
+
+if(data[0] === "SUCCESS"){
+output.value = data[1][0][1][0];
+}
+
+});
+
+});
+
+
+function copyTamil(){
+
+let copyText = document.getElementById("tamilOutput");
+
+copyText.select();
+document.execCommand("copy");
+
+alert("Tamil text copied!");
+
+}
+
+
+function clearText(){
+
+document.getElementById("englishInput").value="";
+document.getElementById("tamilOutput").value="";
+
+}
+
+</script>
+
+{% endblock %}
