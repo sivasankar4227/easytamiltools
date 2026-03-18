@@ -11,24 +11,28 @@
 
 <!-- Open Graph (Facebook / WhatsApp Preview) -->
 <meta property="og:title"
-      content="{{ post.meta_title or post.title or slug.replace('-', ' ').title() }}">
+      content="{{ post.meta_title or post.title }}">
 
 <meta property="og:description"
-      content="{{ post.meta_description or 'Latest Tamil news and updates.' }}">
+      content="{{ (post.meta_description or post.content[:150])|striptags }}">
 
 <meta property="og:url"
       content="{{ request.url }}">
 
 <meta property="og:type" content="article">
+
+<meta property="og:image"
+      content="{% if post.image and post.image.startswith('http') %}
+                {{ post.image }}
+              {% elif post.image %}
+                {{ request.url_root[:-1] + post.image }}
+              {% else %}
+                https://easytamiltools.in/static/default.jpg
+              {% endif %}">
+
 <meta property="og:site_name" content="EasyTamilTools">
 
-{% if post.image %}
-<meta property="og:image" content="{{ post.image }}">
-<meta property="og:image:secure_url" content="{{ post.image }}">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:type" content="image/jpeg">
-{% endif %}
+
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
