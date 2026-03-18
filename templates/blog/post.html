@@ -2,15 +2,16 @@
 
 {% block head %}
 
-<title>{{ post.meta_title or slug.replace('-', ' ').title() }} | EasyTamilTools</title>
+<title>{{ post.meta_title or post.title or slug.replace('-', ' ').title() }} | EasyTamilTools</title>
 
 <meta name="description"
       content="{{ post.meta_description or 'Latest Tamil news and updates.' }}">
 
 <link rel="canonical" href="{{ request.url }}">
 
+<!-- Open Graph (Facebook / WhatsApp Preview) -->
 <meta property="og:title"
-      content="{{ post.meta_title or slug.replace('-', ' ').title() }}">
+      content="{{ post.meta_title or post.title or slug.replace('-', ' ').title() }}">
 
 <meta property="og:description"
       content="{{ post.meta_description or 'Latest Tamil news and updates.' }}">
@@ -27,19 +28,29 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:type" content="image/jpeg">
+{% endif %}
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title"
+      content="{{ post.meta_title or post.title or slug.replace('-', ' ').title() }}">
+
+<meta name="twitter:description"
+      content="{{ post.meta_description or 'Latest Tamil news and updates.' }}">
+
+{% if post.image %}
 <meta name="twitter:image" content="{{ post.image }}">
 {% endif %}
 
-<meta name="twitter:card" content="summary_large_image">
-
 {% endblock %}
+
 {% block content %}
 
 <main class="blog-content container">
 
     <!-- Blog Title -->
     <h1 class="post-title">
-        {{ slug.replace('-', ' ').title() }}
+        {{ post.title or slug.replace('-', ' ').title() }}
     </h1>
 
     <!-- Meta Info -->
@@ -48,35 +59,37 @@
         &nbsp; | &nbsp;
         <span>⭐ {{ avg_rating }} ({{ review_count }} Reviews)</span>
     </div>
+
+    <!-- Share Buttons -->
     <div class="share-buttons">
 
         <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.url | urlencode }}"
-        target="_blank" class="share-btn fb">
-        <i class="fa-brands fa-facebook-f"></i>
+           target="_blank" class="share-btn fb">
+            <i class="fa-brands fa-facebook-f"></i>
         </a>
 
         <a href="https://twitter.com/intent/tweet?url={{ request.url | urlencode }}&text={{ post.title | urlencode }}"
-        target="_blank" class="share-btn tw">
-        <i class="fa-brands fa-x-twitter"></i>
+           target="_blank" class="share-btn tw">
+            <i class="fa-brands fa-x-twitter"></i>
         </a>
 
         <a href="https://api.whatsapp.com/send?text={{ (post.title ~ ' ' ~ request.url) | urlencode }}"
-        target="_blank" class="share-btn wa">
-        <i class="fa-brands fa-whatsapp"></i>
+           target="_blank" class="share-btn wa">
+            <i class="fa-brands fa-whatsapp"></i>
         </a>
 
         <a href="https://t.me/share/url?url={{ request.url | urlencode }}&text={{ post.title | urlencode }}"
-        target="_blank" class="share-btn tg">
-        <i class="fa-brands fa-telegram"></i>
+           target="_blank" class="share-btn tg">
+            <i class="fa-brands fa-telegram"></i>
         </a>
 
     </div>
-    </div>
+
     {% if post.image %}
     <div class="post-image">
         <img src="{{ post.image }}"
-        alt="{{ slug.replace('-', ' ').title() }}"
-        loading="lazy">
+             alt="{{ post.title }}"
+             loading="lazy">
     </div>
     {% endif %}
 
@@ -97,7 +110,6 @@
             <li><a href="/emi-calculator">EMI Calculator</a></li>
         </ul>
     </div>
-<hr>
 
 <hr>
 
@@ -151,13 +163,11 @@
 
                 <p>{{ comment.message }}</p>
 
-                <!-- Reply Button -->
                 <button class="reply-btn"
                         onclick="showReplyForm('{{ comment.id }}')">
                         Reply
                 </button>
 
-                <!-- Reply Form -->
                 <form method="POST"
                       action="{{ url_for('add_comment', category=category, post=slug) }}"
                       class="reply-form"
@@ -170,7 +180,6 @@
                     <button type="submit">Reply</button>
                 </form>
 
-                <!-- Replies -->
                 {% for reply in comment.replies %}
                     <div class="reply-box">
                         <strong>{{ reply.name }}</strong>
@@ -184,6 +193,7 @@
         {% endfor %}
     </div>
 </section>
+
 </main>
 
 <script>
@@ -191,12 +201,13 @@ function copyLink() {
     navigator.clipboard.writeText(window.location.href);
     alert("Link copied successfully!");
 }
-
 </script>
+
 <script>
 function showReplyForm(id) {
     var form = document.getElementById("reply-" + id);
     form.style.display = form.style.display === "none" ? "block" : "none";
 }
 </script>
+
 {% endblock %}

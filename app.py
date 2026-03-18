@@ -1012,8 +1012,12 @@ def blog_list():
 @app.route("/blog/<category>")
 def blog_category(category):
 
-    # Fetch posts from Firebase
-    posts_ref = db.collection("posts").where("category", "==", category).stream()
+    # 🔥 latest first (DESCENDING)
+    posts_ref = db.collection("posts") \
+        .where("category", "==", category) \
+        .order_by("created_at", direction=firestore.Query.DESCENDING) \
+        .stream()
+
 
     posts = []
 
