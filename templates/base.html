@@ -44,11 +44,10 @@ EasyTamilTools provides free online Tamil calculators, converters, letter genera
 <meta property="og:description" content="{% block og_description %}
 Free Tamil calculators, converters and letter formats online.
 {% endblock %}">
-<meta property="og:type" content="website">
+<meta property="og:type" content="{% block og_type %}website{% endblock %}">
 <meta property="og:url" content="https://easytamiltools.in{{ request.path }}">
 <meta property="og:site_name" content="EasyTamilTools">
-<meta property="og:image" content="https://easytamiltools.in/static/logo.png">
-
+<meta property="og:image" content="{% block og_image %}https://easytamiltools.in/static/logo.png{% endblock %}">
 <!-- ================= TWITTER ================= -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="EasyTamilTools">

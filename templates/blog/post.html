@@ -1,51 +1,33 @@
 {% extends "base.html" %}
 
-{% block head %}
+{% block title %}
+{{ post.meta_title or post.title }} | EasyTamilTools
+{% endblock %}
 
-<title>{{ post.meta_title or post.title or slug.replace('-', ' ').title() }} | EasyTamilTools</title>
+{% block meta_description %}
+{{ post.meta_description or 'Latest Tamil news and updates.' }}
+{% endblock %}
 
-<meta name="description"
-      content="{{ post.meta_description or 'Latest Tamil news and updates.' }}">
+{% block og_title %}
+{{ post.meta_title or post.title }}
+{% endblock %}
 
-<link rel="canonical" href="{{ request.url }}">
+{% block og_description %}
+{{ (post.meta_description or post.content[:150])|striptags }}
+{% endblock %}
 
-<!-- Open Graph (Facebook / WhatsApp Preview) -->
-<meta property="og:title"
-      content="{{ post.meta_title or post.title }}">
-
-<meta property="og:description"
-      content="{{ (post.meta_description or post.content[:150])|striptags }}">
-
-<meta property="og:url"
-      content="{{ request.url }}">
-
-<meta property="og:type" content="article">
-
-<meta property="og:image"
-      content="{% if post.image and post.image.startswith('http') %}
-                {{ post.image }}
-              {% elif post.image %}
-                {{ request.url_root[:-1] + post.image }}
-              {% else %}
-                https://easytamiltools.in/static/default.jpg
-              {% endif %}">
-
-<meta property="og:site_name" content="EasyTamilTools">
-
-
-
-<!-- Twitter Card -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title"
-      content="{{ post.meta_title or post.title or slug.replace('-', ' ').title() }}">
-
-<meta name="twitter:description"
-      content="{{ post.meta_description or 'Latest Tamil news and updates.' }}">
-
-{% if post.image %}
-<meta name="twitter:image" content="{{ post.image }}">
+{% block og_image %}
+{% if post.image and post.image.startswith('http') %}
+{{ post.image }}
+{% elif post.image %}
+{{ request.url_root[:-1] + post.image }}
+{% else %}
+https://easytamiltools.in/static/default.jpg
 {% endif %}
+{% endblock %}
 
+{% block og_type %}
+article
 {% endblock %}
 
 {% block content %}
