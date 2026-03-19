@@ -27,13 +27,13 @@
 }
 
 .article-card{
-    background:#fff;
-    border-radius:14px;
+    background:#ffffff;
+    border-radius:16px;
     overflow:hidden;
-    box-shadow:0 6px 18px rgba(0,0,0,0.08);
-    transition:all .35s ease;
-    display:flex;
-    flex-direction:column;
+    border:1px solid #e2e8f0;
+    box-shadow:0 8px 25px rgba(0,0,0,0.06);
+    transition:all .3s ease;
+    position:relative;
 }
 
 .article-card:hover{
@@ -80,17 +80,36 @@
 }
 
 .read-more{
-    text-decoration:none;
+    display:inline-flex;   /* முக்கியம் */
+    align-items:center;
+    gap:6px;
+
+    width:auto;            /* force fix */
+    max-width:max-content; /* prevent stretch */
+
+    padding:6px 12px;
+    background:#b1c2e9;
+    color:#fff;
+
+    border-radius:20px;
+    font-size:12px;
     font-weight:600;
-    color:#2563eb;
-    font-size:14px;
+
+    transition:all 0.25s ease;
+}
+/* Optional arrow animation */
+.read-more::after{
+    content:"→";
+    font-size:12px;
+    transition:0.3s;
 }
 
-.read-more:hover{
-    text-decoration:underline;
+.read-more:hover::after{
+    transform:translateX(3px);
 }
-
-
+.article-content a.read-more{
+    align-self:flex-start;
+}
 /* ======================================================
    POST PAGE
 ====================================================== */
@@ -358,19 +377,25 @@
 
 .category-seo-content{
     max-width:900px;
-    margin:100px auto 60px;
-    padding:0 20px;
-    line-height:1.9;
+    margin:80px auto;
+    padding:30px;
+    background:#ffffff;
+    border-radius:16px;
+    border:1px solid #e2e8f0;
+    box-shadow:0 10px 30px rgba(0,0,0,0.05);
 }
 
 .category-seo-content h2{
-    margin-top:40px;
-    margin-bottom:16px;
+    font-size:24px;
+    font-weight:700;
+    margin-bottom:15px;
+    color:#0f172a;
 }
 
 .category-seo-content h3{
-    margin-top:35px;
-    margin-bottom:14px;
+    font-size:20px;
+    font-weight:600;
+    margin-top:25px;
 }
 
 .category-seo-content p{
@@ -427,4 +452,56 @@
     font-size:18px;
 }
 
+}
+/* catagory page news portal style code 19-03-2026 */
+/* CATEGORY TITLE */
+.category-title{
+    font-size:32px;
+    font-weight:800;
+    margin-bottom:25px;
+    color:#0f172a;
+    position:relative;
+}
+
+.category-title::after{
+    content:'';
+    width:60px;
+    height:4px;
+    background:#2563eb;
+    position:absolute;
+    bottom:-8px;
+    left:0;
+    border-radius:4px;
+}
+.views{
+    font-size:12px;
+    color:#64748b;
+    margin-top:8px;
+}
+.article-image{
+    overflow:hidden;
+}
+
+.article-image img{
+    transition:transform .5s ease;
+}
+
+.article-card:hover .article-image img{
+    transform:scale(1.08);
+}
+.category-seo-content ul{
+    padding-left:18px;
+}
+
+.category-seo-content li{
+    margin-bottom:8px;
+    font-size:15px;
+}
+.category-seo-content a{
+    color:#2563eb;
+    font-weight:600;
+}
+
+.category-seo-content a:hover{
+    text-decoration:underline;
 }

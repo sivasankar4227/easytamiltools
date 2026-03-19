@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h1 style="margin-bottom:30px;">
+<h1 class="category-title">
     {{ category.replace('-', ' ').title() }} Articles
 </h1>
 
@@ -35,7 +35,7 @@
                 Read More →
             </a>
 
-            <p>👁️ {{ post.views }} Views</p>
+            <p class="views">👁️ {{ post.views }} Views</p>
         </div>
 
     </div>

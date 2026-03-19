@@ -149,133 +149,85 @@ const messaging = firebase.messaging();
         </li>
 
         <!-- CALCULATORS -->
-        <li class="nav-item dropdown position-static">
+        <!-- CALCULATORS -->
+        <li class="nav-item dropdown">
+
           <a class="nav-link dropdown-toggle nav-animated {% if '-calculator' in request.path %}active{% endif %}"
-             href="#" data-bs-toggle="dropdown">
-             <i class="bi bi-calculator"></i> CALCULATORS
+            href="#" data-bs-toggle="dropdown">
+            <i class="bi bi-calculator"></i> CALCULATORS
           </a>
 
-          <div class="dropdown-menu w-100 shadow border-0 p-4">
-            <div class="row">
+          <div class="dropdown-menu dropdown-vertical shadow border-0 p-2">
 
-              <div class="col-md-3">
-                <a class="dropdown-item" href="{{ url_for('emi_calculator') }}">
-                  EMI Calculator
-                </a>
-              </div>
+            <a class="dropdown-item" href="{{ url_for('emi_calculator') }}">
+              💰 EMI Calculator
+            </a>
 
-              <div class="col-md-3">
-                <a class="dropdown-item" href="{{ url_for('age_calculator') }}">
-                  Age Calculator
-                </a>
-              </div>
+            <a class="dropdown-item" href="{{ url_for('age_calculator') }}">
+              🎂 Age Calculator
+            </a>
 
-              <div class="col-md-3">
-                <a class="dropdown-item" href="{{ url_for('percentage_calculator') }}">
-                  Percentage Calculator
-                </a>
-              </div>
+            <a class="dropdown-item" href="{{ url_for('percentage_calculator') }}">
+              📊 Percentage Calculator
+            </a>
 
-              <div class="col-md-3">
-                <a class="dropdown-item" href="{{ url_for('date_difference_calculator') }}">
-                  Date Difference
-                </a>
-              </div>
+            <a class="dropdown-item" href="{{ url_for('date_difference_calculator') }}">
+              📅 Date Difference
+            </a>
 
-            </div>
           </div>
         </li>
 
         <!-- TOOLS -->
-        <li class="nav-item dropdown position-static">
-          <a class="nav-link dropdown-toggle nav-animated {% if request.path in ['/compress-pdf','/pdf-merge','/pdf-split','/text-counter','/case-converter','/unit-converter','/number-to-words','/qr-code-generator','/image-compressor','/tamil-pdf-to-word'] %}active{% endif %}"
-             href="#" data-bs-toggle="dropdown">
-             <i class="bi bi-tools"></i> TOOLS
+        <li class="nav-item dropdown">
+
+          <a class="nav-link dropdown-toggle nav-animated {% if request.path in ['/compress-pdf','/pdf-merge','/pdf-split','/text-counter','/case-converter','/unit-converter','/number-to-words','/qr-code-generator','/image-compressor','/tamil-pdf-to-word','/json-formatter','/image-converter'] %}active{% endif %}"
+            href="#" data-bs-toggle="dropdown">
+            <i class="bi bi-tools"></i> TOOLS
           </a>
 
-          <div class="dropdown-menu w-100 shadow border-0 p-4">
-            <div class="row">
+          <div class="dropdown-menu dropdown-vertical shadow border-0 p-2">
 
-              <div class="col-md-3">
-                <a class="dropdown-item" href="{{ url_for('compress_pdf') }}">PDF Compress</a>
-              </div>
+            <a class="dropdown-item" href="{{ url_for('compress_pdf') }}">📄 PDF Compress</a>
+            <a class="dropdown-item" href="{{ url_for('pdf_merge') }}">📑 PDF Merge</a>
+            <a class="dropdown-item" href="{{ url_for('pdf_split_tool') }}">✂️ PDF Split</a>
+            <a class="dropdown-item" href="{{ url_for('tamil_pdf_to_word') }}">📝 Tamil PDF to Word</a>
 
-              <div class="col-md-3">
-                <a class="dropdown-item" href="{{ url_for('pdf_merge') }}">PDF Merge</a>
-              </div>
+            <div class="dropdown-divider"></div>
 
-              <div class="col-md-3">
-                <a class="dropdown-item" href="{{ url_for('pdf_split_tool') }}">PDF Split</a>
-              </div>
+            <a class="dropdown-item" href="{{ url_for('text_counter') }}">🔤 Text Counter</a>
+            <a class="dropdown-item" href="{{ url_for('case_converter') }}">🔠 Case Converter</a>
+            <a class="dropdown-item" href="{{ url_for('unit_converter') }}">📏 Unit Converter</a>
+            <a class="dropdown-item" href="{{ url_for('number_to_words') }}">🔢 Number to Words</a>
+            <a class="dropdown-item" href="/english-to-tamil-typing">⌨️ English To Tamil Typing</a>
 
-              <div class="col-md-3">
-                <a class="dropdown-item" href="{{ url_for('tamil_pdf_to_word') }}">Tamil PDF to Word</a>
-              </div>
+            <div class="dropdown-divider"></div>
 
-              <div class="col-md-3">
-                <a class="dropdown-item" href="{{ url_for('text_counter') }}">Text Counter</a>
-              </div>
+            <a class="dropdown-item" href="{{ url_for('qr_code_generator') }}">📲 QR Code Generator</a>
+            <a class="dropdown-item" href="{{ url_for('image_compressor') }}">🖼 Image Compressor</a>
+            <a class="dropdown-item" href="{{ url_for('json_formatter') }}">🧾 JSON Formatter</a>
+            <a class="dropdown-item" href="{{ url_for('image_converter') }}">🔄 Image Converter</a>
 
-              <div class="col-md-3">
-                <a class="dropdown-item" href="{{ url_for('case_converter') }}">Case Converter</a>
-              </div>
-
-              <div class="col-md-3">
-                <a class="dropdown-item" href="{{ url_for('unit_converter') }}">Unit Converter</a>
-              </div>
-
-              <div class="col-md-3">
-                <a class="dropdown-item" href="{{ url_for('number_to_words') }}">Number to Words</a>
-              </div>
-
-              <div class="col-md-3">
-                <a class="dropdown-item" href="{{ url_for('qr_code_generator') }}">QR Code Generator</a>
-              </div>
-
-              <div class="col-md-3">
-                <a class="dropdown-item" href="{{ url_for('image_compressor') }}">Image Compressor</a>
-              </div>
-              <div class="col-md-3">
-                <a class="dropdown-item" href="{{ url_for('json_formatter') }}">JSON Formatter</a>
-              </div>
-              <div class="col-md-3">
-                <a class="dropdown-item" href="{{ url_for('image_converter') }}">Image Converter</a>
-              </div>
-
-            </div>
           </div>
         </li>
 
        <!-- BLOG DROPDOWN -->
-        <li class="nav-item dropdown position-static">
+       <!-- BLOG -->
+        <li class="nav-item dropdown">
 
           <a class="nav-link dropdown-toggle nav-animated {% if request.endpoint == 'blog_category' %}active{% endif %}"
             href="#" data-bs-toggle="dropdown">
             <i class="bi bi-journal-text"></i> BLOG
           </a>
 
-          <div class="dropdown-menu w-100 shadow border-0 p-4">
-            <div class="row">
+          <div class="dropdown-menu dropdown-vertical shadow border-0 p-2">
 
-              <div class="col-md-3">
-                <a class="dropdown-item" href="{{ url_for('blog_category', category='ott') }}">OTT</a>
-              </div>
+            <a class="dropdown-item" href="{{ url_for('blog_category', category='ott') }}">🎬 OTT</a>
+            <a class="dropdown-item" href="{{ url_for('blog_category', category='tech') }}">💻 Tech</a>
+            <a class="dropdown-item" href="{{ url_for('blog_category', category='news') }}">📰 News</a>
+            <a class="dropdown-item" href="{{ url_for('blog_category', category='entertainment') }}">🎭 Entertainment</a>
 
-              <div class="col-md-3">
-                <a class="dropdown-item" href="{{ url_for('blog_category', category='tech') }}">Tech</a>
-              </div>
-
-              <div class="col-md-3">
-                <a class="dropdown-item" href="{{ url_for('blog_category', category='news') }}">News</a>
-              </div>
-
-              <div class="col-md-3">
-                <a class="dropdown-item" href="{{ url_for('blog_category', category='entertainment') }}">Entertainment</a>
-              </div>
-
-            </div>
           </div>
-
         </li>
 
       <!-- SEARCH -->
