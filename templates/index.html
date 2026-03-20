@@ -94,40 +94,51 @@ Mobile, Tablet மற்றும் Desktop எல்லா devices-லயு�
 
 <section class="features">
 
-<a href="/letters" class="feature-card">
-<h3>📄 Tamil Letters</h3>
-<p>
-School Leave Letter, Office Leave Letter, Bank Letter உள்ளிட்ட
-பல்வேறு Tamil Letter Formats.
-</p>
-</a>
+    <!-- CARD 1 -->
+    <a href="/letters" class="feature-card">
+        <div class="feature-content">
+            <h3>📄 Tamil Letters</h3>
+            <p>
+                School Leave Letter, Office Leave Letter, Bank Letter உள்ளிட்ட
+                பல்வேறு Tamil Letter Formats.
+            </p>
+        </div>
+    </a>
 
-<a href="/calculators" class="feature-card">
-<h3>🧮 Calculators</h3>
-<p>
-Age Calculator, EMI Calculator, BMI Calculator, Percentage Calculator
-மற்றும் பல.
-</p>
-</a>
+    <!-- CARD 2 -->
+    <a href="/calculators" class="feature-card">
+        <div class="feature-content">
+            <h3>🧮 Calculators</h3>
+            <p>
+                Age Calculator, EMI Calculator, BMI Calculator, Percentage Calculator
+                மற்றும் பல.
+            </p>
+        </div>
+    </a>
 
-<a href="/tools" class="feature-card">
-<h3>🛠 Online Tools</h3>
-<p>
-Text Counter, Unit Converter, Case Converter, QR Code Generator
-போன்ற பயனுள்ள tools.
-</p>
-</a>
+    <!-- CARD 3 -->
+    <a href="/tools" class="feature-card">
+        <div class="feature-content">
+            <h3>🛠 Free Tamil Online Tools</h3>
+            <p>
+                Text Counter, Unit Converter, Case Converter, QR Code Generator
+                போன்ற பயனுள்ள tools.
+            </p>
+        </div>
+    </a>
 
-<a href="/blog" class="feature-card">
-<h3>📰 Blog</h3>
-<p>
-Latest Tamil News, Updates, Trending Topics மற்றும் 
-useful Articles அனைத்தையும் இங்கு படிக்கலாம்.
-</p>
-</a>
+    <!-- CARD 4 -->
+    <a href="/blog" class="feature-card">
+        <div class="feature-content">
+            <h3>📰 Blog</h3>
+            <p>
+                Latest Tamil News, Updates, Trending Topics மற்றும்
+                useful Articles அனைத்தையும் இங்கு படிக்கலாம்.
+            </p>
+        </div>
+    </a>
 
 </section>
-
 <!-- ================= WHY CHOOSE US ================= -->
 
 <section class="why-us">
@@ -209,9 +220,9 @@ EasyTamilTools-ஐ பயன்படுத்துவதன் மூலம்
     <a href="/tamil-pdf-to-word">✔ Tamil PDF to Word Converter</a>
     <a href="/pdf-merge">✔PDF Merge</a> 
     <a href="/pdf-split">✔PDF Split</a> 
-    <a href="/json-formatter">JSON Formatter</a>
-    <a href="/image-converter">Image Converter</a> 
-    <a href="/english-to-tamil-typing">English To Tamil Typing</a> 
+    <a href="/json-formatter">✔JSON Formatter</a>
+    <a href="/image-converter">✔Image Converter</a> 
+    <a href="/english-to-tamil-typing">✔English To Tamil Typing</a> 
 
 </div>
 
@@ -345,5 +356,23 @@ EasyTamilTools உங்கள் தினசரி தேவைகளை ப�
 
 </section>
 
+<script>
+const elements = document.querySelectorAll(".feature-card, .article-card, .category-box");
+
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if(entry.isIntersecting){
+            entry.target.style.opacity = 1;
+            entry.target.style.transform = "translateY(0)";
+        }
+    });
+});
+
+elements.forEach(el => {
+    el.style.opacity = 0;
+    el.style.transform = "translateY(40px)";
+    observer.observe(el);
+});
+</script>
 
 {% endblock %}
