@@ -30,6 +30,7 @@ https://easytamiltools.in/static/default.jpg
 article
 {% endblock %}
 
+<link rel="canonical" href="https://easytamiltools.in/blog/{{ category }}/{{ slug }}">
 {% block content %}
 
 <main class="blog-content container">
@@ -75,7 +76,10 @@ article
     <div class="post-image">
         <img src="{{ post.image }}"
              alt="{{ post.title }}"
-             loading="lazy">
+             loading="lazy"
+             width="800"
+             height="450">
+
     </div>
     {% endif %}
 
@@ -92,7 +96,6 @@ article
         <ul>
             <li><a href="/age-calculator">Age Calculator</a></li>
             <li><a href="/percentage-calculator">Percentage Calculator</a></li>
-            <li><a href="/bmi-calculator">BMI Calculator</a></li>
             <li><a href="/emi-calculator">EMI Calculator</a></li>
         </ul>
     </div>
@@ -181,7 +184,28 @@ article
 </section>
 
 </main>
-
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "BlogPosting",
+ "headline": "{{ post.title }}",
+ "description": "{{ (post.meta_description or post.content[:160])|striptags }}",
+ "image": "{{ post.image }}",
+ "author": {
+   "@type": "Organization",
+   "name": "EasyTamilTools"
+ },
+ "publisher": {
+   "@type": "Organization",
+   "name": "EasyTamilTools"
+ },
+ "datePublished": "{{ post.created_at }}",
+ "mainEntityOfPage": {
+   "@type": "WebPage",
+   "@id": "https://easytamiltools.in/blog/{{ category }}/{{ slug }}"
+ }
+}
+</script>
 <script>
 function copyLink() {
     navigator.clipboard.writeText(window.location.href);

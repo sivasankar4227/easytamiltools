@@ -265,7 +265,7 @@ def sitemap():
         xml += f"""
   <url>
     <loc>{page['loc']}</loc>
-    <lastmod>{datetime.now().date()}</lastmod>
+    "lastmod": data.get("created_at", datetime.now()).date()
     <changefreq>{page['changefreq']}</changefreq>
     <priority>{page['priority']}</priority>
   </url>"""
@@ -295,6 +295,13 @@ def admin():
 
         title = request.form.get("title")
         slug = request.form.get("slug") or slugify(title)
+        # Unique slug fix
+        original_slug = slug
+        counter = 1
+
+        while db.collection("posts").document(slug).get().exists:
+            slug = f"{original_slug}-{counter}"
+            counter += 1
         category = request.form.get("category")
         content = request.form.get("content")
         tags = request.form.get("tags")
@@ -329,9 +336,20 @@ def admin():
 
         # 🔔 If Published → Send Push
         if status == "publish":
-            post_url = f"https://easytamiltools.in/blog/{category}/{slug}"
-            send_push_notification(title, "New update வந்துவிட்டது 🔥", post_url)
 
+            post_url = f"https://easytamiltools.in/blog/{category}/{slug}"
+
+    # 🔔 Push notification
+        send_push_notification(title, "New update வந்துவிட்டது 🔥", post_url)
+
+    # ⚡ Auto Ping to Google & Bing
+    try:
+        requests.get("https://www.google.com/ping?sitemap=https://easytamiltools.in/sitemap.xml")
+        requests.get("https://www.bing.com/ping?sitemap=https://easytamiltools.in/sitemap.xml")
+        print("✅ Sitemap ping success")
+    except Exception as e:
+        print("❌ Ping error:", e)
+            
         return redirect(f"/blog/{category}/{slug}")
 
     return render_template("admin.html")
@@ -891,7 +909,10 @@ def search():
 
     # ================= BLOG POSTS SEARCH (FIREBASE) =================
     try:
-        posts_ref = db.collection("posts").stream()
+        if db:
+            posts_ref = db.collection("posts").stream()
+        else:
+            posts_ref = []
 
         for doc in posts_ref:
             data = doc.to_dict()
