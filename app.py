@@ -32,6 +32,7 @@ from cloudinary.utils import cloudinary_url
 from dotenv import load_dotenv
 load_dotenv()
 import requests
+from flask import send_from_directory
 
 LAST_GOLD_PRICE = None #auto gold tae update 
 
@@ -279,7 +280,13 @@ def sitemap():
 @app.route("/robots.txt")
 def robots():
     return app.send_static_file("robots.txt")
-
+# favicon route codes =====
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(
+        os.path.join(app.root_path, 'static'),
+        'favicon.ico'
+    )
 # ===============ADMIN PAGE ROUTE==================
 from datetime import datetime
 from flask import request, redirect, render_template, session
@@ -1039,7 +1046,7 @@ def blog_category(category):
 ]
     # 🔥 latest first (DESCENDING)
     posts_ref = db.collection("posts") \
-        .where(filter=("category", "==", category)) \
+        .where("category", "==", category) \
         .order_by("created_at", direction=firestore.Query.DESCENDING) \
         .stream()
 
@@ -1075,12 +1082,7 @@ def blog_category(category):
 @app.route("/blog/<category>/<post>")
 def blog_post(category, post):
 
-    breadcrumb = [
-    {"name": "Home", "url": "https://easytamiltools.in/"},
-    {"name": category.upper(), "url": f"https://easytamiltools.in/blog/{category}"},
-    {"name": data.get("title"), "url": request.url}
-]
-    # 'post' ingrathu Firebase document ID (slug)
+    # 🔥 Firebase fetch
     post_ref = db.collection("posts").document(post)
     doc = post_ref.get()
 
@@ -1088,43 +1090,46 @@ def blog_post(category, post):
         abort(404)
 
     data = doc.to_dict()
+
     # 🔥 CATEGORY VALIDATION (SEO FIX)
     if data.get("category") != category:
         abort(404)
 
-    # Update View Count
+    # ✅ BREADCRUMB (AFTER data)
+    breadcrumb = [
+        {"name": "Home", "url": "https://easytamiltools.in/"},
+        {"name": category.upper(), "url": f"https://easytamiltools.in/blog/{category}"},
+        {"name": data.get("title"), "url": request.url}
+    ]
+
+    # 🔥 Update View Count
     post_ref.update({"views": firestore.Increment(1)})
     views = data.get("views", 0) + 1
 
-    # Safe defaults
+    # 🔥 Safe defaults
     data.setdefault("image", None)
     data.setdefault("views", 0)
 
-    # Fetch reviews for this specific post
+    # 🔥 Reviews
     reviews_ref = db.collection("reviews").where("post", "==", post).stream()
     total, count = 0, 0
+
     for r in reviews_ref:
         total += r.to_dict().get("rating", 0)
         count += 1
+
     avg_rating = round(total / count, 1) if count > 0 else 0
+
     # ================= RELATED POSTS =================
     related_query = db.collection("posts").limit(4).stream()
-
     related_posts = []
 
     for r in related_query:
-
         if r.id != post:
-
             data_r = r.to_dict()
             data_r["slug"] = r.id
             related_posts.append(data_r)
 
-        for r in related_query:
-            if r.id != post:
-                data_r = r.to_dict()
-                data_r["slug"] = r.id
-                related_posts.append(data_r)
     # 🔥 FETCH COMMENTS
     comments_ref = post_ref.collection("comments") \
         .where("approved", "==", True) \
@@ -1138,32 +1143,31 @@ def blog_post(category, post):
         data_c["id"] = c.id
         comments.append(data_c)
 
-    # Separate main comments & replies
+    # 🔥 Separate comments & replies
     main_comments = [c for c in comments if not c.get("parent_id")]
     replies = [c for c in comments if c.get("parent_id")]
 
-    # Attach replies to main comments
     for main in main_comments:
         main["replies"] = [
             r for r in replies if r.get("parent_id") == main["id"]
         ]
 
-    # Path change: "blog/post.html" -> "post.html"
+    # 🔥 FINAL RENDER
     return render_template(
-    "blog/post.html",
-    content=data.get("content"),
-    title=data.get("title"),
-    image=data.get("image"),
-    slug=post,
-    post=data,
-    category=category,
-    views=views,
-    avg_rating=avg_rating,
-    review_count=count,
-    comments=main_comments,  
-    related_posts=related_posts,
-    breadcrumb=breadcrumb
-)
+        "blog/post.html",
+        content=data.get("content"),
+        title=data.get("title"),
+        image=data.get("image"),
+        slug=post,
+        post=data,
+        category=category,
+        views=views,
+        avg_rating=avg_rating,
+        review_count=count,
+        comments=main_comments,
+        related_posts=related_posts,
+        breadcrumb=breadcrumb
+    )
 @app.route("/")
 def home():
 
@@ -1304,7 +1308,7 @@ def get_gold_rate():
         # 🔥 API FAIL SAFE
         if not price_data:
             print("Gold API Error:", data)
-            return LAST_GOLD_PRICE  # fallback
+            return LAST_GOLD_PRICE if LAST_GOLD_PRICE else 0
 
         price = round(price_data, 2)
 
@@ -1328,7 +1332,7 @@ def get_gold_rate():
 
     except Exception as e:
         print("Gold Error:", e)
-        return LAST_GOLD_PRICE
+        return LAST_GOLD_PRICE if LAST_GOLD_PRICE else 0
 #===========automatica gold rate upload code========
 def auto_post_gold_rate():
     try:
@@ -1441,8 +1445,10 @@ def get_silver_rate():
 
         # 🔥 fallback fix
         if not price:
-            price = data.get("price") / 31.1035 / 1000  # ounce → gram approx
-
+            if data.get("price"):
+                price = data.get("price") / 31.1035 / 1000
+            else:
+                return None   # 🔥 SAFE EXIT   
         return round(price, 2)
 
     except Exception as e:
