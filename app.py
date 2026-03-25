@@ -1174,7 +1174,6 @@ def home():
     breadcrumb = [
     {"name": "Home", "url": "https://easytamiltools.in/"}
     ]
-    auto_post_gold_rate()  # newly added 
     # 🔥 GOLD + SILVER RATE FETCH
     city = request.args.get("city", "chennai")
 
@@ -1493,6 +1492,11 @@ def get_location_rate(city, base_price):
         return round(base_price + 30, 2)
 
     return base_price
+#====renderl agold rate timing fix panna===========
+@app.route("/run-gold-job")
+def run_gold_job():
+    auto_post_gold_rate()
+    return "Gold job executed ✅"
 # ================= RUN =================
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
