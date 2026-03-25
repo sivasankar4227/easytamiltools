@@ -6,23 +6,17 @@
 {% if latest_posts %}
 
 <div class="breaking-news">
+    <span class="breaking-label">🔥 Breaking</span>
 
-<span class="breaking-label">🔥 Breaking</span>
-
-<marquee>
-
-{% for post in latest_posts %}
-
-<a href="/blog/{{ post.category }}/{{ post.slug }}">
-
-{{ post.title }} |
-
-</a>
-
-{% endfor %}
-
-</marquee>
-
+    <div class="breaking-wrapper">
+        <div class="breaking-scroll">
+            {% for post in latest_posts %}
+                <a href="/blog/{{ post.category }}/{{ post.slug }}">
+                    {{ post.title }} |
+                </a>
+            {% endfor %}
+        </div>
+    </div>
 </div>
 
 {% endif %}
@@ -41,23 +35,79 @@ useful online utilities-ஐ ஒரே இடத்தில் பயன்ப�
 
 <div class="hero-links">
 
-<a href="/age-calculator">Age Calculator</a> |
-<a href="/emi-calculator">EMI Calculator</a> |
-<a href="/text-counter">Text Counter</a> |
-<a href="/case-converter">Case Converter</a> |
-<a href="/unit-converter">Unit Converter</a> |
-<a href="/qr-code-generator">QR Code Generator</a> |
-<a href="/tamil-pdf-to-word">Tamil PDF to Word Converter</a>
-<a href="/pdf-merge">PDF Merge</a> |
-<a href="/pdf-split">PDF Split</a> |
-<a href="/json-formatter">JSON Formatter</a> |
-<a href="/image-converter">Image Converter</a> |
-
+        <a href="/age-calculator">Age Calculator</a> |
+        <a href="/emi-calculator">EMI Calculator</a> |
+        <a href="/text-counter">Text Counter</a> |
+        <a href="/case-converter">Case Converter</a> |
+        <a href="/unit-converter">Unit Converter</a> |
+        <a href="/qr-code-generator">QR Code Generator</a> |
+        <a href="/tamil-pdf-to-word">Tamil PDF to Word Converter</a> |
+        <a href="/pdf-merge">PDF Merge</a> |
+        <a href="/pdf-split">PDF Split</a> |
+        <a href="/json-formatter">JSON Formatter</a> |
+        <a href="/image-converter">Image Converter</a> |
 </div>
-
 
 <a href="/tools" class="btn">Start Using Tools</a>
 </header>
+<form method="GET" class="city-form">
+    <label>📍 நகரம் தேர்வு செய்யவும்</label>
+
+    <div class="select-wrapper">
+        <select name="city" onchange="this.form.submit()">
+            <option value="chennai" {% if request.args.get('city') == 'chennai' %}selected{% endif %}>Chennai</option>
+            <option value="nagercoil" {% if request.args.get('city') == 'nagercoil' %}selected{% endif %}>Nagercoil</option>
+        </select>
+    </div>
+</form>
+<!-- GOLD RATE LIVE -->
+<div class="section gold-section">
+
+    <h2 class="gold-title">💰 இன்றைய தங்கம் & வெள்ளி விலை</h2>
+
+    <!-- CITY BADGE -->
+    <div class="city-badge">
+        {{ request.args.get('city', 'Chennai') | capitalize }}
+    </div>
+
+    <div class="gold-grid">
+
+        <!-- GOLD -->
+        <div class="gold-card gold">
+            <h3>🥇 Gold (24K)</h3>
+            <p id="goldPrice">
+                ₹ 
+                {% if gold_price %}
+                    {{ gold_price }}
+                {% else %}
+                    <span class="loading">Loading...</span>
+                {% endif %}
+                / gram
+            </p>
+        </div>
+
+        <!-- SILVER -->
+        <div class="gold-card silver">
+            <h3>🥈 Silver</h3>
+            <p id="silverPrice">
+                ₹ 
+                {% if silver_price %}
+                    {{ silver_price }}
+                {% else %}
+                    <span class="loading">Loading...</span>
+                {% endif %}
+                / gram
+            </p>
+        </div>
+
+    </div>
+
+    <!-- CHART -->
+    <div class="chart-card">
+        <canvas id="goldChart"></canvas>
+    </div>
+
+</div>
 
 <!-- ================= ABOUT WEBSITE ================= -->
 
@@ -372,6 +422,39 @@ elements.forEach(el => {
     el.style.opacity = 0;
     el.style.transform = "translateY(40px)";
     observer.observe(el);
+});
+</script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+fetch("/gold-history")
+.then(res => res.json())
+.then(data => {
+
+    const labels = data.slice(-7).map(d => d.date);
+    const prices = data.slice(-7).map(d => d.price);
+
+    new Chart(document.getElementById("goldChart"), {
+        type: "line",
+        data: {
+            labels: labels,
+            datasets: [{
+                label: "Gold Price (Last 7 Days)",
+                data: prices,
+                tension: 0.4,
+                fill: true
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: true
+                }
+            }
+        }
+    });
+
 });
 </script>
 

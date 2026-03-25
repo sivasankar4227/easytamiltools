@@ -33,6 +33,8 @@ from dotenv import load_dotenv
 load_dotenv()
 import requests
 
+LAST_GOLD_PRICE = None #auto gold tae update 
+
 
 
 
@@ -75,7 +77,6 @@ SEARCH_ITEMS = [
     
     # Blog Posts (example)
     {"name": "OTT Movie Updates", "url": "/blog/ott/inth-avaram-ott-movies", "type": "blog"},
-    {"name": "Daily Tamil Calendar", "url": "/blog/tamil-calendar/today-calendar", "type": "blog"},
     # Add more blog posts here
 ]
 
@@ -1032,10 +1033,13 @@ def blog_list():
 
 @app.route("/blog/<category>")
 def blog_category(category):
-
+    breadcrumb = [
+    {"name": "Home", "url": "https://easytamiltools.in/"},
+    {"name": category.upper(), "url": f"https://easytamiltools.in/blog/{category}"}
+]
     # 🔥 latest first (DESCENDING)
     posts_ref = db.collection("posts") \
-        .where("category", "==", category) \
+        .where(filter=("category", "==", category)) \
         .order_by("created_at", direction=firestore.Query.DESCENDING) \
         .stream()
 
@@ -1063,11 +1067,19 @@ def blog_category(category):
     return render_template(
     "blog/category.html",
     category=category,
-    posts=posts
+    posts=posts,
+    breadcrumb=breadcrumb
+    
 )
 
 @app.route("/blog/<category>/<post>")
 def blog_post(category, post):
+
+    breadcrumb = [
+    {"name": "Home", "url": "https://easytamiltools.in/"},
+    {"name": category.upper(), "url": f"https://easytamiltools.in/blog/{category}"},
+    {"name": data.get("title"), "url": request.url}
+]
     # 'post' ingrathu Firebase document ID (slug)
     post_ref = db.collection("posts").document(post)
     doc = post_ref.get()
@@ -1149,11 +1161,25 @@ def blog_post(category, post):
     avg_rating=avg_rating,
     review_count=count,
     comments=main_comments,  
-    related_posts=related_posts
+    related_posts=related_posts,
+    breadcrumb=breadcrumb
 )
 @app.route("/")
 def home():
 
+    breadcrumb = [
+    {"name": "Home", "url": "https://easytamiltools.in/"}
+    ]
+    auto_post_gold_rate()  # newly added 
+    # 🔥 GOLD + SILVER RATE FETCH
+    city = request.args.get("city", "chennai")
+
+    gold_price = get_gold_rate()
+    silver_price = get_silver_rate()
+
+    gold_price = get_location_rate(city, gold_price)
+
+    # 🔥 LATEST POSTS FETCH
     latest_query = db.collection("posts") \
         .order_by("created_at", direction=firestore.Query.DESCENDING) \
         .limit(8) \
@@ -1163,7 +1189,6 @@ def home():
     categories = set()
 
     for doc in latest_query:
-
         data = doc.to_dict()
 
         data["slug"] = doc.id
@@ -1174,10 +1199,18 @@ def home():
         if data.get("category"):
             categories.add(data["category"])
 
+    # 🧪 DEBUG (optional - remove later)
+    print("Gold Price:", gold_price)
+    print("Silver Price:", silver_price)
+
+    # 🔥 SEND DATA TO HTML
     return render_template(
         "index.html",
         categories=categories,
-        latest_posts=latest_posts
+        latest_posts=latest_posts,
+        gold_price=gold_price,
+        silver_price=silver_price,
+        breadcrumb=breadcrumb
     )
 # ===============comment sec add codes==========
 @app.route("/add-comment/<category>/<post>", methods=["POST"])
@@ -1201,6 +1234,7 @@ def add_comment(category, post):
       .add(comment_data)
 
     return redirect(url_for("blog_post", category=category, post=post))
+
 
 # =========web-push-notification======
 # @app.route("/save-token", methods=["POST"])
@@ -1249,6 +1283,210 @@ def add_comment(category, post):
 #         })
 
 #     return {"status": "success"}
+
+#======gold silver rate auto update code=======
+def get_gold_rate():
+    global LAST_GOLD_PRICE
+
+    try:
+        url = "https://www.goldapi.io/api/XAU/INR"
+
+        headers = {
+            "x-access-token": os.environ.get("GOLD_API_KEY"),
+            "Content-Type": "application/json"
+        }
+
+        response = requests.get(url, headers=headers)
+        data = response.json()
+
+        price_data = data.get("price_gram_24k")
+
+        # 🔥 API FAIL SAFE
+        if not price_data:
+            print("Gold API Error:", data)
+            return LAST_GOLD_PRICE  # fallback
+
+        price = round(price_data, 2)
+
+        # 🔔 PUSH NOTIFICATION LOGIC
+        if LAST_GOLD_PRICE is not None:
+            change = abs(price - LAST_GOLD_PRICE)
+
+            if change > 50:
+                print("🔥 Gold price changed! Sending notification...")
+
+                send_push_notification(
+                    "Gold Rate Alert 🚨",
+                    f"Gold price updated to ₹{price}",
+                    "https://easytamiltools.in"
+                )
+
+        # 🔄 UPDATE LAST PRICE
+        LAST_GOLD_PRICE = price
+
+        return price
+
+    except Exception as e:
+        print("Gold Error:", e)
+        return LAST_GOLD_PRICE
+#===========automatica gold rate upload code========
+def auto_post_gold_rate():
+    try:
+        gold = get_gold_rate()
+        silver = get_silver_rate()
+
+        today_date = datetime.now()
+        today = today_date.strftime("%d %B %Y")
+        slug = f"gold-rate-{today}".lower().replace(" ", "-")
+
+        doc_ref = db.collection("posts").document(slug)
+
+        # already exist check
+        if doc_ref.get().exists:
+            return
+
+        # 🔥 Get yesterday price (from Firestore)
+        yesterday_price = gold
+        try:
+            yesterday_docs = db.collection("gold_history")\
+                .order_by("date", direction=firestore.Query.DESCENDING)\
+                .limit(1).stream()
+
+            for d in yesterday_docs:
+                yesterday_price = d.to_dict().get("price", gold)
+
+        except:
+            pass
+
+        # 🔥 Calculate difference
+        diff = round(gold - yesterday_price, 2)
+
+        if diff > 0:
+            change_text = f"📈 தங்கம் விலை ₹{diff} உயர்ந்துள்ளது"
+        elif diff < 0:
+            change_text = f"📉 தங்கம் விலை ₹{abs(diff)} குறைந்துள்ளது"
+        else:
+            change_text = "➖ தங்கம் விலையில் மாற்றம் இல்லை"
+
+        # 🔥 SEO Rich Content
+        content = f"""
+        <h1>இன்றைய தங்கம் விலை ({today})</h1>
+
+        <p>இன்று இந்தியாவில் தங்கம் விலையில் புதிய மாற்றம் ஏற்பட்டுள்ளது.</p>
+
+        <h2>💰 Gold & Silver Rate Today</h2>
+        <ul>
+            <li>🥇 24K Gold: ₹ {gold} / gram</li>
+            <li>🥈 Silver: ₹ {silver} / gram</li>
+        </ul>
+
+        <h2>📊 நேற்று விலை ஒப்பீடு</h2>
+        <p>{change_text}</p>
+
+        <h2>📈 தங்கம் விலை நிலவரம்</h2>
+        <p>
+        கடந்த சில நாட்களாக தங்கம் விலையில் மாற்றங்கள் காணப்படுகிறது.
+        உலக சந்தை நிலவரம், டாலர் மதிப்பு, மற்றும் முதலீட்டாளர்களின் தேவைகள்
+        ஆகியவற்றின் அடிப்படையில் விலை உயர்வு அல்லது குறைவு ஏற்படுகிறது.
+        </p>
+
+        <h2>💡 முதலீட்டு ஆலோசனை</h2>
+        <p>
+        தங்கம் நீண்டகால முதலீட்டிற்கு மிகவும் பாதுகாப்பானது.
+        தினசரி விலை மாற்றங்களை கவனித்து வாங்குவது நல்லது.
+        குறைந்த விலையில் வாங்கி, அதிக விலையில் விற்கும் திட்டம் லாபகரமானது.
+        </p>
+
+        <h2>📍 முக்கிய தகவல்</h2>
+        <p>
+        நகரத்திற்கு நகரம் தங்கம் விலை சிறிய அளவில் மாறுபடும்.
+        சென்னை, நாகர்கோவில் போன்ற நகரங்களில் விலை வேறுபாடு இருக்கலாம்.
+        </p>
+
+        <p>
+        👉 தினசரி தங்கம் & வெள்ளி விலை updates க்கு EasyTamilTools-ஐ தொடர்ந்து பாருங்கள்.
+        </p>
+        """
+
+        doc_ref.set({
+            "title": f"Gold Rate Today ({today}) – 24K Price Update",
+            "slug": slug,
+            "category": "gold-rate",
+            "content": content,
+            "image": None,
+            "excerpt": f"இன்றைய தங்கம் விலை ₹{gold}. நேற்று ஒப்பிடும் போது {change_text}",
+            "status": "publish",
+            "views": 0,
+            "created_at": firestore.SERVER_TIMESTAMP
+        })
+
+        print("✅ Auto Gold Blog Posted")
+
+    except Exception as e:
+        print("Auto Blog Error:", e)
+
+def get_silver_rate():
+    try:
+        url = "https://www.goldapi.io/api/XAG/INR"
+
+        headers = {
+            "x-access-token": os.environ.get("GOLD_API_KEY"),
+            "Content-Type": "application/json"
+        }
+
+        response = requests.get(url, headers=headers)
+        data = response.json()
+
+        price = data.get("price_gram_24k")
+
+        # 🔥 fallback fix
+        if not price:
+            price = data.get("price") / 31.1035 / 1000  # ounce → gram approx
+
+        return round(price, 2)
+
+    except Exception as e:
+        print("Silver Error:", e)
+        return None
+
+# for gold 7& 30days grapgh codes
+@app.route("/gold-history")
+def gold_history():
+
+    docs = db.collection("posts") \
+        .where("category", "==", "gold-rate") \
+        .order_by("created_at") \
+        .stream()
+
+    data = []
+
+    for d in docs:
+        post = d.to_dict()
+        title = post.get("title")
+        content = post.get("content")
+
+        # simple extract
+        import re
+        match = re.search(r'₹ (\d+\.?\d*)', content)
+
+        if match:
+            price = float(match.group(1))
+            data.append({
+                "date": title,
+                "price": price
+            })
+
+    return jsonify(data)
+#=======for location based gold rate=======
+def get_location_rate(city, base_price):
+
+    if city == "chennai":
+        return round(base_price + 50, 2)
+
+    elif city == "nagercoil":
+        return round(base_price + 30, 2)
+
+    return base_price
 # ================= RUN =================
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
