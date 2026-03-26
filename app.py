@@ -1,41 +1,27 @@
-from flask import Flask, render_template, request, Response, redirect, url_for ,send_file
-from datetime import date, datetime
+from flask import Flask, render_template, request, Response, redirect, url_for, send_file, abort, session, jsonify, send_from_directory
+from datetime import date, datetime, timedelta
 from PIL import Image
 import os
-from num2words import num2words
-import qrcode
-import logging
-from werkzeug.utils import secure_filename
-from pdf2docx import Converter
 import uuid
+import logging
+import json
+import requests
 import smtplib
 from email.message import EmailMessage
+from num2words import num2words
+import qrcode
+from werkzeug.utils import secure_filename
+from pdf2docx import Converter
 from dateutil.relativedelta import relativedelta
-from flask import abort
-from flask import send_file
 from PyPDF2 import PdfMerger, PdfReader, PdfWriter
-import json
-import firebase_admin
-from firebase_admin import credentials
-from firebase_admin import firestore
-from firebase_admin import messaging
-from flask import session
 from slugify import slugify
-import pillow_avif
-import os, uuid, threading
-from flask import jsonify
-from flask import send_from_directory
 from markupsafe import escape
+import firebase_admin
+from firebase_admin import credentials, firestore, messaging
 import cloudinary
 import cloudinary.uploader
-from cloudinary.utils import cloudinary_url
 from dotenv import load_dotenv
 load_dotenv()
-import requests
-from flask import send_from_directory
-
-LAST_GOLD_PRICE = None #auto gold tae update 
-
 
 
 
@@ -43,6 +29,22 @@ LAST_GOLD_PRICE = None #auto gold tae update
 import cloudinary
 import cloudinary.uploader
 from cloudinary.utils import cloudinary_url
+
+
+def load_gold_data():
+    try:
+        with open("gold_data.json") as f:
+            return json.load(f)
+    except:
+        return {
+            "gold": 0,
+            "silver": 0,
+            "last_updated": None
+        }
+
+def save_gold_data(data):
+    with open("gold_data.json", "w") as f:
+        json.dump(data, f)
 
 # Configuration       
 cloudinary.config(
@@ -70,6 +72,9 @@ SEARCH_ITEMS = [
     {"name": "EMI Calculator", "url": "/emi-calculator", "type": "calculator"},
     {"name": "Percentage Calculator", "url": "/percentage-calculator", "type": "calculator"},
     {"name": "Date Difference Calculator", "url": "/date-difference-calculator", "type": "calculator"},
+    {"name": "Image Converter", "url": "/image-converter", "type": "tool"},
+    {"name": "Compress PDF", "url": "/compress-pdf", "type": "tool"},
+    {"name": "English to Tamil Typing", "url": "/english-to-tamil-typing", "type": "tool"},
     
     # Letters
     {"name": "School Leave Letter", "url": "/letters/school-leave", "type": "letter"},
@@ -85,6 +90,9 @@ SEARCH_ITEMS = [
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY") or "temporarysecret123"
 
+
+MANUAL_GOLD_DATA = load_gold_data()
+
 # ================= HEALTH CHECK =================
 @app.route("/health")
 def health():
@@ -98,7 +106,7 @@ def admin_login():
         password = request.form.get("password")
 
         # 🔐 Change this password
-        if password == "admin123":
+        if password == os.environ.get("ADMIN_PASSWORD"):
             session["admin_logged_in"] = True
             return redirect("/admin")
         else:
@@ -124,7 +132,7 @@ try:
 
 except Exception as e:
     print("🔥 Firebase Initialization Error:", e)
-    db = None
+    db = None   # just set db None
 # ================= PUSH NOTIFICATION =================
 def send_push_notification(title, body, url):
 
@@ -267,7 +275,7 @@ def sitemap():
         xml += f"""
   <url>
     <loc>{page['loc']}</loc>
-    "lastmod": data.get("created_at", datetime.now()).date()
+    <lastmod>{datetime.now().date()}</lastmod>
     <changefreq>{page['changefreq']}</changefreq>
     <priority>{page['priority']}</priority>
   </url>"""
@@ -344,11 +352,13 @@ def admin():
 
         # 🔔 If Published → Send Push
         if status == "publish":
-
             post_url = f"https://easytamiltools.in/blog/{category}/{slug}"
 
-    # 🔔 Push notification
-        send_push_notification(title, "New update வந்துவிட்டது 🔥", post_url)
+            send_push_notification(
+            title,
+            "New update வந்துவிட்டது 🔥",
+            post_url
+    )
 
     # ⚡ Auto Ping to Google & Bing
     try:
@@ -1177,8 +1187,8 @@ def home():
     # 🔥 GOLD + SILVER RATE FETCH
     city = request.args.get("city", "chennai")
 
-    gold_price = get_gold_rate()
-    silver_price = get_silver_rate()
+    gold_price = MANUAL_GOLD_DATA["gold"]
+    silver_price = MANUAL_GOLD_DATA["silver"]
 
     gold_price = get_location_rate(city, gold_price)
 
@@ -1213,6 +1223,7 @@ def home():
         latest_posts=latest_posts,
         gold_price=gold_price,
         silver_price=silver_price,
+        gold_data=MANUAL_GOLD_DATA,
         breadcrumb=breadcrumb
     )
 # ===============comment sec add codes==========
@@ -1287,216 +1298,43 @@ def add_comment(category, post):
 
 #     return {"status": "success"}
 
-#======gold silver rate auto update code=======
-def get_gold_rate():
-    global LAST_GOLD_PRICE
+#=====gold and silver arate manual update=====
+@app.route("/update-gold", methods=["POST"])
+def update_gold():
 
-    try:
-        url = "https://www.goldapi.io/api/XAU/INR"
+    if not session.get("admin_logged_in"):
+        return redirect("/admin/login")
 
-        headers = {
-            "x-access-token": os.environ.get("GOLD_API_KEY"),
-            "Content-Type": "application/json"
-        }
+    global MANUAL_GOLD_DATA
 
-        response = requests.get(url, headers=headers)
-        data = response.json()
+    gold = request.form.get("gold")
+    silver = request.form.get("silver")
 
-        price_data = data.get("price_gram_24k")
+    MANUAL_GOLD_DATA = {
+        "gold": float(gold),
+        "silver": float(silver),
+        "last_updated": datetime.now().strftime("%Y-%m-%d %H:%M")
+    }
 
-        # 🔥 API FAIL SAFE
-        if not price_data:
-            print("Gold API Error:", data)
-            return LAST_GOLD_PRICE if LAST_GOLD_PRICE else 0
+    save_gold_data(MANUAL_GOLD_DATA)  # 🔥 முக்கியம்
 
-        price = round(price_data, 2)
+    return redirect("/")
 
-        # 🔔 PUSH NOTIFICATION LOGIC
-        if LAST_GOLD_PRICE is not None:
-            change = abs(price - LAST_GOLD_PRICE)
+def save_gold_data(data):
+    with open("gold_data.json", "w") as f:
+        json.dump(data, f)
 
-            if change > 50:
-                print("🔥 Gold price changed! Sending notification...")
-
-                send_push_notification(
-                    "Gold Rate Alert 🚨",
-                    f"Gold price updated to ₹{price}",
-                    "https://easytamiltools.in"
-                )
-
-        # 🔄 UPDATE LAST PRICE
-        LAST_GOLD_PRICE = price
-
-        return price
-
-    except Exception as e:
-        print("Gold Error:", e)
-        return LAST_GOLD_PRICE if LAST_GOLD_PRICE else 0
-#===========automatica gold rate upload code========
-def auto_post_gold_rate():
-    try:
-        gold = get_gold_rate()
-        silver = get_silver_rate()
-
-        today_date = datetime.now()
-        today = today_date.strftime("%d %B %Y")
-        slug = f"gold-rate-{today}".lower().replace(" ", "-")
-
-        doc_ref = db.collection("posts").document(slug)
-
-        # already exist check
-        if doc_ref.get().exists:
-            return
-
-        # 🔥 Get yesterday price (from Firestore)
-        yesterday_price = gold
-        try:
-            yesterday_docs = db.collection("gold_history")\
-                .order_by("date", direction=firestore.Query.DESCENDING)\
-                .limit(1).stream()
-
-            for d in yesterday_docs:
-                yesterday_price = d.to_dict().get("price", gold)
-
-        except:
-            pass
-
-        # 🔥 Calculate difference
-        diff = round(gold - yesterday_price, 2)
-
-        if diff > 0:
-            change_text = f"📈 தங்கம் விலை ₹{diff} உயர்ந்துள்ளது"
-        elif diff < 0:
-            change_text = f"📉 தங்கம் விலை ₹{abs(diff)} குறைந்துள்ளது"
-        else:
-            change_text = "➖ தங்கம் விலையில் மாற்றம் இல்லை"
-
-        # 🔥 SEO Rich Content
-        content = f"""
-        <h1>இன்றைய தங்கம் விலை ({today})</h1>
-
-        <p>இன்று இந்தியாவில் தங்கம் விலையில் புதிய மாற்றம் ஏற்பட்டுள்ளது.</p>
-
-        <h2>💰 Gold & Silver Rate Today</h2>
-        <ul>
-            <li>🥇 24K Gold: ₹ {gold} / gram</li>
-            <li>🥈 Silver: ₹ {silver} / gram</li>
-        </ul>
-
-        <h2>📊 நேற்று விலை ஒப்பீடு</h2>
-        <p>{change_text}</p>
-
-        <h2>📈 தங்கம் விலை நிலவரம்</h2>
-        <p>
-        கடந்த சில நாட்களாக தங்கம் விலையில் மாற்றங்கள் காணப்படுகிறது.
-        உலக சந்தை நிலவரம், டாலர் மதிப்பு, மற்றும் முதலீட்டாளர்களின் தேவைகள்
-        ஆகியவற்றின் அடிப்படையில் விலை உயர்வு அல்லது குறைவு ஏற்படுகிறது.
-        </p>
-
-        <h2>💡 முதலீட்டு ஆலோசனை</h2>
-        <p>
-        தங்கம் நீண்டகால முதலீட்டிற்கு மிகவும் பாதுகாப்பானது.
-        தினசரி விலை மாற்றங்களை கவனித்து வாங்குவது நல்லது.
-        குறைந்த விலையில் வாங்கி, அதிக விலையில் விற்கும் திட்டம் லாபகரமானது.
-        </p>
-
-        <h2>📍 முக்கிய தகவல்</h2>
-        <p>
-        நகரத்திற்கு நகரம் தங்கம் விலை சிறிய அளவில் மாறுபடும்.
-        சென்னை, நாகர்கோவில் போன்ற நகரங்களில் விலை வேறுபாடு இருக்கலாம்.
-        </p>
-
-        <p>
-        👉 தினசரி தங்கம் & வெள்ளி விலை updates க்கு EasyTamilTools-ஐ தொடர்ந்து பாருங்கள்.
-        </p>
-        """
-
-        doc_ref.set({
-            "title": f"Gold Rate Today ({today}) – 24K Price Update",
-            "slug": slug,
-            "category": "gold-rate",
-            "content": content,
-            "image": None,
-            "excerpt": f"இன்றைய தங்கம் விலை ₹{gold}. நேற்று ஒப்பிடும் போது {change_text}",
-            "status": "publish",
-            "views": 0,
-            "created_at": firestore.SERVER_TIMESTAMP
-        })
-
-        print("✅ Auto Gold Blog Posted")
-
-    except Exception as e:
-        print("Auto Blog Error:", e)
-
-def get_silver_rate():
-    try:
-        url = "https://www.goldapi.io/api/XAG/INR"
-
-        headers = {
-            "x-access-token": os.environ.get("GOLD_API_KEY"),
-            "Content-Type": "application/json"
-        }
-
-        response = requests.get(url, headers=headers)
-        data = response.json()
-
-        price = data.get("price_gram_24k")
-
-        # 🔥 fallback fix
-        if not price:
-            if data.get("price"):
-                price = data.get("price") / 31.1035 / 1000
-            else:
-                return None   # 🔥 SAFE EXIT   
-        return round(price, 2)
-
-    except Exception as e:
-        print("Silver Error:", e)
-        return None
-
-# for gold 7& 30days grapgh codes
-@app.route("/gold-history")
-def gold_history():
-
-    docs = db.collection("posts") \
-        .where("category", "==", "gold-rate") \
-        .order_by("created_at") \
-        .stream()
-
-    data = []
-
-    for d in docs:
-        post = d.to_dict()
-        title = post.get("title")
-        content = post.get("content")
-
-        # simple extract
-        import re
-        match = re.search(r'₹ (\d+\.?\d*)', content)
-
-        if match:
-            price = float(match.group(1))
-            data.append({
-                "date": title,
-                "price": price
-            })
-
-    return jsonify(data)
-#=======for location based gold rate=======
+    
 def get_location_rate(city, base_price):
 
-    if city == "chennai":
-        return round(base_price + 50, 2)
+    # 🔥 Simple demo logic (நீ later DB/API connect பண்ணலாம்)
 
-    elif city == "nagercoil":
-        return round(base_price + 30, 2)
+    city_rates = {
+        "chennai": base_price,
+        "nagercoil": base_price + 20,  # example difference
+    }
 
-    return base_price
-#====renderl agold rate timing fix panna===========
-@app.route("/run-gold-job")
-def run_gold_job():
-    auto_post_gold_rate()
-    return "Gold job executed ✅"
+    return city_rates.get(city, base_price)
 # ================= RUN =================
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))

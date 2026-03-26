@@ -77,15 +77,22 @@ useful online utilities-ஐ ஒரே இடத்தில் பயன்ப�
             <h3>🥇 Gold (24K)</h3>
             <p id="goldPrice">
                 ₹ 
-                {% if gold_price %}
-                    {{ gold_price }}
+                {% if gold_price is not none %}
+                {{ gold_price }}
                 {% else %}
-                    <span class="loading">Loading...</span>
+                <span class="loading">Updating...</span>
                 {% endif %}
                 / gram
             </p>
         </div>
-
+        <div class="update-time">
+            🕒 Last Updated: 
+            {% if gold_data.last_updated %}
+                {{ gold_data.last_updated }}
+            {% else %}
+                Updating soon...
+            {% endif %}
+        </div>
         <!-- SILVER -->
         <div class="gold-card silver">
             <h3>🥈 Silver</h3>
@@ -100,11 +107,6 @@ useful online utilities-ஐ ஒரே இடத்தில் பயன்ப�
             </p>
         </div>
 
-    </div>
-
-    <!-- CHART -->
-    <div class="chart-card">
-        <canvas id="goldChart"></canvas>
     </div>
 
 </div>
@@ -457,5 +459,16 @@ fetch("/gold-history")
 
 });
 </script>
+<script>
+    function animatePrice(id){
+        const el = document.getElementById(id);
+        el.classList.remove("count-animate");
+        void el.offsetWidth;
+        el.classList.add("count-animate");
+    }
 
+    // call when data loads
+    animatePrice("goldPrice");
+    animatePrice("silverPrice");
+</script>
 {% endblock %}

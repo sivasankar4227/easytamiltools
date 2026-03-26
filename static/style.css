@@ -1918,3 +1918,103 @@ margin-right:15px;
     opacity:0.6;
     animation:pulse 1.5s infinite;
 }
+/* ===============================
+   GOLD SECTION – PREMIUM UPGRADE
+=============================== */
+
+/* TITLE ANIMATION */
+.gold-title{
+    font-size:30px;
+    font-weight:800;
+    background:linear-gradient(135deg,#f59e0b,#facc15,#fde68a);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    animation:fadeUp 0.8s ease;
+}
+
+/* CITY BADGE GLOW */
+.city-badge{
+    display:inline-block;
+    margin-top:12px;
+    background:linear-gradient(135deg,#2563eb,#06b6d4);
+    color:#fff;
+    padding:7px 18px;
+    border-radius:30px;
+    font-size:13px;
+    font-weight:600;
+    box-shadow:0 5px 20px rgba(37,99,235,0.4);
+    animation:fadeUp 1s ease;
+}
+
+/* GRID ENTRY ANIMATION */
+.gold-grid{
+    animation:fadeUp 1.2s ease;
+}
+
+/* CARD PREMIUM EFFECT */
+.gold-card{
+    position:relative;
+    overflow:hidden;
+    border-radius:18px;
+    transition:0.4s ease;
+}
+
+/* SHINE EFFECT */
+.gold-card::after{
+    content:'';
+    position:absolute;
+    top:0;
+    left:-100%;
+    width:100%;
+    height:100%;
+    background:linear-gradient(120deg,transparent,rgba(255,255,255,0.6),transparent);
+    transition:0.5s;
+}
+
+.gold-card:hover::after{
+    left:100%;
+}
+
+/* VALUE ANIMATION */
+.gold-card p{
+    font-size:24px;
+    font-weight:800;
+    letter-spacing:1px;
+    animation:fadeIn 1s ease;
+}
+
+/* GOLD GLOW */
+.gold-card.gold{
+    box-shadow:0 10px 40px rgba(245,158,11,0.4);
+}
+
+/* SILVER GLOW */
+.gold-card.silver{
+    box-shadow:0 10px 40px rgba(148,163,184,0.4);
+}
+
+/* UPDATE TIME STYLE */
+.update-time{
+    grid-column: span 2;
+    text-align:center;
+    font-size:13px;
+    color:#64748b;
+    margin-top:-10px;
+    animation:fadeIn 1.2s ease;
+}
+
+/* NUMBER COUNT EFFECT */
+.count-animate{
+    animation:countUp 1s ease;
+}
+
+@keyframes countUp{
+    from{opacity:0; transform:translateY(10px);}
+    to{opacity:1; transform:translateY(0);}
+}
+
+/* EXTRA SMOOTH FADE */
+@keyframes fadeIn{
+    from{opacity:0;}
+    to{opacity:1;}
+}

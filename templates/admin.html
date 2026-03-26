@@ -58,6 +58,29 @@
 </button>
 
 </form>
+
+<!-- 🔥 Separate Gold Form -->
+<hr>
+
+<h3 class="gold-title">💰 Gold & Silver Rate Update</h3>
+
+<form method="POST" action="/update-gold" class="gold-form">
+    
+    <div class="input-group">
+        <label>Gold Price (₹ / gram)</label>
+        <input type="number" name="gold" placeholder="e.g. 6200" required>
+    </div>
+
+    <div class="input-group">
+        <label>Silver Price (₹ / gram)</label>
+        <input type="number" name="silver" placeholder="e.g. 75" required>
+    </div>
+
+    <button type="submit" class="update-btn">
+        🔄 Update Price
+    </button>
+
+</form>
 </div>
 
 <style>
@@ -85,6 +108,70 @@ input, select, textarea{
     color:white;
     padding:10px 20px;
     border:none;
+}
+
+/* 🔥 Gold Form Styling */
+
+.gold-title{
+    margin-top:40px;
+    font-size:20px;
+    font-weight:600;
+    color:#222;
+}
+
+/* Form Container */
+.gold-form{
+    background:#f9fafb;
+    padding:20px;
+    border-radius:12px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.05);
+    max-width:500px;
+}
+
+/* Input Group */
+.input-group{
+    margin-bottom:15px;
+}
+
+.input-group label{
+    display:block;
+    font-weight:500;
+    margin-bottom:5px;
+    color:#444;
+}
+
+.input-group input{
+    width:100%;
+    padding:10px;
+    border:1px solid #ddd;
+    border-radius:8px;
+    font-size:14px;
+    transition:0.3s;
+}
+
+.input-group input:focus{
+    border-color:#2563eb;
+    outline:none;
+    box-shadow:0 0 5px rgba(37,99,235,0.3);
+}
+
+/* Button */
+.update-btn{
+    width:100%;
+    padding:12px;
+    background:linear-gradient(135deg,#f59e0b,#fbbf24);
+    color:white;
+    border:none;
+    border-radius:10px;
+    font-size:15px;
+    font-weight:600;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.update-btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 5px 15px rgba(0,0,0,0.1);
 }
 </style>
 
