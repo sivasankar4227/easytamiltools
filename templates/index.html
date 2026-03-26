@@ -222,31 +222,51 @@ EasyTamilTools-ஐ பயன்படுத்துவதன் மூலம்
     {% set featured = latest_posts[0] %}
     <div class="featured-news">
         <a href="/blog/{{ featured.category or 'general' }}/{{ featured.slug }}">
+
+            <!-- Image -->
+            <img src="{{ featured.image or '/static/default.jpg' }}" alt="{{ featured.title }}">
+
+            <!-- Content -->
             <div class="featured-content">
                 <h2>{{ featured.title }}</h2>
-                <p>{{ featured.excerpt }}</p>
-                <span>{{ featured.views }} views</span>
+
+                <p>
+                    {{ (featured.excerpt or featured.content) | striptags | truncate(150) }}
+                </p>
+
+                <span>👁️ {{ featured.views }} views</span>
             </div>
+
         </a>
     </div>
 
-    <!-- Side Carousel -->
-    <div class="news-carousel">
-        <button class="nav prev">&#10094;</button>
+    <!-- Side Posts -->
+    <div class="news-side">
 
-        <div class="carousel-track">
-            {% for post in latest_posts[1:] %}
-            <div class="news-card">
-                <a href="/blog/{{ post.category }}/{{ post.slug }}">
+        {% for post in latest_posts[1:5] %}
+        <div class="news-card">
+            <a href="/blog/{{ post.category }}/{{ post.slug }}">
+
+                <!-- Thumbnail -->
+                <div class="news-img">
+                    <img src="{{ post.image or '/static/default.jpg' }}" alt="{{ post.title }}">
+                </div>
+
+                <!-- Content -->
+                <div class="news-content">
                     <h3>{{ post.title }}</h3>
-                    <p>{{ post.excerpt }}</p>
-                    <span>{{ post.views }} views</span>
-                </a>
-            </div>
-            {% endfor %}
-        </div>
 
-        <button class="nav next">&#10095;</button>
+                    <p>
+                        {{ (post.excerpt or post.content) | striptags | truncate(90) }}
+                    </p>
+
+                    <span>👁️ {{ post.views }} views</span>
+                </div>
+
+            </a>
+        </div>
+        {% endfor %}
+
     </div>
 
 </div>
