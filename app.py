@@ -136,37 +136,30 @@ except Exception as e:
 # ================= PUSH NOTIFICATION =================
 def send_push_notification(title, body, url):
 
-    try:
-        tokens_ref = db.collection("fcm_tokens").stream()
+    tokens_ref = db.collection("fcm_tokens").stream()
 
-        for t in tokens_ref:
+    for t in tokens_ref:
+        token = t.id
 
-            token = t.id
-
+        try:
             message = messaging.Message(
-
                 notification=messaging.Notification(
                     title=title,
                     body=body
                 ),
-
                 webpush=messaging.WebpushConfig(
                     fcm_options=messaging.WebpushFCMOptions(
                         link=url
                     )
                 ),
-
                 token=token
             )
 
             response = messaging.send(message)
-            print("Notification sent:", response)
+            print("✅ Sent:", response)
 
-    # except Exception as e:
-    #     print("Push Error:", e)
-    except Exception as e:
-        print("🔥 Firebase Initialization Error:", e)
-        db = None
+        except Exception as e:
+            print("❌ Failed token:", token, e)
 
 @app.route("/save-token", methods=["POST"])
 def save_token():
@@ -183,7 +176,7 @@ def save_token():
 
     return jsonify({"error": "No token"}), 400
 
-#====firebase messing sysytem &subscription route codes=====
+# firebase messing sysytem &subscription route codes=====
 @app.route('/firebase-messaging-sw.js')
 def firebase_sw():
     return send_from_directory('.', 'firebase-messaging-sw.js')
