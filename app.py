@@ -182,6 +182,11 @@ def save_token():
         return jsonify({"status": "saved"})
 
     return jsonify({"error": "No token"}), 400
+
+#====firebase messing sysytem &subscription route codes=====
+@app.route('/firebase-messaging-sw.js')
+def firebase_sw():
+    return send_from_directory('.', 'firebase-messaging-sw.js')
 # ================= CONFIG =================
 app.config["MAX_CONTENT_LENGTH"] = 5 * 1024 * 1024
 app.config["UPLOAD_FOLDER"] = os.path.join(app.root_path, "static", "uploads")
