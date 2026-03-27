@@ -2,7 +2,7 @@ importScripts('https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js'
 importScripts('https://www.gstatic.com/firebasejs/9.22.1/firebase-messaging-compat.js');
 
 firebase.initializeApp({
-  apiKey: "AIzaSyDzqLlN5_sBFoPdwHN7nExYIs_lgwn_aWc",
+  apiKey: "AIzaSyCoX1UtTl1LFGBvWpjfMt4hh_6nNSZqedo",
   authDomain: "easytamiltools2026.firebaseapp.com",
   projectId: "easytamiltools2026",
   storageBucket: "easytamiltools2026.firebasestorage.app",
