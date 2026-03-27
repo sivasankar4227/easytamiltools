@@ -2,11 +2,13 @@ importScripts('https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js'
 importScripts('https://www.gstatic.com/firebasejs/9.22.1/firebase-messaging-compat.js');
 
 firebase.initializeApp({
-  apiKey: "AIza....",
-  authDomain: "yourproject.firebaseapp.com",
-  projectId: "yourproject",
-  messagingSenderId: "1234567890",
-  appId: "1:1234567890:web:abcdef123456"
+  apiKey: "AIzaSyDzqLlN5_sBFoPdwHN7nExYIs_lgwn_aWc",
+  authDomain: "easytamiltools2026.firebaseapp.com",
+  projectId: "easytamiltools2026",
+  storageBucket: "easytamiltools2026.firebasestorage.app",
+  messagingSenderId: "508760317744",
+  appId: "1:508760317744:web:6dbc1fbaab7ff761e3b2f5",
+  measurementId: "G-JS66CK5D16"
 });
 
 const messaging = firebase.messaging();
