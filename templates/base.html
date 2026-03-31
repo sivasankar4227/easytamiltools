@@ -68,9 +68,9 @@ Free Tamil calculators, converters and letter formats online.
 <meta property="og:image" content="{% block og_image %}https://easytamiltools.in/static/logo.png{% endblock %}">
 <!-- ================= TWITTER ================= -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="{% block og_title %}EasyTamilTools{% endblock %}">
-<meta name="twitter:description" content="{% block og_description %}Free Tamil tools{% endblock %}">
-<meta name="twitter:image" content="{% block og_image %}https://easytamiltools.in/static/logo.png{% endblock %}">
+<meta name="twitter:title" content="{{ self.og_title() }}">
+<meta name="twitter:description" content="{{ self.og_description() }}">
+<meta name="twitter:image" content="{{ self.og_image() }}">
 <!-- ================= SCHEMA STRUCTURED DATA ================= -->
 <script type="application/ld+json">
 {
