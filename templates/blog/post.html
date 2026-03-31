@@ -17,10 +17,8 @@
 {% endblock %}
 
 {% block og_image %}
-{% if post.image and post.image.startswith('http') %}
-{{ post.image }}
-{% elif post.image %}
-{{ request.url_root[:-1] + post.image }}
+{% if post.image %}
+{{ post.image.replace('/upload/', '/upload/f_auto,q_auto/') }}
 {% else %}
 https://easytamiltools.in/static/default.jpg
 {% endif %}
@@ -30,7 +28,13 @@ https://easytamiltools.in/static/default.jpg
 article
 {% endblock %}
 
+{% block og_url %}
+https://easytamiltools.in/blog/{{ category }}/{{ slug }}
+{% endblock %}
+
+{% block canonical %}
 <link rel="canonical" href="https://easytamiltools.in/blog/{{ category }}/{{ slug }}">
+{% endblock %}
 {% block content %}
 
 <main class="blog-content container">

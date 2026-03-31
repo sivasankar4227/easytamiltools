@@ -54,8 +54,9 @@ EasyTamilTools provides free online Tamil calculators, converters, letter genera
 <meta name="robots" content="index, follow">
 
 <!-- ================= CANONICAL ================= -->
+{% block canonical %}
 <link rel="canonical" href="https://easytamiltools.in{{ request.path }}">
-
+{% endblock %}
 <!-- ================= OPEN GRAPH ================= -->
 <meta property="og:title" content="{% block og_title %}EasyTamilTools – Free Online Tamil Tools{% endblock %}">
 <meta property="og:description" content="{% block og_description %}
@@ -67,10 +68,9 @@ Free Tamil calculators, converters and letter formats online.
 <meta property="og:image" content="{% block og_image %}https://easytamiltools.in/static/logo.png{% endblock %}">
 <!-- ================= TWITTER ================= -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="EasyTamilTools">
-<meta name="twitter:description" content="Free online Tamil tools & calculators">
-<meta name="twitter:image" content="https://easytamiltools.in/static/logo.png">
-
+<meta name="twitter:title" content="{% block og_title %}EasyTamilTools{% endblock %}">
+<meta name="twitter:description" content="{% block og_description %}Free Tamil tools{% endblock %}">
+<meta name="twitter:image" content="{% block og_image %}https://easytamiltools.in/static/logo.png{% endblock %}">
 <!-- ================= SCHEMA STRUCTURED DATA ================= -->
 <script type="application/ld+json">
 {
