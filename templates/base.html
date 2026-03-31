@@ -364,36 +364,72 @@ document.addEventListener("DOMContentLoaded", function() {
 </script>
 <!--========== JS to register service worker and get token======= -->
 <script>
-const btn = document.getElementById("subscribe-btn");
+document.addEventListener("DOMContentLoaded", function () {
 
-btn.addEventListener("click", async () => {
-    try {
-        const permission = await Notification.requestPermission();
-        if(permission !== "granted") {
-            return alert("Notifications அனுமதி மறுக்கப்பட்டது!");
+    const btn = document.getElementById("subscribe-btn");
+
+    // button இல்லனா stop
+    if (!btn) return;
+
+    // ✅ Already subscribed check (page load)
+    if (localStorage.getItem("subscribed") === "true") {
+        btn.innerText = "✅ Subscribed";
+        btn.disabled = true;
+    }
+
+    // 🔔 Subscribe click
+    btn.addEventListener("click", async function () {
+
+        try {
+            const permission = await Notification.requestPermission();
+
+            if (permission !== "granted") {
+                alert("Notifications அனுமதி மறுக்கப்பட்டது!");
+                return;
+            }
+
+            // 🔥 Register service worker
+            const registration = await navigator.serviceWorker.register('/firebase-messaging-sw.js');
+
+            // 🔥 Get FCM Token
+            const fcmToken = await messaging.getToken({
+                vapidKey: "BKoosd4Jn7evnS1fXi5ZpXEbfBHzXMeTA_r6UMNpTTaEUWNyV70Qg1Elt7HPRv-nel2etqoMQyvUfmLVyiiGlU4",
+                serviceWorkerRegistration: registration
+            });
+
+            if (!fcmToken) {
+                alert("Token பெற முடியவில்லை!");
+                return;
+            }
+
+            // 🔥 Send token to backend
+            const res = await fetch("/save-token", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ token: fcmToken })
+            });
+
+            const data = await res.json();
+
+            // ✅ UI Update
+            btn.innerText = "✅ Subscribed";
+            btn.disabled = true;
+
+            // ✅ Save in browser
+            localStorage.setItem("subscribed", "true");
+
+            // 🔔 Success message
+            alert("Subscribed Successfully 🔥");
+
+        } catch (err) {
+            console.error("Subscription Error:", err);
+            alert("Subscription failed ❌");
         }
 
-        const registration = await navigator.serviceWorker.register('/firebase-messaging-sw.js');
+    });
 
-        const fcmToken = await messaging.getToken({
-            vapidKey: "BKoosd4Jn7evnS1fXi5ZpXEbfBHzXMeTA_r6UMNpTTaEUWNyV70Qg1Elt7HPRv-nel2etqoMQyvUfmLVyiiGlU4",
-            serviceWorkerRegistration: registration
-        });
-
-        console.log("FCM Token:", fcmToken);
-
-        await fetch("/save-token", {
-            method:"POST",
-            headers:{"Content-Type":"application/json"},
-            body: JSON.stringify({token: fcmToken})
-        });
-
-        alert("You are now subscribed! 🔔");
-
-    } catch(err) {
-        console.error(err);
-        alert("Subscription failed.");
-    }
 });
 </script>
 </body>

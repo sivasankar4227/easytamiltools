@@ -178,15 +178,34 @@ def save_token():
     data = request.get_json()
     token = data.get("token")
 
-    if token:
-        db.collection("fcm_tokens").document(token).set({
-            "created_at": firestore.SERVER_TIMESTAMP
-        })
+    if not token:
+        return jsonify({"error": "No token"}), 400
 
-        return jsonify({"status": "saved"})
+    token_ref = db.collection("fcm_tokens").document(token)
+    doc = token_ref.get()
 
-    return jsonify({"error": "No token"}), 400
+    if doc.exists:
+        return jsonify({"status": "already_subscribed"})
 
+    token_ref.set({
+        "created_at": firestore.SERVER_TIMESTAMP
+    })
+
+    return jsonify({"status": "subscribed"})
+
+# saved token check panna use aagum
+@app.route("/check-subscription", methods=["POST"])
+def check_subscription():
+
+    data = request.get_json()
+    token = data.get("token")
+
+    if not token:
+        return jsonify({"subscribed": False})
+
+    doc = db.collection("fcm_tokens").document(token).get()
+
+    return jsonify({"subscribed": doc.exists})
 # firebase messing sysytem &subscription route codes=====
 
 @app.route('/firebase-messaging-sw.js')
