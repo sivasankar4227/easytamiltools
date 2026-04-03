@@ -39,6 +39,8 @@ def load_gold_data():
         return {
             "gold": 0,
             "silver": 0,
+            "old_gold": 0,
+            "old_silver": 0,
             "last_updated": None
         }
 
@@ -1161,11 +1163,16 @@ def blog_post(category, post):
     avg_rating = round(total / count, 1) if count > 0 else 0
 
     # ================= RELATED POSTS =================
-    related_query = db.collection("posts").limit(4).stream()
+    related_query = db.collection("posts") \
+    .where("category", "==", category) \
+    .order_by("created_at", direction=firestore.Query.DESCENDING) \
+    .limit(6) \
+    .stream()
+
     related_posts = []
 
     for r in related_query:
-        if r.id != post:
+        if r.id != post:  # current post remove
             data_r = r.to_dict()
             data_r["slug"] = r.id
             related_posts.append(data_r)
@@ -1219,6 +1226,8 @@ def home():
 
     gold_price = MANUAL_GOLD_DATA["gold"]
     silver_price = MANUAL_GOLD_DATA["silver"]
+    gold_diff = gold_price - MANUAL_GOLD_DATA.get("old_gold", 0)
+    silver_diff = silver_price - MANUAL_GOLD_DATA.get("old_silver", 0)
 
     gold_price = get_location_rate(city, gold_price)
 
@@ -1254,6 +1263,8 @@ def home():
         gold_price=gold_price,
         silver_price=silver_price,
         gold_data=MANUAL_GOLD_DATA,
+        gold_diff=gold_diff,
+        silver_diff=silver_diff,
         breadcrumb=breadcrumb
     )
 # ===============comment sec add codes==========
@@ -1337,19 +1348,25 @@ def update_gold():
 
     global MANUAL_GOLD_DATA
 
-    gold = request.form.get("gold")
-    silver = request.form.get("silver")
+    gold = float(request.form.get("gold"))
+    silver = float(request.form.get("silver"))
+
+    # 🔥 OLD VALUE SAVE
+    old_gold = MANUAL_GOLD_DATA.get("gold", 0)
+    old_silver = MANUAL_GOLD_DATA.get("silver", 0)
 
     MANUAL_GOLD_DATA = {
-        "gold": float(gold),
-        "silver": float(silver),
+        "gold": gold,
+        "silver": silver,
+        "old_gold": old_gold,
+        "old_silver": old_silver,
         "last_updated": datetime.now().strftime("%Y-%m-%d %H:%M")
     }
 
-    save_gold_data(MANUAL_GOLD_DATA)  # 🔥 முக்கியம்
+    save_gold_data(MANUAL_GOLD_DATA)
 
     return redirect("/")
-
+    
 def save_gold_data(data):
     with open("gold_data.json", "w") as f:
         json.dump(data, f)
