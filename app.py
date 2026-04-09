@@ -1219,18 +1219,8 @@ def blog_post(category, post):
 def home():
 
     breadcrumb = [
-    {"name": "Home", "url": "https://easytamiltools.in/"}
+        {"name": "Home", "url": "https://easytamiltools.in/"}
     ]
-    # 🔥 GOLD + SILVER RATE FETCH
-    city = request.args.get("city", "chennai")
-
-    gold_price = MANUAL_GOLD_DATA["gold"]
-    silver_price = MANUAL_GOLD_DATA["silver"]
-    gold_diff = gold_price - MANUAL_GOLD_DATA.get("old_gold", 0)
-    silver_diff = silver_price - MANUAL_GOLD_DATA.get("old_silver", 0)
-
-    gold_price = get_location_rate(city, gold_price)
-
     # 🔥 LATEST POSTS FETCH
     latest_query = db.collection("posts") \
         .order_by("created_at", direction=firestore.Query.DESCENDING) \
@@ -1251,20 +1241,11 @@ def home():
         if data.get("category"):
             categories.add(data["category"])
 
-    # 🧪 DEBUG (optional - remove later)
-    print("Gold Price:", gold_price)
-    print("Silver Price:", silver_price)
-
     # 🔥 SEND DATA TO HTML
     return render_template(
         "index.html",
         categories=categories,
         latest_posts=latest_posts,
-        gold_price=gold_price,
-        silver_price=silver_price,
-        gold_data=MANUAL_GOLD_DATA,
-        gold_diff=gold_diff,
-        silver_diff=silver_diff,
         breadcrumb=breadcrumb
     )
 # ===============comment sec add codes==========

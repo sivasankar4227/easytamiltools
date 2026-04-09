@@ -133,6 +133,10 @@ const messaging = firebase.messaging();
 </head>
 
 <body>
+<!-- PAGE LOADER -->
+<div id="page-loader">
+    <div class="loader"></div>
+</div>
   
 
 <!-- ================= NAVBAR ================= -->
@@ -431,6 +435,31 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 });
+</script>
+<!--====== page loader animation script====== -->
+<script>
+window.addEventListener("load", function(){
+    const loader = document.getElementById("page-loader");
+    loader.classList.add("hide");
+});
+</script>
+<script>
+function revealOnScroll() {
+    let reveals = document.querySelectorAll(".reveal");
+
+    reveals.forEach((el) => {
+        let windowHeight = window.innerHeight;
+        let elementTop = el.getBoundingClientRect().top;
+        let revealPoint = 100;
+
+        if (elementTop < windowHeight - revealPoint) {
+            el.classList.add("active");
+        }
+    });
+}
+
+window.addEventListener("scroll", revealOnScroll);
+window.addEventListener("load", revealOnScroll);
 </script>
 </body>
 </html>
